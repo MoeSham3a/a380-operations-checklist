@@ -486,6 +486,15 @@ body::before {
     gap: var(--spacing-md);
 }
 
+.task-column:first-child {
+    border-right: 2px solid rgba(139, 92, 246, 0.2);
+    padding-right: var(--spacing-xl);
+}
+
+.task-column:last-child {
+    padding-left: var(--spacing-xl);
+}
+
 .task-item {
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(10px);
