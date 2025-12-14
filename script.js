@@ -12,40 +12,38 @@ let reminderInterval = null;
 
 // Checklist item information database
 const checklistInfo = {
-    'ADIRS': {
-        title: 'ADIRS - Air Data Inertial Reference System',
+    'Brake Temp': {
+        title: 'Brake Temperature Cooling Chart',
         content: `
-            <ul>
-                <li>Check all 3 ADIRS are aligned</li>
-                <li>IR 1, 2, 3 should show NAV mode</li>
-                <li>Alignment typically takes 7-10 minutes</li>
-                <li>Verify coordinates match gate position</li>
-            </ul>
+            <img src="brake-cooling-table.jpg" alt="Brake Cooling Table" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
-    'Fire Test': {
-        title: 'Fire Detection Test',
+    'NOTOC': {
+        title: 'Emergnecy Response Guide for Dangerous Goods',
         content: `
-            <ul>
-                <li>Press TEST button on fire panel</li>
-                <li>Verify all fire warnings illuminate</li>
-                <li>Check audio warning sounds</li>
-                <li>Duration: approximately 10 seconds</li>
-            </ul>
+            <img src="ERG.jpg" alt="ERG" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
-    'APU Start': {
-        title: 'APU Start Procedure',
+    'Briefing': {
+        title: 'Departure Briefing',
         content: `
-            <ul>
-                <li>APU Master Switch - ON</li>
-                <li>APU Start - ON</li>
-                <li>Monitor N% and EGT</li>
-                <li>APU AVAIL appears at approximately 95% N</li>
-                <li>Normal start time: ~60 seconds</li>
-            </ul>
+            <img src="Departure-briefing.jpg" alt="Departure Briefing" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
-    }
+    },
+    'Fuel Figures': {
+        title: 'Fuel discripancy table',
+        content: `
+            <img src="Fuel-difference-table.jpg" alt="Fuel discripancy table" style="width: 100%; max-width: 600px; border-radius: 8px;">
+        `
+    },
+    'PA (USA spec)': {
+        title: 'Passenger Announcements',
+        content: `
+            <img src="Pre-departure-PA.jpg" alt="Pre-departure PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <span>USA specific</span>
+            <img src="USA-PA.jpg" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
+        `
+    },
     // Add more items as needed
 };
 
