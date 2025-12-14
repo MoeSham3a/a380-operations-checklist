@@ -15,7 +15,7 @@ const checklistInfo = {
     'Brake Temp': {
         title: 'Brake Temperature Cooling Chart',
         content: `
-            <img src="brake-cooling-table.JPG" alt="Brake Cooling Table" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="Brake-cooling-table.JPG" alt="Brake Cooling Table" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'NOTOC': {
