@@ -15,33 +15,33 @@ const checklistInfo = {
     'Brake Temp': {
         title: 'Brake Temperature Cooling Chart',
         content: `
-            <img src="brake-cooling-table.jpg" alt="Brake Cooling Table" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="brake-cooling-table.JPG" alt="Brake Cooling Table" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'NOTOC': {
         title: 'Emergnecy Response Guide for Dangerous Goods',
         content: `
-            <img src="ERG.jpg" alt="ERG" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="ERG.JPG" alt="ERG" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'Briefing': {
         title: 'Departure Briefing',
         content: `
-            <img src="Departure-briefing.jpg" alt="Departure Briefing" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="Departure-briefing.JPG" alt="Departure Briefing" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'Fuel Figures': {
         title: 'Fuel discripancy table',
         content: `
-            <img src="Fuel-difference-table.jpg" alt="Fuel discripancy table" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="Fuel-difference-table.JPG" alt="Fuel discripancy table" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'PA (USA spec)': {
         title: 'Passenger Announcements',
         content: `
-            <img src="Pre-departure-PA.jpg" alt="Pre-departure PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="Pre-departure-PA.JPG" alt="Pre-departure PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
             <span>USA specific</span>
-            <img src="USA-PA.jpg" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="USA-PA.JPG" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     // Add more items as needed
