@@ -936,6 +936,27 @@ function showResetNotification() {
 window.resetChecklist = resetChecklist;
 
 // ===========================
+// Decision Making Checklist Functions
+// ===========================
+function openDecisionMakingChecklist() {
+    const modal = document.getElementById('decision-making-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function closeDecisionMakingChecklist() {
+    const modal = document.getElementById('decision-making-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+// Make globally accessible
+window.openDecisionMakingChecklist = openDecisionMakingChecklist;
+window.closeDecisionMakingChecklist = closeDecisionMakingChecklist;
+
+// ===========================
 // Utility Functions
 // ===========================
 function escapeHtml(text) {

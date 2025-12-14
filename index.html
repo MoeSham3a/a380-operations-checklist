@@ -97,6 +97,10 @@
             <!-- Checklist Title -->
             <div class="checklist-title-section">
                 <h2 class="checklist-title" id="checklist-title">✈️ Preflight Checklist</h2>
+                <button id="decision-making-btn" class="decision-making-btn" onclick="openDecisionMakingChecklist()"
+                    aria-label="Decision Making Checklist">
+                    ⚡ DM
+                </button>
                 <button id="next-checklist-btn" class="next-checklist-btn" aria-label="Next checklist">
                     Next →
                 </button>
@@ -123,6 +127,85 @@
                 <button class="modal-close" id="modal-close" aria-label="Close">×</button>
                 <h3 class="modal-title" id="modal-title"></h3>
                 <div class="modal-body" id="modal-body"></div>
+            </div>
+        </div>
+
+        <!-- Decision Making Checklist Modal -->
+        <div id="decision-making-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeDecisionMakingChecklist()"></div>
+            <div class="modal-content dm-modal-content">
+                <button class="modal-close" onclick="closeDecisionMakingChecklist()" aria-label="Close">×</button>
+                <h3 class="modal-title">⚡ Decision Making Checklist</h3>
+                <div class="dm-checklist">
+                    <div class="dm-item">
+                        <span class="dm-number">1</span>
+                        <span class="dm-text">Aviate</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">2</span>
+                        <span class="dm-text">Navigate</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">3</span>
+                        <span class="dm-text">Communicate</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">4</span>
+                        <span class="dm-text">Confirm Failure</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">5</span>
+                        <span class="dm-text">OEB</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">6</span>
+                        <span class="dm-text">ECAM Actions</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">7</span>
+                        <span class="dm-text">Status? Stop ECAM</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">8</span>
+                        <span class="dm-text">Checklist</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">9</span>
+                        <span class="dm-text">Reset</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">10</span>
+                        <span class="dm-text">Deferred pro (relight or overweight)</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">11</span>
+                        <span class="dm-text">Read Status</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">12</span>
+                        <span class="dm-text">ECAM Actions Complete</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">13</span>
+                        <span class="dm-text">Can we? FWLOS</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">14</span>
+                        <span class="dm-text">FCOM layer 3/MEL</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">15</span>
+                        <span class="dm-text">Call Company (VPNC-MCC-TPOD-MPOD)</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">16</span>
+                        <span class="dm-text">Brief situ & give more than 1 option</span>
+                    </div>
+                    <div class="dm-item">
+                        <span class="dm-number">17</span>
+                        <span class="dm-text">NITS (Purser & Pax)</span>
+                    </div>
+                </div>
             </div>
         </div>
 
