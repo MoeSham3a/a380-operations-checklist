@@ -5,7 +5,10 @@ let tasks = [];
 let currentFilter = 'all';
 let currentTheme = 'dark';
 let currentChecklist = 'preflight';
-
+let departureTime = null;
+let reminderShown = false;
+let clockInterval = null;
+let reminderInterval = null;
 
 // Checklist item information database
 const checklistInfo = {
@@ -60,7 +63,9 @@ const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = themeToggle?.querySelector('.theme-icon');
 const nextChecklistBtn = document.getElementById('next-checklist-btn');
 const checklistTitle = document.getElementById('checklist-title');
-
+const utcClockElement = document.getElementById('utc-clock');
+const localClockElement = document.getElementById('local-clock');
+const departureTimeInput = document.getElementById('departure-time');
 // ===========================
 // Initialize App
 // ===========================
@@ -77,7 +82,10 @@ function init() {
     const overlay = modal?.querySelector('.modal-overlay');
 
     if (modalClose) {
-        modalClose.addEventListener('click', closeInfoModal);
+        modalClose.addEventListener('click', () => {
+            closeInfoModal();
+            closeToolkit();
+        });
     }
 
     if (overlay) {
@@ -90,6 +98,15 @@ function init() {
             closeInfoModal();
         }
     });
+    // Start UTC clock
+    startUTCClock();
+
+    // Load and setup departure time
+    loadDepartureTime();
+    setupDepartureTimeListener();
+
+    // Start reminder checker
+    startReminderChecker();
 
     // Register service worker for offline functionality
     if ('serviceWorker' in navigator) {
@@ -470,6 +487,352 @@ function loadThemeFromStorage() {
 }
 
 // ===========================
+// UTC Clock & Departure Time
+// ===========================
+function startUTCClock() {
+    function updateClock() {
+        const now = new Date();
+
+        // UTC Time
+        const utcHours = String(now.getUTCHours()).padStart(2, '0');
+        const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
+        const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
+
+        if (utcClockElement) {
+            utcClockElement.textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+        }
+
+        // Local Time
+        const localHours = String(now.getHours()).padStart(2, '0');
+        const localMinutes = String(now.getMinutes()).padStart(2, '0');
+        const localSeconds = String(now.getSeconds()).padStart(2, '0');
+
+        if (localClockElement) {
+            localClockElement.textContent = `${localHours}:${localMinutes}:${localSeconds}`;
+        }
+    }
+
+    updateClock(); // Initial update
+    clockInterval = setInterval(updateClock, 1000);
+}
+
+function setupDepartureTimeListener() {
+    if (departureTimeInput) {
+        departureTimeInput.addEventListener('change', (e) => {
+            departureTime = e.target.value;
+            reminderShown = false; // Reset reminder when time changes
+            saveDepartureTime();
+        });
+    }
+}
+
+function saveDepartureTime() {
+    try {
+        localStorage.setItem('departure-time', departureTime || '');
+    } catch (error) {
+        console.error('Error saving departure time:', error);
+    }
+}
+
+function loadDepartureTime() {
+    try {
+        const saved = localStorage.getItem('departure-time');
+        if (saved && departureTimeInput) {
+            departureTime = saved;
+            departureTimeInput.value = saved;
+        }
+    } catch (error) {
+        console.error('Error loading departure time:', error);
+    }
+}
+
+function startReminderChecker() {
+    reminderInterval = setInterval(checkForReminder, 10000); // Check every 10 seconds
+}
+
+function checkForReminder() {
+    if (!departureTime || reminderShown) return;
+
+    const now = new Date();
+    const [hours, minutes] = departureTime.split(':').map(Number);
+
+    // Create departure time in UTC today
+    const departure = new Date();
+    departure.setUTCHours(hours, minutes, 0, 0);
+
+    // Calculate 20 minutes before departure
+    const reminderTime = new Date(departure.getTime() - 20 * 60 * 1000);
+
+    // Check if current time is within 30 seconds of reminder time
+    const timeDiff = Math.abs(now - reminderTime);
+
+    if (timeDiff < 30000) { // Within 30 seconds
+        showAPUReminder();
+        reminderShown = true;
+    }
+}
+
+function showAPUReminder() {
+    // Create reminder notification
+    const notification = document.createElement('div');
+    notification.className = 'reminder-notification';
+    notification.innerHTML = `
+        <h3>⚠️ APU START REMINDER</h3>
+        <p><strong>20 minutes to departure</strong></p>
+        <p>Time to start the APU</p>
+        <button onclick="closeReminder(this)">ACKNOWLEDGE</button>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Play audio alert if available
+    try {
+        const audio = new Audio('data:audio/wav;base64,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');
+        audio.play();
+    } catch (error) {
+        console.log('Audio not available');
+    }
+}
+
+function closeReminder(button) {
+    const notification = button.closest('.reminder-notification');
+    if (notification) {
+        notification.remove();
+    }
+}
+
+// Make globally accessible
+window.closeReminder = closeReminder;
+
+// ===========================
+// Toolkit Functions
+// ===========================
+let currentToolkit = null;
+
+function openToolkit(toolType) {
+    const modal = document.getElementById('toolkit-modal');
+    const allPanels = document.querySelectorAll('.toolkit-panel');
+
+    // Hide all panels
+    allPanels.forEach(panel => panel.classList.add('hidden'));
+
+    // Show selected panel
+    const panel = document.getElementById(`${toolType}-toolkit`);
+    if (panel) {
+        panel.classList.remove('hidden');
+        modal.classList.remove('hidden');
+        currentToolkit = toolType;
+
+        // Setup converter listeners if opening converter
+        if (toolType === 'converter') {
+            setupConverterListeners();
+        }
+    }
+}
+
+function closeToolkit() {
+    const modal = document.getElementById('toolkit-modal');
+    modal.classList.add('hidden');
+    currentToolkit = null;
+}
+
+// Unit Converter Functions
+function switchConverterTab(type) {
+    // Update tabs
+    document.querySelectorAll('.converter-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Update sections
+    document.querySelectorAll('.converter-section').forEach(section => {
+        section.classList.add('hidden');
+    });
+    document.getElementById(`${type}-converter`).classList.remove('hidden');
+}
+
+function setupConverterListeners() {
+    // Fuel converters
+    const fuelKg = document.getElementById('fuel-kg');
+    const fuelLbs = document.getElementById('fuel-lbs');
+    const fuelTons = document.getElementById('fuel-tons');
+
+    if (fuelKg && fuelLbs && fuelTons) {
+        fuelKg.addEventListener('input', (e) => {
+            const kg = parseFloat(e.target.value) || 0;
+            fuelLbs.value = (kg * 2.20462).toFixed(2);
+            fuelTons.value = (kg / 1000).toFixed(3);
+        });
+
+        fuelLbs.addEventListener('input', (e) => {
+            const lbs = parseFloat(e.target.value) || 0;
+            fuelKg.value = (lbs / 2.20462).toFixed(2);
+            fuelTons.value = (lbs / 2204.62).toFixed(3);
+        });
+
+        fuelTons.addEventListener('input', (e) => {
+            const tons = parseFloat(e.target.value) || 0;
+            fuelKg.value = (tons * 1000).toFixed(2);
+            fuelLbs.value = (tons * 2204.62).toFixed(2);
+        });
+    }
+
+    // Distance converters
+    const distNm = document.getElementById('dist-nm');
+    const distKm = document.getElementById('dist-km');
+    const distSm = document.getElementById('dist-sm');
+
+    if (distNm && distKm && distSm) {
+        distNm.addEventListener('input', (e) => {
+            const nm = parseFloat(e.target.value) || 0;
+            distKm.value = (nm * 1.852).toFixed(2);
+            distSm.value = (nm * 1.15078).toFixed(2);
+        });
+
+        distKm.addEventListener('input', (e) => {
+            const km = parseFloat(e.target.value) || 0;
+            distNm.value = (km / 1.852).toFixed(2);
+            distSm.value = (km * 0.621371).toFixed(2);
+        });
+
+        distSm.addEventListener('input', (e) => {
+            const sm = parseFloat(e.target.value) || 0;
+            distNm.value = (sm / 1.15078).toFixed(2);
+            distKm.value = (sm / 0.621371).toFixed(2);
+        });
+    }
+
+    // Temperature converters
+    const tempC = document.getElementById('temp-c');
+    const tempF = document.getElementById('temp-f');
+
+    if (tempC && tempF) {
+        tempC.addEventListener('input', (e) => {
+            const c = parseFloat(e.target.value) || 0;
+            tempF.value = ((c * 9 / 5) + 32).toFixed(1);
+        });
+
+        tempF.addEventListener('input', (e) => {
+            const f = parseFloat(e.target.value) || 0;
+            tempC.value = ((f - 32) * 5 / 9).toFixed(1);
+        });
+    }
+}
+
+// Wind Component Calculator
+function calculateWind() {
+    const runway = parseFloat(document.getElementById('runway-heading').value);
+    const windDir = parseFloat(document.getElementById('wind-direction').value);
+    const windSpeed = parseFloat(document.getElementById('wind-speed').value);
+
+    if (isNaN(runway) || isNaN(windDir) || isNaN(windSpeed)) {
+        alert('Please enter valid numbers for all fields');
+        return;
+    }
+
+    // Calculate angle difference
+    let angleDiff = windDir - runway;
+
+    // Normalize to -180 to 180
+    while (angleDiff > 180) angleDiff -= 360;
+    while (angleDiff < -180) angleDiff += 360;
+
+    // Convert to radians
+    const angleRad = angleDiff * (Math.PI / 180);
+
+    // Calculate components
+    const headwind = Math.round(windSpeed * Math.cos(angleRad));
+    const crosswind = Math.round(Math.abs(windSpeed * Math.sin(angleRad)));
+
+    // Display results
+    const headwindText = headwind >= 0 ? `${headwind} kt (Head)` : `${Math.abs(headwind)} kt (Tail)`;
+    document.getElementById('headwind-result').textContent = headwindText;
+    document.getElementById('crosswind-result').textContent = `${crosswind} kt`;
+}
+
+// Rate 1 Turn Calculator
+function calculateRate1() {
+    const tas = parseFloat(document.getElementById('tas-input').value);
+
+    if (isNaN(tas) || tas <= 0) {
+        alert('Please enter a valid True Airspeed');
+        return;
+    }
+
+    // Rate 1 turn = 3° per second = 360° in 2 minutes
+    // Bank angle formula: tan(bank) = (V² / (g × R))
+    // For rate 1: bank ≈ (TAS / 10) + 7
+    const bankAngle = Math.round((tas / 10) + 7);
+
+    // Turn radius in nautical miles
+    // R = V / (ω × 60) where ω = 3°/sec in radians
+    const turnRadius = (tas / (3 * (Math.PI / 180) * 60)).toFixed(2);
+
+    // Display results
+    document.getElementById('bank-angle-result').textContent = `${bankAngle}°`;
+    document.getElementById('turn-radius-result').textContent = `${turnRadius} nm`;
+}
+
+// Make globally accessible
+window.openToolkit = openToolkit;
+window.closeToolkit = closeToolkit;
+window.switchConverterTab = switchConverterTab;
+window.calculateWind = calculateWind;
+window.calculateRate1 = calculateRate1;
+
+// Reset Checklist Function
+function resetChecklist() {
+    // Confirm before resetting
+    const confirmed = confirm(
+        '⚠️ Reset Checklist?\n\n' +
+        'This will uncheck all items in the current checklist.\n' +
+        'This action cannot be undone.\n\n' +
+        'Do you want to continue?'
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    // Uncheck all tasks
+    tasks.forEach(task => {
+        task.completed = false;
+    });
+
+    // Save and update UI
+    saveTasksToStorage();
+    renderTasks();
+    updateStats();
+
+    // Show success notification (optional)
+    showResetNotification();
+}
+
+function showResetNotification() {
+    // Create a temporary notification
+    const notification = document.createElement('div');
+    notification.className = 'reset-notification';
+    notification.textContent = '✓ Checklist reset successfully';
+    document.body.appendChild(notification);
+
+    // Fade in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 10);
+
+    // Remove after 2 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 2000);
+}
+
+// Make globally accessible
+window.resetChecklist = resetChecklist;
+
+// ===========================
 // Utility Functions
 // ===========================
 function escapeHtml(text) {
@@ -508,3 +871,9 @@ document.head.appendChild(style);
 // Initialize on Load
 // ===========================
 document.addEventListener('DOMContentLoaded', init);
+
+// Cleanup intervals on page unload
+window.addEventListener('beforeunload', () => {
+    if (clockInterval) clearInterval(clockInterval);
+    if (reminderInterval) clearInterval(reminderInterval);
+});

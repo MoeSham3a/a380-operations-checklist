@@ -49,6 +49,23 @@
                     </div>
                 </div>
             </div>
+            <!-- Time Section -->
+            <div class="time-section">
+                <div class="clock-row">
+                    <div class="utc-clock">
+                        <span class="clock-label">UTC</span>
+                        <span class="clock-time" id="utc-clock">--:--:--</span>
+                    </div>
+                    <div class="local-clock">
+                        <span class="clock-label">LT</span>
+                        <span class="clock-time" id="local-clock">--:--:--</span>
+                    </div>
+                </div>
+                <div class="departure-time-input">
+                    <label for="departure-time" class="departure-label">STD:</label>
+                    <input type="time" id="departure-time" class="departure-input" placeholder="--:--">
+                </div>
+            </div>
         </header>
 
         <!-- Main Content -->
@@ -109,13 +126,141 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer Toolkit -->
         <footer class="footer">
+            <div class="toolkit-bar">
+                <button class="toolkit-btn" onclick="openToolkit('converter')" aria-label="Unit Converter">
+                    <span class="toolkit-icon">🧮</span>
+                    <span class="toolkit-label">Converter</span>
+                </button>
+                <button class="toolkit-btn" onclick="openToolkit('wind')" aria-label="Wind Calculator">
+                    <span class="toolkit-icon">🌬️</span>
+                    <span class="toolkit-label">Wind Calc</span>
+                </button>
+                <button class="toolkit-btn" onclick="openToolkit('rate1')" aria-label="Rate 1 Turn">
+                    <span class="toolkit-icon">🔄</span>
+                    <span class="toolkit-label">Rate 1</span>
+                </button>
+                <button class="toolkit-btn reset-btn" onclick="resetChecklist()" aria-label="Reset Checklist">
+                    <span class="toolkit-icon">↺</span>
+                    <span class="toolkit-label">Reset</span>
+                </button>
+            </div>
             <p class="footer-text">
                 <span class="offline-indicator">●</span>
                 Works offline • Data saved locally
             </p>
         </footer>
+    </div>
+
+    <!-- Toolkit Modals -->
+    <div id="toolkit-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content toolkit-content">
+            <button class="modal-close" onclick="closeToolkit()" aria-label="Close">×</button>
+
+            <!-- Unit Converter -->
+            <div id="converter-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Unit Converter</h3>
+                <div class="converter-tabs">
+                    <button class="converter-tab active" onclick="switchConverterTab('fuel')">Fuel</button>
+                    <button class="converter-tab" onclick="switchConverterTab('distance')">Distance</button>
+                    <button class="converter-tab" onclick="switchConverterTab('temp')">Temp</button>
+                </div>
+
+                <!-- Fuel Converter -->
+                <div id="fuel-converter" class="converter-section">
+                    <div class="converter-row">
+                        <input type="number" id="fuel-kg" class="converter-input" placeholder="0">
+                        <span class="converter-unit">kg</span>
+                    </div>
+                    <div class="converter-row">
+                        <input type="number" id="fuel-lbs" class="converter-input" placeholder="0">
+                        <span class="converter-unit">lbs</span>
+                    </div>
+                    <div class="converter-row">
+                        <input type="number" id="fuel-tons" class="converter-input" placeholder="0">
+                        <span class="converter-unit">tons</span>
+                    </div>
+                </div>
+
+                <!-- Distance Converter -->
+                <div id="distance-converter" class="converter-section hidden">
+                    <div class="converter-row">
+                        <input type="number" id="dist-nm" class="converter-input" placeholder="0">
+                        <span class="converter-unit">nm</span>
+                    </div>
+                    <div class="converter-row">
+                        <input type="number" id="dist-km" class="converter-input" placeholder="0">
+                        <span class="converter-unit">km</span>
+                    </div>
+                    <div class="converter-row">
+                        <input type="number" id="dist-sm" class="converter-input" placeholder="0">
+                        <span class="converter-unit">sm</span>
+                    </div>
+                </div>
+
+                <!-- Temperature Converter -->
+                <div id="temp-converter" class="converter-section hidden">
+                    <div class="converter-row">
+                        <input type="number" id="temp-c" class="converter-input" placeholder="0">
+                        <span class="converter-unit">°C</span>
+                    </div>
+                    <div class="converter-row">
+                        <input type="number" id="temp-f" class="converter-input" placeholder="0">
+                        <span class="converter-unit">°F</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wind Component Calculator -->
+            <div id="wind-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Wind Component Calculator</h3>
+                <div class="calc-group">
+                    <label class="calc-label">Runway Heading (°)</label>
+                    <input type="number" id="runway-heading" class="calc-input" min="0" max="360" placeholder="270">
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Wind Direction (°)</label>
+                    <input type="number" id="wind-direction" class="calc-input" min="0" max="360" placeholder="230">
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Wind Speed (kt)</label>
+                    <input type="number" id="wind-speed" class="calc-input" min="0" placeholder="15">
+                </div>
+                <button class="calc-button" onclick="calculateWind()">Calculate</button>
+                <div class="calc-results">
+                    <div class="result-item">
+                        <span class="result-label">Headwind:</span>
+                        <span id="headwind-result" class="result-value">--</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Crosswind:</span>
+                        <span id="crosswind-result" class="result-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rate 1 Turn Calculator -->
+            <div id="rate1-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Rate 1 Turn Calculator</h3>
+                <div class="calc-group">
+                    <label class="calc-label">True Airspeed (kt)</label>
+                    <input type="number" id="tas-input" class="calc-input" min="0" placeholder="250">
+                </div>
+                <button class="calc-button" onclick="calculateRate1()">Calculate</button>
+                <div class="calc-results">
+                    <div class="result-item">
+                        <span class="result-label">Bank Angle:</span>
+                        <span id="bank-angle-result" class="result-value">--</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Turn Radius:</span>
+                        <span id="turn-radius-result" class="result-value">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
