@@ -6,6 +6,46 @@ let currentFilter = 'all';
 let currentTheme = 'dark';
 let currentChecklist = 'preflight';
 
+
+// Checklist item information database
+const checklistInfo = {
+    'ADIRS': {
+        title: 'ADIRS - Air Data Inertial Reference System',
+        content: `
+            <ul>
+                <li>Check all 3 ADIRS are aligned</li>
+                <li>IR 1, 2, 3 should show NAV mode</li>
+                <li>Alignment typically takes 7-10 minutes</li>
+                <li>Verify coordinates match gate position</li>
+            </ul>
+        `
+    },
+    'Fire Test': {
+        title: 'Fire Detection Test',
+        content: `
+            <ul>
+                <li>Press TEST button on fire panel</li>
+                <li>Verify all fire warnings illuminate</li>
+                <li>Check audio warning sounds</li>
+                <li>Duration: approximately 10 seconds</li>
+            </ul>
+        `
+    },
+    'APU Start': {
+        title: 'APU Start Procedure',
+        content: `
+            <ul>
+                <li>APU Master Switch - ON</li>
+                <li>APU Start - ON</li>
+                <li>Monitor N% and EGT</li>
+                <li>APU AVAIL appears at approximately 95% N</li>
+                <li>Normal start time: ~60 seconds</li>
+            </ul>
+        `
+    }
+    // Add more items as needed
+};
+
 // ===========================
 // DOM Elements
 // ===========================
@@ -30,6 +70,26 @@ function init() {
     renderTasks();
     updateStats();
     attachEventListeners();
+
+    // Modal event listeners
+    const modalClose = document.getElementById('modal-close');
+    const modal = document.getElementById('info-modal');
+    const overlay = modal?.querySelector('.modal-overlay');
+
+    if (modalClose) {
+        modalClose.addEventListener('click', closeInfoModal);
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeInfoModal);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeInfoModal();
+        }
+    });
 
     // Register service worker for offline functionality
     if ('serviceWorker' in navigator) {
@@ -175,6 +235,9 @@ function renderTasks() {
 }
 
 function renderTaskItem(task) {
+    const hasInfo = checklistInfo[task.text] || checklistInfo[task.text.split('/')[0]?.trim()];
+    const infoIcon = hasInfo ? `<span class="info-icon" onclick='openInfoModal("${task.text}")'>ℹ️</span>` : '';
+
     return `
         <li class="task-item ${task.completed ? 'completed' : ''}" data-task-id="${task.id}">
             <input 
@@ -183,7 +246,7 @@ function renderTaskItem(task) {
                 ${task.completed ? 'checked' : ''}
                 onchange="toggleTask(${task.id})"
             >
-            <span class="task-text">${escapeHtml(task.text)}</span>
+            <span class="task-text">${escapeHtml(task.text)}${infoIcon}</span>
             <div class="task-actions">
                 <button class="task-btn delete-btn" onclick="deleteTask(${task.id})" aria-label="Delete task">
                     🗑️
@@ -318,6 +381,27 @@ function getCruiseChecklist() {
 
     return cruiseTasks;
 }
+
+// Modal functions
+function openInfoModal(itemName) {
+    const modal = document.getElementById('info-modal');
+    const title = document.getElementById('modal-title');
+    const body = document.getElementById('modal-body');
+
+    if (checklistInfo[itemName]) {
+        title.textContent = checklistInfo[itemName].title;
+        body.innerHTML = checklistInfo[itemName].content;
+        modal.classList.remove('hidden');
+    }
+}
+
+function closeInfoModal() {
+    const modal = document.getElementById('info-modal');
+    modal.classList.add('hidden');
+}
+
+// Make globally accessible
+window.openInfoModal = openInfoModal;
 
 function switchChecklist() {
     // Toggle between checklists
