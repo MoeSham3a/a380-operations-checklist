@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taskflow-v1';
+const CACHE_NAME = 'a380-operations';
 const urlsToCache = [
     './',
     './index.html',

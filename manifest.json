@@ -1,6 +1,6 @@
 {
-  "name": "TaskFlow - Interactive Checklist",
-  "short_name": "TaskFlow",
+  "name": "A380 Operations Interactive Checklist",
+  "short_name": "A380 Operations",
   "description": "A beautiful, interactive checklist app that works offline",
   "start_url": "./index.html",
   "display": "standalone",
@@ -21,6 +21,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["productivity", "utilities"],
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
   "screenshots": []
 }
