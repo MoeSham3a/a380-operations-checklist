@@ -19,7 +19,7 @@ const checklistInfo = {
         `
     },
     'NOTOC': {
-        title: 'Emergnecy Response Guide for Dangerous Goods',
+        title: 'Emergency Response Guide for Dangerous Goods',
         content: `
             <img src="ERG.JPG" alt="ERG" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
@@ -31,9 +31,9 @@ const checklistInfo = {
         `
     },
     'Fuel Figures': {
-        title: 'Fuel discripancy table',
+        title: 'Fuel discrepancy table',
         content: `
-            <img src="Fuel-difference-table.JPG" alt="Fuel discripancy table" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <img src="Fuel-difference-table.JPG" alt="Fuel discrepancy table" style="width: 100%; max-width: 600px; border-radius: 8px;">
         `
     },
     'PA (USA spec)': {
