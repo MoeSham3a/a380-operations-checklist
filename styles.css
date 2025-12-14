@@ -1437,6 +1437,37 @@ body::before {
     font-family: 'Courier New', monospace;
 }
 
+/* ISA Calculator Info */
+.isa-info {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: rgba(139, 92, 246, 0.05);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--primary-color);
+}
+
+.isa-note {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Pressure Altitude Input Groups */
+.pressure-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.pressure-unit {
+    min-width: 50px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 /* Reset Notification */
 .reset-notification {
     position: fixed;

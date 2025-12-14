@@ -627,6 +627,11 @@ function openToolkit(toolType) {
         if (toolType === 'converter') {
             setupConverterListeners();
         }
+
+        // Setup pressure input listeners if opening density altitude
+        if (toolType === 'densalt') {
+            setupPressureInputs();
+        }
     }
 }
 
@@ -773,12 +778,112 @@ function calculateRate1() {
     document.getElementById('turn-radius-result').textContent = `${turnRadius} nm`;
 }
 
+// ISA Deviation Calculator
+function calculateISA() {
+    const altitude = parseFloat(document.getElementById('altitude-input').value);
+    const oat = parseFloat(document.getElementById('oat-input').value);
+
+    if (isNaN(altitude) || isNaN(oat)) {
+        alert('Please enter valid numbers for both Altitude and OAT');
+        return;
+    }
+
+    // ISA temperature at given altitude
+    // Standard: 15°C at sea level, decreasing 1.98°C per 1000 feet
+    const isaTemp = 15 - ((altitude / 1000) * 1.98);
+
+    // ISA deviation (positive = warmer than standard, negative = colder)
+    const isaDev = oat - isaTemp;
+
+    // Display results
+    document.getElementById('isa-temp-result').textContent = `${isaTemp.toFixed(1)}°C`;
+
+    const devSign = isaDev >= 0 ? '+' : '';
+    const devColor = isaDev >= 0 ? '#ef4444' : '#3b82f6'; // Red for warm, blue for cold
+    const devResult = document.getElementById('isa-dev-result');
+    devResult.textContent = `${devSign}${isaDev.toFixed(1)}°C`;
+    devResult.style.color = devColor;
+}
+
+// Density Altitude Calculator
+function calculateDensityAlt() {
+    const fieldElev = parseFloat(document.getElementById('field-elev-input').value) || 0;
+    const altimeterInHg = parseFloat(document.getElementById('altimeter-inhg').value);
+    const altimeterHpa = parseFloat(document.getElementById('altimeter-hpa').value);
+    const oat = parseFloat(document.getElementById('dens-oat-input').value);
+
+    let pressureInHg;
+
+    // Use whichever input has a value
+    if (!isNaN(altimeterInHg)) {
+        pressureInHg = altimeterInHg;
+        // Auto-fill hPa
+        document.getElementById('altimeter-hpa').value = (altimeterInHg * 33.8639).toFixed(0);
+    } else if (!isNaN(altimeterHpa)) {
+        pressureInHg = altimeterHpa / 33.8639;
+        // Auto-fill inHg
+        document.getElementById('altimeter-inhg').value = pressureInHg.toFixed(2);
+    } else {
+        alert('Please enter altimeter setting in either inHg or hPa');
+        return;
+    }
+
+    if (isNaN(oat)) {
+        alert('Please enter Outside Air Temperature');
+        return;
+    }
+
+    // Calculate pressure altitude (simple approximation: 1 inHg ≈ 1000 ft)
+    const pressureAlt = Math.round(fieldElev + ((29.92 - pressureInHg) * 1000));
+
+    // Calculate ISA temperature at pressure altitude
+    const isaTemp = 15 - ((pressureAlt / 1000) * 1.98);
+
+    // Calculate density altitude
+    // DA = PA + (120 × (OAT - ISA_temp))
+    const densityAlt = Math.round(pressureAlt + (120 * (oat - isaTemp)));
+
+    // Display results
+    document.getElementById('pressure-alt-result').textContent = `${pressureAlt.toLocaleString()} ft`;
+    document.getElementById('density-alt-result').textContent = `${densityAlt.toLocaleString()} ft`;
+}
+// Setup pressure input listeners for auto-conversion
+function setupPressureInputs() {
+    const inHgInput = document.getElementById('altimeter-inhg');
+    const hpaInput = document.getElementById('altimeter-hpa');
+
+    if (inHgInput && hpaInput) {
+        // Remove old listeners if any
+        const newInHg = inHgInput.cloneNode(true);
+        const newHpa = hpaInput.cloneNode(true);
+        inHgInput.parentNode.replaceChild(newInHg, inHgInput);
+        hpaInput.parentNode.replaceChild(newHpa, hpaInput);
+
+        // Add fresh listeners
+        newInHg.addEventListener('input', (e) => {
+            const inHg = parseFloat(e.target.value);
+            if (!isNaN(inHg)) {
+                document.getElementById('altimeter-hpa').value = (inHg * 33.8639).toFixed(0);
+            }
+        });
+
+        newHpa.addEventListener('input', (e) => {
+            const hpa = parseFloat(e.target.value);
+            if (!isNaN(hpa)) {
+                document.getElementById('altimeter-inhg').value = (hpa / 33.8639).toFixed(2);
+            }
+        });
+    }
+}
+
 // Make globally accessible
 window.openToolkit = openToolkit;
 window.closeToolkit = closeToolkit;
 window.switchConverterTab = switchConverterTab;
 window.calculateWind = calculateWind;
 window.calculateRate1 = calculateRate1;
+window.calculateISA = calculateISA;
+window.calculateDensityAlt = calculateDensityAlt;
 
 // Reset Checklist Function
 function resetChecklist() {

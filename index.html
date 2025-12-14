@@ -141,6 +141,14 @@
                     <span class="toolkit-icon">🔄</span>
                     <span class="toolkit-label">Rate 1</span>
                 </button>
+                <button class="toolkit-btn" onclick="openToolkit('isa')" aria-label="ISA Deviation">
+                    <span class="toolkit-icon">🌡️</span>
+                    <span class="toolkit-label">ISA Dev</span>
+                </button>
+                <button class="toolkit-btn" onclick="openToolkit('densalt')" aria-label="Density Altitude">
+                    <span class="toolkit-icon">🌡️</span>
+                    <span class="toolkit-label">Dens Alt</span>
+                </button>
                 <button class="toolkit-btn reset-btn" onclick="resetChecklist()" aria-label="Reset Checklist">
                     <span class="toolkit-icon">↺</span>
                     <span class="toolkit-label">Reset</span>
@@ -258,6 +266,70 @@
                         <span class="result-label">Turn Radius:</span>
                         <span id="turn-radius-result" class="result-value">--</span>
                     </div>
+                </div>
+            </div>
+            <!-- ISA Deviation Calculator -->
+            <div id="isa-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">ISA Deviation Calculator</h3>
+                <div class="calc-group">
+                    <label class="calc-label">Altitude (ft)</label>
+                    <input type="number" id="altitude-input" class="calc-input" min="0" max="60000" placeholder="35000">
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Outside Air Temperature (°C)</label>
+                    <input type="number" id="oat-input" class="calc-input" placeholder="-45">
+                </div>
+                <button class="calc-button" onclick="calculateISA()">Calculate</button>
+                <div class="calc-results">
+                    <div class="result-item">
+                        <span class="result-label">ISA Temp:</span>
+                        <span id="isa-temp-result" class="result-value">--</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">ISA Deviation:</span>
+                        <span id="isa-dev-result" class="result-value">--</span>
+                    </div>
+                </div>
+                <div class="isa-info">
+                    <p class="isa-note">Standard: ISA = 15°C - (Alt/1000 × 1.98°C)</p>
+                </div>
+            </div>
+            <!-- Density Altitude Calculator -->
+            <div id="densalt-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Density Altitude Calculator</h3>
+                <div class="calc-group">
+                    <label class="calc-label">Field Elevation (ft)</label>
+                    <input type="number" id="field-elev-input" class="calc-input" min="0" placeholder="0">
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Altimeter Setting</label>
+                    <div class="pressure-input-group">
+                        <input type="number" id="altimeter-inhg" class="calc-input" step="0.01" placeholder="29.92">
+                        <span class="pressure-unit">inHg</span>
+                    </div>
+                    <div class="pressure-input-group">
+                        <input type="number" id="altimeter-hpa" class="calc-input" step="1" placeholder="1013">
+                        <span class="pressure-unit">hPa</span>
+                    </div>
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Outside Air Temperature (°C)</label>
+                    <input type="number" id="dens-oat-input" class="calc-input" placeholder="15">
+                </div>
+                <button class="calc-button" onclick="calculateDensityAlt()">Calculate</button>
+                <div class="calc-results">
+                    <div class="result-item">
+                        <span class="result-label">Pressure Altitude:</span>
+                        <span id="pressure-alt-result" class="result-value">--</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Density Altitude:</span>
+                        <span id="density-alt-result" class="result-value">--</span>
+                    </div>
+                </div>
+                <div class="isa-info">
+                    <p class="isa-note">Standard: 29.92 inHg / 1013 hPa at 15°C<br>
+                        Formula: DA = PA + (120 × (OAT - ISA_temp))</p>
                 </div>
             </div>
         </div>
