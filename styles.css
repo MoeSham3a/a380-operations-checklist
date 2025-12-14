@@ -848,6 +848,15 @@ body::before {
     .container {
         padding: var(--spacing-md);
         max-width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     /* Compact Header */
@@ -884,6 +893,28 @@ body::before {
     .clock-label,
     .departure-label {
         font-size: 0.65rem;
+    }
+
+    /* Single row for all time elements */
+    .time-section {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--spacing-lg);
+    }
+
+    .clock-row {
+        gap: var(--spacing-md);
+    }
+
+    .departure-time-input {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .departure-input {
+        font-size: 0.9rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        width: 100px;
     }
 
     /* Compact Input Section */
@@ -928,9 +959,12 @@ body::before {
 
     /* Optimized Checklist Container */
     .checklist-container {
-        max-height: calc(100vh - 520px);
-        min-height: 400px;
+        flex: 1;
+        min-height: 350px;
+        max-height: 600px;
         padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        overflow-y: auto;
     }
 
     .task-list {
@@ -988,6 +1022,11 @@ body::before {
     .footer-text {
         font-size: 0.75rem;
         margin: 0;
+    }
+
+    .footer {
+        position: relative;
+        margin-top: var(--spacing-lg);
     }
 
     /* Empty State */
