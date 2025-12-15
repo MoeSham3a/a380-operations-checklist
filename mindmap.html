@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive workflow mind map for A380 flight operations">
+    <meta name="theme-color" content="#0f172a">
+    <title>Flight Operations Workflow - Interactive Mind Map</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon-192.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="mindmap.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">✈️</div>
+                <h1 class="app-title">Flight Operations Workflow</h1>
+            </div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">← Back to Checklist</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button id="zoom-in" class="control-btn" title="Zoom In">+</button>
+        <button id="zoom-out" class="control-btn" title="Zoom Out">-</button>
+        <button id="reset-view" class="control-btn" title="Reset View">⟲</button>
+        <button id="expand-all" class="control-btn" title="Expand All">▼</button>
+        <button id="collapse-all" class="control-btn" title="Collapse All">▲</button>
+    </div>
+
+    <!-- Mind Map Container -->
+    <div id="mindmap-container"></div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+        <p><strong>💡 Tips:</strong> Click nodes to expand/collapse • Drag to pan • Use controls to zoom</p>
+    </div>
+
+    <!-- Script -->
+    <script src="mindmap.js"></script>
+</body>
+
+</html>

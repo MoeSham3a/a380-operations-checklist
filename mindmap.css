@@ -1,0 +1,299 @@
+/* ===========================
+   CSS Custom Properties
+   =========================== */
+:root {
+    /* Colors matching main app */
+    --color-primary: #8B5CF6;
+    --color-primary-light: #A78BFA;
+    --color-primary-dark: #7C3AED;
+    --color-secondary: #3B82F6;
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+
+    /* Dark Theme */
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-bg-tertiary: #334155;
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+
+    /* Font */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===========================
+   Base Styles
+   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+/* Animated background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===========================
+   Header
+   =========================== */
+.header {
+    position: relative;
+    z-index: 100;
+    padding: var(--spacing-md);
+}
+
+.header-content {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.logo-icon {
+    font-size: 2rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+/* ===========================
+   Controls
+   =========================== */
+.controls {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--color-primary-light);
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(139, 92, 246, 0.4);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===========================
+   Mind Map Container
+   =========================== */
+#mindmap-container {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    z-index: 1;
+}
+
+/* ===========================
+   Instructions
+   =========================== */
+.instructions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--spacing-md);
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.instructions p {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* ===========================
+   SVG Styles
+   =========================== */
+.node circle {
+    cursor: pointer;
+    stroke-width: 3px;
+    transition: all 0.3s ease;
+}
+
+.node circle:hover {
+    stroke-width: 4px;
+    filter: brightness(1.2);
+}
+
+.node text {
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+}
+
+.link {
+    fill: none;
+    stroke-width: 2px;
+    stroke-opacity: 0.6;
+}
+
+/* Node level colors */
+.node-level-0 circle {
+    fill: #8B5CF6;
+    stroke: #A78BFA;
+}
+
+.node-level-1 circle {
+    fill: #3B82F6;
+    stroke: #60A5FA;
+}
+
+.node-level-2 circle {
+    fill: #10B981;
+    stroke: #34D399;
+}
+
+.node-level-3 circle {
+    fill: #F59E0B;
+    stroke: #FBBF24;
+}
+
+.node-level-4 circle {
+    fill: #EF4444;
+    stroke: #F87171;
+}
+
+/* Link colors */
+.link {
+    stroke: rgba(139, 92, 246, 0.4);
+}
+
+/* Node with children indicator */
+.node.has-children circle {
+    cursor: pointer;
+}
+
+.node.collapsed circle {
+    fill-opacity: 0.7;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 1.2rem;
+    }
+
+    .controls {
+        right: 10px;
+        top: 90px;
+    }
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .node text {
+        font-size: 12px;
+    }
+}

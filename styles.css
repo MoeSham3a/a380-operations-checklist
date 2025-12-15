@@ -1288,6 +1288,12 @@ body::before {
     color: #ffffff;
 }
 
+/* Mind map button link styling */
+.mindmap-btn {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Reset button special styling */
 .reset-btn {
     border-color: rgba(239, 68, 68, 0.4);
