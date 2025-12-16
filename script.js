@@ -109,9 +109,13 @@ function init() {
     // Register service worker for offline functionality
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
-            .then(registration => console.log('Service Worker registered'))
+            .then(registration => {
+                console.log('Service Worker registered');
+                // Check for updates after registration
+                checkForUpdates();
+            })
             .catch(error => console.log('Service Worker registration failed:', error));
-    }
+        }
 }
 
 // ===========================
