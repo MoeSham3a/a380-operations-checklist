@@ -1588,3 +1588,72 @@ body::before {
 [data-theme="light"] .dm-item:hover {
     background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(239, 68, 68, 0.06));
 }
+
+/* Update Notification */
+.update-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.5);
+    z-index: 4000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 350px;
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.update-content h3 {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: 1.2rem;
+}
+
+.update-content p {
+    margin: 0 0 var(--spacing-md) 0;
+    opacity: 0.9;
+}
+
+.update-btn,
+.update-dismiss {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: var(--spacing-sm);
+}
+
+.update-btn {
+    background: white;
+    color: #8b5cf6;
+}
+
+.update-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.update-dismiss {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.update-dismiss:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

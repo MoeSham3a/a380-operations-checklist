@@ -1,4 +1,6 @@
-const CACHE_NAME = 'a380-operations';
+// Version number - increment this when you update the app
+const APP_VERSION = '1.0.0';
+const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 const urlsToCache = [
     './',
     './index.html',
@@ -7,6 +9,13 @@ const urlsToCache = [
     './manifest.json',
     './icon-192.png',
     './icon-512.png',
+    // Add image paths
+    '/brake-cooling-table.jpg',
+    '/ERG.jpg',
+    '/Departure-briefing.jpg',
+    '/Fuel-difference-table.jpg',
+    '/Pre-departure-PA.jpg',
+    '/USA-PA.jpg',
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
 ];
 
@@ -24,6 +33,26 @@ self.addEventListener('install', event => {
     );
     self.skipWaiting();
 });
+
+// Activate event - clean up old caches
+self.addEventListener('activate', event => {
+    const cacheWhitelist = [CACHE_NAME];
+
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+
+    self.clients.claim();
+});
+
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
@@ -61,21 +90,9 @@ self.addEventListener('fetch', event => {
     );
 });
 
-// Activate event - clean up old caches
-self.addEventListener('activate', event => {
-    const cacheWhitelist = [CACHE_NAME];
-
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
-
-    self.clients.claim();
+// Send version to clients
+self.addEventListener('message', (event) => {
+    if (event.data === 'GET_VERSION') {
+        event.ports[0].postMessage({ version: APP_VERSION });
+    }
 });

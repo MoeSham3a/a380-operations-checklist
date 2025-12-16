@@ -992,6 +992,91 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ===========================
+// Auto-Update Feature
+// ===========================
+let updateAvailable = false;
+
+// Check for updates on load
+function checkForUpdates() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+            // Check for updates
+            registration.update().then(() => {
+                console.log('Checked for updates');
+            });
+
+            // Listen for updates
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        // New service worker is ready
+                        updateAvailable = true;
+                        showUpdateNotification();
+                    }
+                });
+            });
+        });
+
+        // Listen for controller change (new SW activated)
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (updateAvailable) {
+                window.location.reload();
+            }
+        });
+    }
+}
+
+// Show update notification
+function showUpdateNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'update-notification';
+    notification.innerHTML = `
+        <div class="update-content">
+            <h3>🎉 Update Available!</h3>
+            <p>A new version of A380 Operations is ready.</p>
+            <button class="update-btn" onclick="applyUpdate()">Update Now</button>
+            <button class="update-dismiss" onclick="dismissUpdate(this)">Later</button>
+        </div>
+    `;
+    document.body.appendChild(notification);
+
+    // Fade in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 10);
+}
+
+// Apply update
+function applyUpdate() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+            if (registration.waiting) {
+                // Tell the waiting SW to activate
+                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+        });
+    }
+}
+
+// Dismiss update notification
+function dismissUpdate(button) {
+    const notification = button.closest('.update-notification');
+    notification.style.opacity = '0';
+    setTimeout(() => {
+        notification.remove();
+    }, 300);
+}
+
+// Make globally accessible
+window.applyUpdate = applyUpdate;
+window.dismissUpdate = dismissUpdate;
+
+// Check for updates every 30 minutes
+setInterval(checkForUpdates, 30 * 60 * 1000);
+
+// ===========================
 // Initialize on Load
 // ===========================
 document.addEventListener('DOMContentLoaded', init);
