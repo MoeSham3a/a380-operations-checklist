@@ -1,5 +1,5 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 const urlsToCache = [
     './',
