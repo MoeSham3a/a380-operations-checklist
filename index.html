@@ -68,6 +68,64 @@
             </div>
         </header>
 
+        <!-- Timeline Section -->
+        <div id="timeline-section" class="timeline-section hidden">
+            <div class="timeline-container">
+                <div class="timeline-progress" id="timeline-progress"></div>
+                <div class="timeline-milestones">
+                    <div class="timeline-milestone" data-offset="-85">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-1:25</span>
+                            <span class="milestone-name">Report Time</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="-83">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-1:23</span>
+                            <span class="milestone-name">Briefing</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="-70">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-1:10</span>
+                            <span class="milestone-name">In The Bus</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="-60">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-1:00</span>
+                            <span class="milestone-name">At Aircraft</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="-40">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-0:40</span>
+                            <span class="milestone-name">Prelim Load</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="-20">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">-0:20</span>
+                            <span class="milestone-name">APU Start</span>
+                        </div>
+                    </div>
+                    <div class="timeline-milestone" data-offset="0">
+                        <div class="milestone-marker departure"></div>
+                        <div class="milestone-label">
+                            <span class="milestone-time">STD</span>
+                            <span class="milestone-name">Departure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Main Content -->
         <main class="main-content">
             <!-- Input Section -->
@@ -261,6 +319,15 @@
                         <input type="number" id="fuel-tons" class="converter-input" placeholder="0">
                         <span class="converter-unit">tons</span>
                     </div>
+                    <!-- Rules of Thumb -->
+                    <div class="converter-rules">
+                        <h4 class="rules-title">Quick Reference:</h4>
+                        <ul class="rules-list">
+                            <li>1 kg ≈ 2.2 lbs</li>
+                            <li>1 ton = 1,000 kg</li>
+                            <li>Mental: kg ÷ 2 + 10% ≈ lbs</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Distance Converter -->
@@ -277,6 +344,15 @@
                         <input type="number" id="dist-sm" class="converter-input" placeholder="0">
                         <span class="converter-unit">sm</span>
                     </div>
+                    <!-- Rules of Thumb -->
+                    <div class="converter-rules">
+                        <h4 class="rules-title">Quick Reference:</h4>
+                        <ul class="rules-list">
+                            <li>1 nm ≈ 1.15 sm ≈ 1.85 km</li>
+                            <li>Mental: nm * 2 ≈ km</li>
+                            <li>60 nm = 1° latitude</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Temperature Converter -->
@@ -288,6 +364,16 @@
                     <div class="converter-row">
                         <input type="number" id="temp-f" class="converter-input" placeholder="0">
                         <span class="converter-unit">°F</span>
+                    </div>
+                    <!-- Rules of Thumb -->
+                    <div class="converter-rules">
+                        <h4 class="rules-title">Quick Reference:</h4>
+                        <ul class="rules-list">
+                            <li>Mental: C * 2 + 30 ≈ F</li>
+                            <li>0°C = 32°F (freezing)</li>
+                            <li>15°C = 59°F (ISA)</li>
+                            <li>-57°C = -70°F (typical cruise)</li>
+                        </ul>
                     </div>
                 </div>
             </div>

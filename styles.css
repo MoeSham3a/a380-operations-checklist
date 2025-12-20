@@ -522,6 +522,324 @@ body::before {
 }
 
 /* ===========================
+   Timeline Section
+   =========================== */
+.timeline-section {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-lg);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    animation: slideDown 0.5s ease-out;
+}
+
+.timeline-section.hidden {
+    display: none;
+}
+
+.timeline-container {
+    position: relative;
+    height: 120px;
+    width: 100%;
+    padding: var(--spacing-lg);
+}
+
+/* Timeline track */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--spacing-lg);
+    right: var(--spacing-lg);
+    height: 4px;
+    background: rgba(139, 92, 246, 0.2);
+    border-radius: 2px;
+}
+
+/* Progress bar */
+.timeline-progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--spacing-lg);
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+    transition: width 1s ease;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Progress indicator dot */
+.timeline-progress::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: #fbbf24;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.2);
+        box-shadow: 0 0 25px rgba(251, 191, 36, 1);
+    }
+}
+
+/* Milestones container */
+.timeline-milestones {
+    position: relative;
+    height: 100%;
+}
+
+/* Individual milestone */
+.timeline-milestone {
+    position: absolute;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+/* Milestone marker */
+.milestone-marker {
+    width: 12px;
+    height: 12px;
+    background: var(--bg-secondary);
+    border: 3px solid rgba(139, 92, 246, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.milestone-marker.departure {
+    width: 16px;
+    height: 16px;
+    background: #fbbf24;
+    border-color: #fbbf24;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+}
+
+.milestone-milestone:hover .milestone-marker {
+    border-color: var(--primary-color);
+    transform: translate(-50%, -50%) scale(1.3);
+}
+
+/* Milestone label */
+.milestone-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 80px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Default: labels below timeline */
+.timeline-milestone .milestone-label {
+    top: calc(50% + 20px);
+}
+
+/* Alternate labels: above timeline */
+.timeline-milestone:nth-child(odd) .milestone-label {
+    bottom: calc(50% + 20px);
+    top: auto;
+    flex-direction: column-reverse;
+    /* Flip order so time is on bottom */
+}
+
+.milestone-time {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #fbbf24;
+    font-weight: 700;
+}
+
+.milestone-name {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Completed milestone */
+.timeline-milestone.completed .milestone-marker {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.timeline-milestone.completed .milestone-time {
+    color: var(--primary-color);
+}
+
+/* ===========================
+   Timeline Responsive
+   =========================== */
+
+/* Tablet (iPad) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .timeline-container {
+        height: 130px;
+        padding: var(--spacing-md);
+    }
+
+    .milestone-name {
+        font-size: 0.65rem;
+    }
+
+    .milestone-time {
+        font-size: 0.75rem;
+    }
+
+    .milestone-label {
+        min-width: 70px;
+    }
+}
+
+/* Mobile Landscape / Small Tablet */
+@media (max-width: 768px) and (min-width: 481px) {
+    .timeline-container {
+        height: 80px;
+        padding: var(--spacing-sm);
+    }
+
+    .timeline-container::before,
+    .timeline-progress {
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+    }
+
+    .milestone-name {
+        font-size: 0.6rem;
+        max-width: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .milestone-time {
+        font-size: 0.7rem;
+    }
+
+    .milestone-label {
+        min-width: 60px;
+    }
+
+    .milestone-marker {
+        width: 10px;
+        height: 10px;
+        border-width: 2px;
+    }
+
+    .milestone-marker.departure {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .timeline-section {
+        padding: var(--spacing-md);
+        margin: var(--spacing-md) 0;
+    }
+
+    .timeline-container {
+        height: 140px;
+        padding: var(--spacing-xs);
+    }
+
+    .timeline-container::before,
+    .timeline-progress {
+        left: var(--spacing-xs);
+        right: var(--spacing-xs);
+    }
+
+    .milestone-name {
+        font-size: 0.55rem;
+        max-width: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        line-height: 1.1;
+    }
+
+    .milestone-time {
+        font-size: 0.65rem;
+    }
+
+    .milestone-label {
+        min-width: 50px;
+        gap: 1px;
+    }
+
+    /* Default: labels below timeline */
+    .timeline-milestone .milestone-label {
+        top: calc(50% + 18px);
+    }
+
+    /* Alternate labels: above timeline */
+    .timeline-milestone:nth-child(odd) .milestone-label {
+        bottom: calc(50% + 18px);
+    }
+
+    .milestone-marker {
+        width: 8px;
+        height: 8px;
+        border-width: 2px;
+        top: 18px;
+    }
+
+    .milestone-marker.departure {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* Hide some milestone names on very small screens to prevent overlap */
+    .timeline-milestone:nth-child(2) .milestone-name,
+    .timeline-milestone:nth-child(4) .milestone-name {
+        display: none;
+    }
+}
+
+/* Very Small Screens */
+@media (max-width: 360px) {
+    .timeline-container {
+        height: 80px;
+    }
+
+    .milestone-name {
+        font-size: 0.5rem;
+    }
+
+    .milestone-time {
+        font-size: 0.6rem;
+    }
+
+    /* Show only key milestones on very small screens */
+    .timeline-milestone:nth-child(3) .milestone-name,
+    .timeline-milestone:nth-child(5) .milestone-name {
+        display: none;
+    }
+}
+
+/* ===========================
    Checklist Container
    =========================== */
 .checklist-container {

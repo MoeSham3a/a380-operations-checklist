@@ -106,6 +106,9 @@ function init() {
     // Start reminder checker
     startReminderChecker();
 
+    // Start timeline updates
+    startTimelineUpdates();
+
     // Register service worker for offline functionality
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
@@ -115,7 +118,7 @@ function init() {
                 checkForUpdates();
             })
             .catch(error => console.log('Service Worker registration failed:', error));
-        }
+    }
 }
 
 // ===========================
@@ -180,7 +183,7 @@ function addTask() {
         createdAt: new Date().toISOString()
     };
 
-    tasks.unshift(task); // Add to beginning of array
+    tasks.push(task); // Add to end of array
     saveTasksToStorage();
 
     // Clear input with smooth transition
@@ -524,6 +527,7 @@ function setupDepartureTimeListener() {
             departureTime = e.target.value;
             reminderShown = false; // Reset reminder when time changes
             saveDepartureTime();
+            updateTimeline(); // Update timeline when STD changes
         });
     }
 }
@@ -605,6 +609,97 @@ function closeReminder(button) {
 
 // Make globally accessible
 window.closeReminder = closeReminder;
+
+// ===========================
+// Timeline Functions
+// ===========================
+let timelineInterval = null;
+
+function updateTimeline() {
+    if (!departureTime) {
+        hideTimeline();
+        return;
+    }
+
+    showTimeline();
+
+    const now = new Date();
+    const [hours, minutes] = departureTime.split(':').map(Number);
+
+    // Create departure time in UTC today
+    const departure = new Date();
+    departure.setUTCHours(hours, minutes, 0, 0);
+
+    // Calculate minutes until departure
+    const minutesUntilDeparture = Math.floor((departure - now) / (1000 * 60));
+
+    // Update milestone positions and progress bar
+    updateMilestonePositions(minutesUntilDeparture);
+}
+
+function updateMilestonePositions(minutesUntilDeparture) {
+    const milestones = document.querySelectorAll('.timeline-milestone');
+    const progressBar = document.getElementById('timeline-progress');
+    const timelineContainer = document.querySelector('.timeline-container');
+
+    if (!timelineContainer) return;
+
+    const containerWidth = timelineContainer.offsetWidth - (2 * 24); // Subtract padding
+
+    // Timeline spans from -85 minutes to 0 (STD)
+    const timelineStart = -85;
+    const timelineEnd = 0;
+    const timelineRange = timelineEnd - timelineStart;
+
+    milestones.forEach(milestone => {
+        const offsetMinutes = parseInt(milestone.dataset.offset);
+        const position = ((offsetMinutes - timelineStart) / timelineRange) * 100;
+        milestone.style.left = `${position}%`;
+
+        // Mark as completed if we've passed this milestone
+        if (minutesUntilDeparture <= offsetMinutes) {
+            milestone.classList.add('completed');
+        } else {
+            milestone.classList.remove('completed');
+        }
+    });
+
+    // Update progress bar
+    let progressPercent = 0;
+
+    if (minutesUntilDeparture >= timelineStart) {
+        progressPercent = 0; // Haven't started yet
+    } else if (minutesUntilDeparture <= timelineEnd) {
+        progressPercent = 100; // Past departure
+    } else {
+        progressPercent = ((minutesUntilDeparture - timelineStart) / timelineRange) * 100;
+    }
+
+    if (progressBar) {
+        progressBar.style.width = `${progressPercent}%`;
+    }
+}
+
+function showTimeline() {
+    const timeline = document.getElementById('timeline-section');
+    if (timeline) {
+        timeline.classList.remove('hidden');
+    }
+}
+
+function hideTimeline() {
+    const timeline = document.getElementById('timeline-section');
+    if (timeline) {
+        timeline.classList.add('hidden');
+    }
+}
+
+function startTimelineUpdates() {
+    // Update timeline every 10 seconds
+    timelineInterval = setInterval(updateTimeline, 10000);
+    // Initial update
+    updateTimeline();
+}
 
 // ===========================
 // Toolkit Functions
