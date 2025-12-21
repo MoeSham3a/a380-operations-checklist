@@ -10,6 +10,111 @@ let reminderShown = false;
 let clockInterval = null;
 let reminderInterval = null;
 
+// FDP Calculator State
+let isAcclimatised = true;
+
+// FDP Table Data - Two or More Flight Crew (Acclimatised)
+// Automatically generated from two-or-more-flight-crew-acclimatised.xlsx
+const FDP_TABLE_ACCLIMATISED = [
+    {
+        timeRange: "0600-0759",
+        sectors: {
+            "1": 13,
+            "2": 12.25,
+            "3": 11.5,
+            "4": 10.75,
+            "5": 10,
+            "6": 9.5,
+            "7": 9,
+            "8": 9
+        }
+    },
+    {
+        timeRange: "0800-1259",
+        sectors: {
+            "1": 14,
+            "2": 13.25,
+            "3": 12.5,
+            "4": 11.75,
+            "5": 11,
+            "6": 10.5,
+            "7": 10,
+            "8": 9.5
+        }
+    },
+    {
+        timeRange: "1300-1759",
+        sectors: {
+            "1": 13,
+            "2": 12.25,
+            "3": 11.5,
+            "4": 10.75,
+            "5": 10,
+            "6": 9.5,
+            "7": 9,
+            "8": 9
+        }
+    },
+    {
+        timeRange: "1800-2159",
+        sectors: {
+            "1": 12,
+            "2": 11.25,
+            "3": 10.5,
+            "4": 9.75,
+            "5": 9,
+            "6": 9,
+            "7": 9,
+            "8": 9
+        }
+    },
+    {
+        timeRange: "2200-0559",
+        sectors: {
+            "1": 11,
+            "2": 10.25,
+            "3": 9.5,
+            "4": 9,
+            "5": 9,
+            "6": 9,
+            "7": 9,
+            "8": 9
+        }
+    }
+];
+
+// FDP Table Data - Two or More Flight Crew (Non-Acclimatised)
+// Automatically generated from two-or-more-flight-crew-not-acclimatised.xlsx
+const FDP_TABLE_NON_ACCLIMATISED = [
+    {
+        restCategory: "up to 18 hours or over 30 hours",
+        sectors: {
+            "1": 13,
+            "2": 12.25,
+            "3": 11.5,
+            "4": 10.75,
+            "5": 10,
+            "6": 9.25,
+            "7": 9.25
+        }
+    },
+    {
+        restCategory: "between 18 and 30 hours",
+        sectors: {
+            "1": 11.5,
+            "2": 11,
+            "3": 10.5,
+            "4": 9.75,
+            "5": 9,
+            "6": 9,
+            "7": 9
+        }
+    }
+];
+
+// FDP Extension state
+let restType = 'bunk'; // 'bunk' or 'seat'
+
 // Checklist item information database
 const checklistInfo = {
     'Brake Temp': {
@@ -1179,6 +1284,204 @@ setInterval(checkForUpdates, 30 * 60 * 1000);
 // Initialize on Load
 // ===========================
 document.addEventListener('DOMContentLoaded', init);
+
+// ===========================
+// FDP Calculator Functions
+// ===========================
+
+/**
+ * Set acclimatisation status and update UI
+ */
+function setAcclimatisation(acclimatised) {
+    isAcclimatised = acclimatised;
+
+    // Update button states
+    const yesBtn = document.getElementById('fdp-acclimatised-yes');
+    const noBtn = document.getElementById('fdp-acclimatised-no');
+    const startTimeGroup = document.getElementById('fdp-start-time-group');
+    const restPeriodGroup = document.getElementById('fdp-rest-period-group');
+
+    if (acclimatised) {
+        yesBtn.classList.add('active');
+        noBtn.classList.remove('active');
+        // Show start time for acclimatised (time-based FDP)
+        if (startTimeGroup) {
+            startTimeGroup.style.display = 'block';
+        }
+        // Hide rest period selector for acclimatised
+        if (restPeriodGroup) {
+            restPeriodGroup.style.display = 'none';
+        }
+    } else {
+        yesBtn.classList.remove('active');
+        noBtn.classList.add('active');
+        // Hide start time for non-acclimatised (rest-based FDP)
+        if (startTimeGroup) {
+            startTimeGroup.style.display = 'none';
+        }
+        // Show rest period selector for non-acclimatised
+        if (restPeriodGroup) {
+            restPeriodGroup.style.display = 'block';
+        }
+    }
+}
+
+/**
+ * Get FDP time range based on local start time
+ */
+function getFDPTimeRange(timeString) {
+    // Parse time (HH:MM format)
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const totalMinutes = hours * 60 + minutes;
+
+    // Define time ranges in minutes from midnight
+    const ranges = [
+        { start: 6 * 60, end: 7 * 60 + 59, range: "0600-0759" },      // 06:00-07:59
+        { start: 8 * 60, end: 12 * 60 + 59, range: "0800-1259" },     // 08:00-12:59
+        { start: 13 * 60, end: 17 * 60 + 59, range: "1300-1759" },    // 13:00-17:59
+        { start: 18 * 60, end: 21 * 60 + 59, range: "1800-2159" },    // 18:00-21:59
+    ];
+
+    // Check which range the time falls into
+    for (const r of ranges) {
+        if (totalMinutes >= r.start && totalMinutes <= r.end) {
+            return r.range;
+        }
+    }
+
+    // If not in any of the above ranges, it's in the night range (22:00-05:59)
+    return "2200-0559";
+}
+
+/**
+ * Calculate max FDP based on inputs
+ */
+function calculateFDP() {
+    // Get input values
+    const startTimeInput = document.getElementById('fdp-start-time');
+    const sectorsInput = document.getElementById('fdp-sectors');
+    const restPeriodSelect = document.getElementById('fdp-rest-period');
+    const resultContainer = document.getElementById('fdp-result-container');
+    const resultSpan = document.getElementById('fdp-result');
+
+    if (!startTimeInput || !sectorsInput) {
+        console.error('FDP input elements not found');
+        return;
+    }
+
+    const startTime = startTimeInput.value;
+    const sectors = parseInt(sectorsInput.value);
+
+    // Validate inputs
+    if (!startTime) {
+        alert('Please select a start time');
+        return;
+    }
+
+    if (isNaN(sectors) || sectors < 1) {
+        alert('Please enter a valid number of sectors (minimum 1)');
+        return;
+    }
+
+    // Look up FDP from table
+    let maxFDP = null;
+
+    if (isAcclimatised) {
+        // Get time range for the start time
+        const timeRange = getFDPTimeRange(startTime);
+
+        // Find the matching time range entry
+        const entry = FDP_TABLE_ACCLIMATISED.find(e => e.timeRange === timeRange);
+
+        if (entry) {
+            // Get FDP for this number of sectors (cap at 8 or more)
+            const sectorKey = Math.min(sectors, 8).toString();
+            maxFDP = entry.sectors[sectorKey];
+        }
+    } else {
+        // Non-acclimatised: use rest period category
+        if (!restPeriodSelect) {
+            console.error('Rest period selector not found');
+            return;
+        }
+
+        const restCategory = restPeriodSelect.value;
+
+        // Find the matching rest category entry
+        const entry = FDP_TABLE_NON_ACCLIMATISED.find(e => e.restCategory === restCategory);
+
+        if (entry) {
+            // Get FDP for this number of sectors (cap at 7 or more for non-acclimatised)
+            const sectorKey = Math.min(sectors, 7).toString();
+            maxFDP = entry.sectors[sectorKey];
+        }
+    }
+
+    // Display result
+    if (maxFDP !== null) {
+        // Format FDP (convert decimal hours to hours:minutes)
+        const hours = Math.floor(maxFDP);
+        const minutes = Math.round((maxFDP - hours) * 60);
+        const formattedFDP = minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+
+        resultSpan.textContent = formattedFDP;
+        resultContainer.style.display = 'block';
+
+        // Add animation
+        resultContainer.classList.add('result-flash');
+        setTimeout(() => {
+            resultContainer.classList.remove('result-flash');
+        }, 600);
+    } else {
+        alert('Could not calculate FDP - please check your inputs');
+    }
+}
+
+/**
+ * Toggle FDP extension section visibility
+ */
+function toggleFDPExtension() {
+    const section = document.getElementById('fdp-extension-section');
+    const icon = document.getElementById('fdp-ext-toggle-icon');
+
+    if (section.style.display === 'none') {
+        section.style.display = 'block';
+        icon.textContent = '▼';
+    } else {
+        section.style.display = 'none';
+        icon.textContent = '▶';
+    }
+}
+
+/**
+ * Set rest type for FDP extension and update display
+ */
+function setRestType(type) {
+    restType = type;
+
+    const bunkBtn = document.getElementById('rest-type-bunk');
+    const seatBtn = document.getElementById('rest-type-seat');
+    const maxDisplay = document.getElementById('fdp-ext-max-display');
+    const note = document.getElementById('fdp-ext-note');
+
+    if (type === 'bunk') {
+        bunkBtn.classList.add('active');
+        seatBtn.classList.remove('active');
+        maxDisplay.textContent = '18h';
+        note.textContent = 'Extension: 1/2 of total rest taken';
+    } else {
+        bunkBtn.classList.remove('active');
+        seatBtn.classList.add('active');
+        maxDisplay.textContent = '15h';
+        note.textContent = 'Extension: 1/3 of total rest taken';
+    }
+}
+
+// Make globally accessible
+window.setAcclimatisation = setAcclimatisation;
+window.calculateFDP = calculateFDP;
+window.toggleFDPExtension = toggleFDPExtension;
+window.setRestType = setRestType;
 
 // Cleanup intervals on page unload
 window.addEventListener('beforeunload', () => {

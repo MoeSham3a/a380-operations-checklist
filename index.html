@@ -274,6 +274,10 @@
                     <span class="toolkit-icon">🌡️🌡️</span>
                     <span class="toolkit-label">Dens Alt</span>
                 </button>
+                <button class="toolkit-btn" onclick="openToolkit('fdp')" aria-label="Flight Duty Period Calculator">
+                    <span class="toolkit-icon">⏱️</span>
+                    <span class="toolkit-label">FDP Calc</span>
+                </button>
                 <a href="mindmap.html" class="toolkit-btn mindmap-btn" aria-label="Workflow Mind Map">
                     <span class="toolkit-icon">🗺️</span>
                     <span class="toolkit-label">Workflow</span>
@@ -487,6 +491,89 @@
                 <div class="isa-info">
                     <p class="isa-note">Standard: 29.92 inHg / 1013 hPa at 15°C<br>
                         Formula: DA = PA + (120 × (OAT - ISA_temp))</p>
+                </div>
+            </div>
+
+            <!-- FDP Calculator -->
+            <div id="fdp-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Flight Duty Period Calculator</h3>
+
+                <!-- Acclimatization Status -->
+                <div class="calc-group">
+                    <label class="calc-label">Acclimatised Status</label>
+                    <div class="fdp-toggle-group">
+                        <button type="button" id="fdp-acclimatised-yes" class="fdp-toggle-btn active"
+                            onclick="setAcclimatisation(true)">Yes</button>
+                        <button type="button" id="fdp-acclimatised-no" class="fdp-toggle-btn"
+                            onclick="setAcclimatisation(false)">No</button>
+                    </div>
+                </div>
+
+                <!-- Local Start Time -->
+                <div class="calc-group" id="fdp-start-time-group">
+                    <label class="calc-label">Local Start Time</label>
+                    <input type="time" id="fdp-start-time" class="calc-input fdp-time-input" value="06:00">
+                </div>
+
+                <!-- Rest Period (Non-Acclimatised Only) -->
+                <div class="calc-group" id="fdp-rest-period-group" style="display:none;">
+                    <label class="calc-label">Length of Preceding Rest</label>
+                    <select id="fdp-rest-period" class="calc-input fdp-select">
+                        <option value="up to 18 hours or over 30 hours">Up to 18h or over 30h</option>
+                        <option value="between 18 and 30 hours">Between 18h and 30h</option>
+                    </select>
+                </div>
+
+                <!-- Number of Sectors -->
+                <div class="calc-group">
+                    <label class="calc-label">Number of Sectors</label>
+                    <input type="number" id="fdp-sectors" class="calc-input" min="1" max="10" value="1" placeholder="1">
+                </div>
+
+                <button class="calc-button" onclick="calculateFDP()">Calculate FDP</button>
+
+                <div class="calc-results">
+                    <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none;">
+                        <span class="result-label">Maximum FDP:</span>
+                        <span id="fdp-result" class="result-value fdp-highlight">--</span>
+                    </div>
+                </div>
+
+                <!-- FDP Extension Info Section -->
+                <div class="calc-section-divider"></div>
+
+                <div class="calc-section-header" onclick="toggleFDPExtension()">
+                    <h3>⏰ FDP Extension</h3>
+                    <span id="fdp-ext-toggle-icon" class="toggle-icon">▶</span>
+                </div>
+
+                <div id="fdp-extension-section" class="fdp-ext-section" style="display:none;">
+                    <!-- Rest Type Toggle -->
+                    <div class="calc-group">
+                        <label class="calc-label">Rest Type</label>
+                        <div class="fdp-toggle-group">
+                            <button type="button" id="rest-type-bunk" class="fdp-toggle-btn active"
+                                onclick="setRestType('bunk')">🛏️ Bunk</button>
+                            <button type="button" id="rest-type-seat" class="fdp-toggle-btn"
+                                onclick="setRestType('seat')">💺 Seat</button>
+                        </div>
+                    </div>
+
+                    <!-- Max FDP Display -->
+                    <div class="fdp-ext-info-box">
+                        <div class="info-row">
+                            <span class="info-label">Max Permissible FDP:</span>
+                            <span id="fdp-ext-max-display" class="info-value-large">18h</span>
+                        </div>
+                        <div class="info-note" id="fdp-ext-note">
+                            Extension: 1/2 of total rest taken
+                        </div>
+                    </div>
+                </div>
+
+                <div class="isa-info">
+                    <p class="isa-note">📋 Based on EK OMA Chapter 7<br>
+                        ⚠️ For reference only - always consult updated official FTL documentation</p>
                 </div>
             </div>
         </div>
