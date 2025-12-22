@@ -543,6 +543,8 @@ body::before {
     height: 120px;
     width: 100%;
     padding: var(--spacing-lg);
+    overflow: hidden;
+    /* Prevent any overflow */
 }
 
 /* Timeline track */
@@ -569,6 +571,8 @@ body::before {
     border-radius: 2px;
     transition: width 1s ease;
     box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    max-width: calc(100% - (2 * var(--spacing-lg)));
+    /* Prevent overflow */
 }
 
 /* Progress indicator dot */
@@ -2086,7 +2090,9 @@ body::before {
 
 [data-theme="light"] .fdp-time-input::-webkit-calendar-picker-indicator {
     filter: invert(0);
-}/* ===========================
+}
+
+/* ===========================
    FDP Extension Section Styles
    =========================== */
 

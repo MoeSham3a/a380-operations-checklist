@@ -695,14 +695,6 @@ function showAPUReminder() {
     `;
 
     document.body.appendChild(notification);
-
-    // Play audio alert if available
-    try {
-        const audio = new Audio('data:audio/wav;base64,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');
-        audio.play();
-    } catch (error) {
-        console.log('Audio not available');
-    }
 }
 
 function closeReminder(button) {
@@ -772,12 +764,19 @@ function updateMilestonePositions(minutesUntilDeparture) {
     // Update progress bar
     let progressPercent = 0;
 
-    if (minutesUntilDeparture >= timelineStart) {
-        progressPercent = 0; // Haven't started yet
-    } else if (minutesUntilDeparture <= timelineEnd) {
-        progressPercent = 100; // Past departure
+    // Timeline spans from -85 to 0 minutes
+    // minutesUntilDeparture is positive when before departure, negative when past
+
+    if (minutesUntilDeparture > Math.abs(timelineStart)) {
+        // More than 85 minutes before departure - haven't started timeline yet
+        progressPercent = 0;
+    } else if (minutesUntilDeparture <= 0) {
+        // Past departure time
+        progressPercent = 100;
     } else {
-        progressPercent = ((minutesUntilDeparture - timelineStart) / timelineRange) * 100;
+        // In the timeline range (0 to 85 minutes before departure)
+        // Convert to progress: 85 min before = 0%, 0 min (STD) = 100%
+        progressPercent = ((Math.abs(timelineStart) - minutesUntilDeparture) / timelineRange) * 100;
     }
 
     if (progressBar) {
