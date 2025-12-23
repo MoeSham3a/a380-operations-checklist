@@ -11,12 +11,6 @@ const urlsToCache = [
     './manifest.json',
     './icon-192.png',
     './icon-512.png',
-    // FDP Calculator files
-    './fdp-styles.css',
-    './fdp_extension_functions.js',
-    './fdp_extension_styles.css',
-    './fdp_table_data.js',
-    './fdp_table_non_acclimatised.js',
     // Mind map files
     './mindmap.html',
     './mindmap.css',
