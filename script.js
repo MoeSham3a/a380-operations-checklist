@@ -215,16 +215,187 @@ function init() {
     startTimelineUpdates();
 
     // Register service worker for offline functionality
+    registerServiceWorker();
+
+    // Setup network status monitoring
+    setupNetworkMonitoring();
+}
+
+// ===========================
+// Service Worker & Network Detection
+// ===========================
+function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
             .then(registration => {
-                console.log('Service Worker registered');
-                // Check for updates after registration
-                checkForUpdates();
+                console.log('[App] Service Worker registered successfully');
+
+                // Check for updates immediately
+                checkForUpdates(registration);
+
+                // Check for updates every 5 minutes
+                setInterval(() => checkForUpdates(registration), 5 * 60 * 1000);
+
+                // Listen for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New service worker is ready
+                            showUpdateNotification();
+                        }
+                    });
+                });
             })
-            .catch(error => console.log('Service Worker registration failed:', error));
+            .catch(error => {
+                console.error('[App] Service Worker registration failed:', error);
+            });
+
+        // Reload page when new service worker takes control
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
+        });
     }
 }
+
+function checkForUpdates(registration) {
+    if (!navigator.onLine) {
+        console.log('[App] Offline - skipping update check');
+        return;
+    }
+
+    if (registration) {
+        registration.update().catch(err => {
+            console.log('[App] Update check failed:', err);
+        });
+    }
+
+    // Also check version via fetch
+    fetch('./manifest.json', {
+        headers: { 'x-version-check': 'true' },
+        cache: 'no-cache'
+    })
+        .then(response => response.json())
+        .then(data => {
+            // You can add version checking logic here if needed
+            console.log('[App] Version check complete');
+        })
+        .catch(err => {
+            console.log('[App] Version check failed (offline or network error)');
+        });
+}
+
+function setupNetworkMonitoring() {
+    // Initial status
+    updateOnlineStatus();
+
+    // Listen for online/offline events
+    window.addEventListener('online', handleOnlineStatus);
+    window.addEventListener('offline', handleOfflineStatus);
+}
+
+function handleOnlineStatus() {
+    console.log('[App] Back online');
+    updateOnlineStatus();
+
+    // Check for updates when coming back online
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(registration => {
+            if (registration) {
+                checkForUpdates(registration);
+            }
+        });
+    }
+}
+
+function handleOfflineStatus() {
+    console.log('[App] Gone offline');
+    updateOnlineStatus();
+}
+
+function updateOnlineStatus() {
+    const offlineIndicator = document.querySelector('.offline-indicator');
+    const footerText = document.querySelector('.footer-text');
+
+    if (navigator.onLine) {
+        if (offlineIndicator) {
+            offlineIndicator.style.color = '#10b981'; // Green
+        }
+        if (footerText) {
+            footerText.innerHTML = '<span class="offline-indicator">●</span> Online • Data saved locally';
+        }
+    } else {
+        if (offlineIndicator) {
+            offlineIndicator.style.color = '#f59e0b'; // Orange
+        }
+        if (footerText) {
+            footerText.innerHTML = '<span class="offline-indicator">●</span> Offline • Using cached data';
+        }
+    }
+}
+
+function showUpdateNotification() {
+    // Check if notification already exists
+    if (document.querySelector('.update-notification')) {
+        return;
+    }
+
+    const notification = document.createElement('div');
+    notification.className = 'update-notification';
+    notification.innerHTML = `
+        <div class="update-content">
+            <span class="update-icon">🔄</span>
+            <div class="update-text">
+                <strong>Update Available</strong>
+                <p>A new version is ready to install</p>
+            </div>
+            <button class="update-btn" onclick="refreshApp()">Update Now</button>
+            <button class="dismiss-btn" onclick="dismissUpdate()">Later</button>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Animate in
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+}
+
+function refreshApp() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(registration => {
+            if (registration && registration.waiting) {
+                // Tell the service worker to skip waiting
+                registration.waiting.postMessage('SKIP_WAITING');
+            } else {
+                // Just reload
+                window.location.reload();
+            }
+        });
+    } else {
+        window.location.reload();
+    }
+}
+
+function dismissUpdate() {
+    const notification = document.querySelector('.update-notification');
+    if (notification) {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }
+}
+
+// Make functions globally accessible
+window.refreshApp = refreshApp;
+window.dismissUpdate = dismissUpdate;
+
 
 // ===========================
 // Event Listeners
