@@ -36,6 +36,10 @@
                     <h1 class="app-title">A380 Operations</h1>
                 </div>
                 <div class="stats-section">
+                    <a href="flight-prep.html" class="flight-prep-link" aria-label="Flight Preparation">
+                        <span class="prep-icon">✈️</span>
+                        <span class="prep-label">Flight Prep</span>
+                    </a>
                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
@@ -153,16 +157,16 @@
                 </div>
             </div>
 
-            <!-- Filter Section -->
+            <!-- Utility Section -->
             <div class="filter-section">
-                <button class="filter-btn active" data-filter="all">
-                    All
+                <button class="filter-btn" onclick="openNotepad('nonstandard')">
+                    📝 Non Standard
                 </button>
-                <button class="filter-btn" data-filter="active">
-                    Active
+                <button class="filter-btn" onclick="openNotepad('clearances')">
+                    📋 Clearances
                 </button>
-                <button class="filter-btn" data-filter="completed">
-                    Completed
+                <button class="filter-btn" onclick="openCalculator()">
+                    🧮 Calculator
                 </button>
             </div>
 
@@ -260,6 +264,55 @@
                     <div class="dm-item">
                         <span class="dm-number">13</span>
                         <span class="dm-text">NITS (Purser & Pax)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notepad Modal -->
+        <div id="notepad-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeNotepad()"></div>
+            <div class="modal-content notepad-modal-content">
+                <button class="modal-close" onclick="closeNotepad()" aria-label="Close">×</button>
+                <h3 class="modal-title" id="notepad-title">📝 Notepad</h3>
+                <textarea id="notepad-textarea" class="notepad-textarea"
+                    placeholder="Type your notes here..."></textarea>
+                <button class="save-notepad-btn" onclick="saveNotepad()">💾 Save Notes</button>
+            </div>
+        </div>
+
+        <!-- Calculator Modal -->
+        <div id="calculator-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeCalculator()"></div>
+            <div class="modal-content calculator-modal-content">
+                <button class="modal-close" onclick="closeCalculator()" aria-label="Close">×</button>
+                <h3 class="modal-title">🧮 Calculator</h3>
+                <div class="calculator">
+                    <input type="text" id="calc-display" class="calc-display" readonly>
+                    <div class="calc-buttons">
+                        <button class="calc-btn calc-clear" onclick="clearCalculator()">C</button>
+                        <button class="calc-btn calc-operator" onclick="appendToCalc('/')">/</button>
+                        <button class="calc-btn calc-operator" onclick="appendToCalc('*')">×</button>
+                        <button class="calc-btn calc-operator" onclick="deleteLastCalc()">⌫</button>
+
+                        <button class="calc-btn" onclick="appendToCalc('7')">7</button>
+                        <button class="calc-btn" onclick="appendToCalc('8')">8</button>
+                        <button class="calc-btn" onclick="appendToCalc('9')">9</button>
+                        <button class="calc-btn calc-operator" onclick="appendToCalc('-')">-</button>
+
+                        <button class="calc-btn" onclick="appendToCalc('4')">4</button>
+                        <button class="calc-btn" onclick="appendToCalc('5')">5</button>
+                        <button class="calc-btn" onclick="appendToCalc('6')">6</button>
+                        <button class="calc-btn calc-operator" onclick="appendToCalc('+')">+</button>
+
+                        <button class="calc-btn" onclick="appendToCalc('1')">1</button>
+                        <button class="calc-btn" onclick="appendToCalc('2')">2</button>
+                        <button class="calc-btn" onclick="appendToCalc('3')">3</button>
+                        <button class="calc-btn calc-equals" onclick="calculateResult()"
+                            style="grid-row: span 2;">=</button>
+
+                        <button class="calc-btn" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
+                        <button class="calc-btn" onclick="appendToCalc('.')">.</button>
                     </div>
                 </div>
             </div>

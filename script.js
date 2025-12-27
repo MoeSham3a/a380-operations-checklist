@@ -1658,3 +1658,149 @@ window.addEventListener('beforeunload', () => {
     if (clockInterval) clearInterval(clockInterval);
     if (reminderInterval) clearInterval(reminderInterval);
 });
+
+// ===========================
+// Notepad Functions
+// ===========================
+let currentNotepadType = '';
+
+function openNotepad(type) {
+    currentNotepadType = type;
+    const modal = document.getElementById('notepad-modal');
+    const title = document.getElementById('notepad-title');
+    const textarea = document.getElementById('notepad-textarea');
+
+    // Set title based on type
+    if (type === 'nonstandard') {
+        title.textContent = '📝 Non Standard';
+    } else if (type === 'clearances') {
+        title.textContent = '📋 Clearances';
+    }
+
+    // Load saved content
+    const savedContent = localStorage.getItem(`notepad-${type}`);
+    if (savedContent) {
+        textarea.value = savedContent;
+    } else {
+        textarea.value = '';
+    }
+
+    modal.classList.remove('hidden');
+    textarea.focus();
+}
+
+function closeNotepad() {
+    const modal = document.getElementById('notepad-modal');
+    modal.classList.add('hidden');
+    currentNotepadType = '';
+}
+
+function saveNotepad() {
+    const textarea = document.getElementById('notepad-textarea');
+    const content = textarea.value;
+
+    // Save to localStorage
+    localStorage.setItem(`notepad-${currentNotepadType}`, content);
+
+    // Show notification
+    showNotification('✓ Notes saved!');
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'save-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 2000);
+}
+
+// Make functions globally accessible
+window.openNotepad = openNotepad;
+window.closeNotepad = closeNotepad;
+window.saveNotepad = saveNotepad;
+
+// ===========================
+// Calculator Functions
+// ===========================
+let calcExpression = '';
+
+function openCalculator() {
+    const modal = document.getElementById('calculator-modal');
+    const display = document.getElementById('calc-display');
+    calcExpression = '';
+    display.value = '0';
+    modal.classList.remove('hidden');
+}
+
+function closeCalculator() {
+    const modal = document.getElementById('calculator-modal');
+    modal.classList.add('hidden');
+}
+
+function appendToCalc(value) {
+    const display = document.getElementById('calc-display');
+
+    // Handle initial zero
+    if (calcExpression === '' || calcExpression === '0') {
+        if (value !== '.') {
+            calcExpression = value;
+        } else {
+            calcExpression = '0.';
+        }
+    } else {
+        calcExpression += value;
+    }
+
+    display.value = calcExpression;
+}
+
+function clearCalculator() {
+    const display = document.getElementById('calc-display');
+    calcExpression = '';
+    display.value = '0';
+}
+
+function deleteLastCalc() {
+    const display = document.getElementById('calc-display');
+    if (calcExpression.length > 0) {
+        calcExpression = calcExpression.slice(0, -1);
+        display.value = calcExpression || '0';
+    }
+}
+
+function calculateResult() {
+    const display = document.getElementById('calc-display');
+    try {
+        // Replace × with * for eval
+        const expression = calcExpression.replace(/×/g, '*');
+        const result = eval(expression);
+
+        // Format result
+        const formattedResult = Number.isFinite(result)
+            ? (Math.abs(result) < 0.000001 && result !== 0 ? result.toExponential(6) : result.toString())
+            : 'Error';
+
+        calcExpression = formattedResult;
+        display.value = formattedResult;
+    } catch (error) {
+        display.value = 'Error';
+        calcExpression = '';
+    }
+}
+
+// Make calculator functions globally accessible
+window.openCalculator = openCalculator;
+window.closeCalculator = closeCalculator;
+window.appendToCalc = appendToCalc;
+window.clearCalculator = clearCalculator;
+window.deleteLastCalc = deleteLastCalc;
+window.calculateResult = calculateResult;
+
+// Initialize
+init();

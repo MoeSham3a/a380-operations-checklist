@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flight Preparation - A380 Operations">
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- SEO -->
+    <title>Flight Preparation - A380 Operations</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon-192.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .flight-prep-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        .prep-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input,
+        .form-textarea {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: rgba(15, 23, 42, 0.6);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        .nav-header {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+        }
+
+        .save-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-xl);
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--spacing-lg);
+            width: 100%;
+            box-shadow: var(--shadow-md);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+        }
+
+        .save-btn:active {
+            transform: scale(0.98);
+        }
+
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            animation: slideInRight 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-header {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+
+            .nav-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flight-prep-container">
+        <!-- Header -->
+        <header class="nav-header">
+            <h1 class="nav-title">✈️ Flight Preparation</h1>
+            <a href="index.html" class="back-btn">← Back to Checklist</a>
+        </header>
+
+        <!-- OFP Section -->
+        <section class="prep-section">
+            <h2 class="section-title">📋 Operational Flight Plan (OFP)</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="flight-number">Flight Number</label>
+                    <input type="text" id="flight-number" class="form-input" placeholder="EK123">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="call-sign">Call Sign</label>
+                    <input type="text" id="call-sign" class="form-input" placeholder="UAE123">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="ofp-number">OFP Number</label>
+                    <input type="text" id="ofp-number" class="form-input" placeholder="12345">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="registration">Registration</label>
+                    <input type="text" id="registration" class="form-input" placeholder="A6-XXX">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="engine-type">Engine Type</label>
+                    <input type="text" id="engine-type" class="form-input" placeholder="Trent 970/972">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cost-index">Cost Index</label>
+                    <input type="number" id="cost-index" class="form-input" placeholder="40">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cruise-altitude">Initial Cruising Altitude</label>
+                    <input type="text" id="cruise-altitude" class="form-input" placeholder="FL350">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="taxi-time">Expected Taxi Time</label>
+                    <input type="text" id="taxi-time" class="form-input" placeholder="15 min">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="trip-time">Trip Time</label>
+                    <input type="text" id="trip-time" class="form-input" placeholder="07:35">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="contingency-fuel">Contingency Fuel</label>
+                    <input type="text" id="contingency-fuel" class="form-input" placeholder="5%">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="additional-fuel">Additional Fuel</label>
+                    <input type="text" id="additional-fuel" class="form-input" placeholder="2.0 tons">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="alternate-airport">Alternate Airport</label>
+                    <input type="text" id="alternate-airport" class="form-input" placeholder="OMDB">
+                </div>
+            </div>
+        </section>
+
+        <!-- MEL/CDL Section -->
+        <section class="prep-section">
+            <h2 class="section-title">🔧 MEL/CDL</h2>
+            <div class="form-group">
+                <label class="form-label" for="mel-cdl">MEL/CDL Items</label>
+                <textarea id="mel-cdl" class="form-textarea"
+                    placeholder="Enter MEL/CDL items...&#10;Example:&#10;MEL 21-31-01A - APU BLEED VALVE INOPERATIVE"></textarea>
+            </div>
+        </section>
+
+        <!-- AIRAC/ERM Section -->
+        <section class="prep-section">
+            <h2 class="section-title">📅 AIRAC/ERM</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="airac-cycle">AIRAC Cycle</label>
+                    <input type="text" id="airac-cycle" class="form-input" placeholder="2513">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="erm-updates">ERM Updates</label>
+                    <input type="text" id="erm-updates" class="form-input" placeholder="ERM Revision">
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: var(--spacing-lg);">
+                <label class="form-label" for="airac-notes">Notes</label>
+                <textarea id="airac-notes" class="form-textarea"
+                    placeholder="AIRAC updates and ERM revision notes..."></textarea>
+            </div>
+        </section>
+
+        <!-- NOTAMs/Weather Section -->
+        <section class="prep-section">
+            <h2 class="section-title">🌦️ NOTAMs/Weather</h2>
+            <div class="form-group">
+                <label class="form-label" for="notams">NOTAMs</label>
+                <textarea id="notams" class="form-textarea"
+                    placeholder="Enter relevant NOTAMs...&#10;Example:&#10;OMDB - RWY 12R/30L CLSD"></textarea>
+            </div>
+            <div class="form-group" style="margin-top: var(--spacing-lg);">
+                <label class="form-label" for="weather">Weather Briefing</label>
+                <textarea id="weather" class="form-textarea"
+                    placeholder="Weather information, TAF, METAR, significant weather..."></textarea>
+            </div>
+        </section>
+
+        <!-- FCI/FCN/ACI/SCB/Network Report Section -->
+        <section class="prep-section">
+            <h2 class="section-title">📢 FCI/FCN/ACI/SCB/Network Report</h2>
+            <div class="form-group">
+                <label class="form-label" for="company-notices">Company Notices</label>
+                <textarea id="company-notices" class="form-textarea"
+                    placeholder="Enter relevant company notices...&#10;- FCI (Flight Crew Information)&#10;- FCN (Flight Crew Notice)&#10;- ACI (Airport Crew Information)&#10;- SCB (Station Crew Briefing)&#10;- Network Reports"></textarea>
+            </div>
+        </section>
+
+        <!-- Threats Section -->
+        <section class="prep-section">
+            <h2 class="section-title">⚠️ Threats</h2>
+            <div class="form-group">
+                <label class="form-label" for="threats">Operational Threats</label>
+                <textarea id="threats" class="form-textarea"
+                    placeholder="Identify operational threats...&#10;Example:&#10;- Complex departure procedure&#10;- Weather at destination&#10;- Time pressure&#10;- Fatigue considerations"></textarea>
+            </div>
+        </section>
+
+        <!-- Rest Strategy Section -->
+        <section class="prep-section">
+            <h2 class="section-title">😴 Rest Strategy</h2>
+            <div class="form-group">
+                <label class="form-label" for="rest-strategy">Crew Rest Planning</label>
+                <textarea id="rest-strategy" class="form-textarea"
+                    placeholder="Plan crew rest periods...&#10;Example:&#10;- Rest slots and duration&#10;- Bunk assignment&#10;- Fatigue mitigation strategies"></textarea>
+            </div>
+        </section>
+
+        <!-- Save Button -->
+        <button class="save-btn" onclick="saveFlightPrep()">💾 Save Flight Preparation</button>
+    </div>
+
+    <script>
+        // Load saved data on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFlightPrep();
+        });
+
+        // Save flight preparation data
+        function saveFlightPrep() {
+            const flightPrepData = {
+                flightNumber: document.getElementById('flight-number').value,
+                callSign: document.getElementById('call-sign').value,
+                ofpNumber: document.getElementById('ofp-number').value,
+                registration: document.getElementById('registration').value,
+                engineType: document.getElementById('engine-type').value,
+                costIndex: document.getElementById('cost-index').value,
+                cruiseAltitude: document.getElementById('cruise-altitude').value,
+                taxiTime: document.getElementById('taxi-time').value,
+                tripTime: document.getElementById('trip-time').value,
+                contingencyFuel: document.getElementById('contingency-fuel').value,
+                additionalFuel: document.getElementById('additional-fuel').value,
+                alternateAirport: document.getElementById('alternate-airport').value,
+                melCdl: document.getElementById('mel-cdl').value,
+                airacCycle: document.getElementById('airac-cycle').value,
+                ermUpdates: document.getElementById('erm-updates').value,
+                airacNotes: document.getElementById('airac-notes').value,
+                notams: document.getElementById('notams').value,
+                weather: document.getElementById('weather').value,
+                companyNotices: document.getElementById('company-notices').value,
+                threats: document.getElementById('threats').value,
+                restStrategy: document.getElementById('rest-strategy').value,
+                lastSaved: new Date().toISOString()
+            };
+
+            localStorage.setItem('flightPrepData', JSON.stringify(flightPrepData));
+            showSaveNotification();
+        }
+
+        // Load flight preparation data
+        function loadFlightPrep() {
+            const savedData = localStorage.getItem('flightPrepData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('flight-number').value = data.flightNumber || '';
+                document.getElementById('call-sign').value = data.callSign || '';
+                document.getElementById('ofp-number').value = data.ofpNumber || '';
+                document.getElementById('registration').value = data.registration || '';
+                document.getElementById('engine-type').value = data.engineType || '';
+                document.getElementById('cost-index').value = data.costIndex || '';
+                document.getElementById('cruise-altitude').value = data.cruiseAltitude || '';
+                document.getElementById('taxi-time').value = data.taxiTime || '';
+                document.getElementById('trip-time').value = data.tripTime || '';
+                document.getElementById('contingency-fuel').value = data.contingencyFuel || '';
+                document.getElementById('additional-fuel').value = data.additionalFuel || '';
+                document.getElementById('alternate-airport').value = data.alternateAirport || '';
+                document.getElementById('mel-cdl').value = data.melCdl || '';
+                document.getElementById('airac-cycle').value = data.airacCycle || '';
+                document.getElementById('erm-updates').value = data.ermUpdates || '';
+                document.getElementById('airac-notes').value = data.airacNotes || '';
+                document.getElementById('notams').value = data.notams || '';
+                document.getElementById('weather').value = data.weather || '';
+                document.getElementById('company-notices').value = data.companyNotices || '';
+                document.getElementById('threats').value = data.threats || '';
+                document.getElementById('rest-strategy').value = data.restStrategy || '';
+            }
+        }
+
+        // Show save notification
+        function showSaveNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'save-notification';
+            notification.textContent = '✓ Flight preparation saved!';
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2000);
+        }
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            const hasContent = Array.from(document.querySelectorAll('.form-input, .form-textarea'))
+                .some(input => input.value.trim() !== '');
+            if (hasContent) {
+                saveFlightPrep();
+            }
+        }, 30000);
+    </script>
+</body>
+
+</html>

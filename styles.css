@@ -269,6 +269,42 @@ body::before {
     transform: rotate(20deg) scale(1.1);
 }
 
+/* Flight Prep Link */
+.flight-prep-link {
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+}
+
+.flight-prep-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow), var(--shadow-md);
+}
+
+.flight-prep-link:active {
+    transform: scale(0.95);
+}
+
+.prep-icon {
+    font-size: 1.25rem;
+}
+
+.prep-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+}
+
+
 /* ===========================
    Input Section
    =========================== */
@@ -2329,5 +2365,161 @@ body::before {
     .update-btn,
     .dismiss-btn {
         width: 100%;
+    }
+}
+
+/* ===========================
+   Notepad Modal
+   =========================== */
+.notepad-modal-content {
+    max-width: 700px;
+    width: 100%;
+}
+
+.notepad-textarea {
+    width: 100%;
+    min-height: 400px;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    color: var(--color-text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    resize: vertical;
+    transition: all var(--transition-base);
+    margin-bottom: var(--spacing-md);
+}
+
+.notepad-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.save-notepad-btn {
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md) var(--spacing-xl);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    width: 100%;
+    box-shadow: var(--shadow-md);
+}
+
+.save-notepad-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow), var(--shadow-md);
+}
+
+.save-notepad-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===========================
+   Calculator Modal
+   =========================== */
+.calculator-modal-content {
+    max-width: 400px;
+    width: 100%;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.calc-display {
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    color: var(--color-text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    text-align: right;
+    min-height: 60px;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.calc-btn {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    color: var(--color-text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    min-height: 60px;
+}
+
+.calc-btn:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.calc-btn:active {
+    transform: scale(0.95);
+}
+
+.calc-operator {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+.calc-operator:hover {
+    background: rgba(139, 92, 246, 0.3);
+}
+
+.calc-clear {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.calc-clear:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.calc-equals {
+    background: var(--gradient-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.calc-equals:hover {
+    box-shadow: var(--shadow-glow);
+}
+
+@media (max-width: 480px) {
+    .calculator-modal-content {
+        max-width: 95%;
+    }
+
+    .calc-btn {
+        padding: var(--spacing-md);
+        font-size: 1rem;
+        min-height: 50px;
+    }
+
+    .calc-display {
+        font-size: 1.5rem;
+        min-height: 50px;
+    }
+
+    .notepad-textarea {
+        min-height: 300px;
     }
 }
