@@ -2,7 +2,7 @@
 
 A professional, offline-first Progressive Web App (PWA) designed for Airbus A380 pilots to manage pre-flight and in-flight checklists with integrated aviation tools and timeline management.
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![PWA](https://img.shields.io/badge/PWA-enabled-purple)
 
