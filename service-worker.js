@@ -1,5 +1,5 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.0.4';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 
 // Comprehensive list of assets to cache
@@ -28,14 +28,57 @@ const urlsToCache = [
     'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2'
 ];
 
-// Install event - cache all resources
+// Install event - cache all resources with resilient error handling
 self.addEventListener('install', event => {
     console.log('[ServiceWorker] Installing version', APP_VERSION);
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('[ServiceWorker] Caching assets');
-                return cache.addAll(urlsToCache);
+                console.log('[ServiceWorker] Caching app shell');
+
+                // Cache critical resources first (these must succeed)
+                const criticalResources = [
+                    './',
+                    './index.html',
+                    './styles.css',
+                    './script.js',
+                    './manifest.json'
+                ];
+
+                // Cache optional resources (images, etc - failures are tolerated)
+                const optionalResources = [
+                    './icon-192.png',
+                    './icon-512.png',
+                    './mindmap.html',
+                    './mindmap.css',
+                    './mindmap.js',
+                    './Brake-cooling-table.JPG',
+                    './ERG.JPG',
+                    './Departure-briefing.JPG',
+                    './Fuel-difference-table.JPG',
+                    './Pre-departure-PA.JPG',
+                    './USA-PA.JPG',
+                    './Workflow-Mind-Map.png',
+                    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
+                ];
+
+                // Cache critical resources (must succeed)
+                return cache.addAll(criticalResources)
+                    .then(() => {
+                        console.log('[ServiceWorker] Critical resources cached');
+
+                        // Cache optional resources individually (failures won't break install)
+                        return Promise.allSettled(
+                            optionalResources.map(url =>
+                                cache.add(url)
+                                    .then(() => console.log('[ServiceWorker] Cached:', url))
+                                    .catch(err => console.warn('[ServiceWorker] Failed to cache:', url, err))
+                            )
+                        );
+                    })
+                    .then(() => {
+                        console.log('[ServiceWorker] Installation complete');
+                    });
             })
             .catch(error => {
                 console.error('[ServiceWorker] Cache install failed:', error);
