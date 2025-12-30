@@ -1,8 +1,8 @@
 # ✈️ A380 Operations Checklist
 
-A professional, offline-first Progressive Web App (PWA) designed for Airbus A380 pilots to manage pre-flight and in-flight checklists with integrated aviation tools and timeline management.
+A professional, offline-first Progressive Web App (PWA) designed for Airbus A380 pilots to manage pre-flight and in-flight checklists with integrated aviation tools, timeline management, and flight preparation.
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![PWA](https://img.shields.io/badge/PWA-enabled-purple)
 
@@ -15,29 +15,57 @@ A professional, offline-first Progressive Web App (PWA) designed for Airbus A380
 - **Custom Tasks**: Add your own checklist items on the fly
 - **Persistent Storage**: All checklist states saved locally
 - **Info Popups**: Quick reference guides with images for key procedures
+- **Reset Functionality**: Clear all checkboxes while preserving custom items
+
+### 📄 Flight Preparation
+Complete flight briefing page accessible from the main menu:
+- **Documents Check**: Essential crew documents checklist (Passport, Visa, License, Medical, etc.)
+- **Operational Flight Plan (OFP)**: Track flight number, registration, fuel planning, alternates
+- **MEL/CDL**: Log aircraft maintenance deferrals
+- **AIRAC/ERM**: Navigation database cycle tracking
+- **NOTAMs/Weather**: Briefing documentation
+- **Company Notices**: FCI, FCN, ACI, SCB, Network reports
+- **Threat Assessment**: Identify operational risks
+- **Rest Strategy**: Crew rest planning for long-haul operations
+- **Auto-Save**: Automatically saves every 30 seconds
+- **Persistent Data**: All entries saved to localStorage
 
 ### ⏰ Time Management
-- **UTC Clock**: Real-time Coordinated Universal Time display
-- **Local Time Clock**: Device timezone display
+- **Dual Clock Display**: Real-time UTC and Local time
 - **STD Input**: Scheduled Time of Departure (UTC) with persistence
+- **UTC/Local Toggle**: Switch timeline between UTC and local timezone
 - **APU Start Reminder**: Automatic notification 20 minutes before departure with audio alert
 - **Visual Timeline**: Interactive pre-flight timeline showing all critical milestones
 
 ### 📊 Pre-Flight Timeline
-Dynamic timeline visualization with 7 key milestones:
+Dynamic timeline visualization with 9 key milestones:
 - **STD-1:25** - Report Time
-- **STD-1:23** - Briefing Time
+- **STD-1:23** - Flight Briefing
 - **STD-1:10** - In The Bus
-- **STD-1:00** - At The Aircraft
-- **STD-0:40** - Preliminary Loadsheet
-- **STD-0:20** - APU Start
+- **STD-1:00** - Check ATC
+- **STD-0:40** - Start Walking
+- **STD-0:20** - At the Gate
+- **STD-0:15** - Boarding Starts
+- **STD-0:10** - Push Back
 - **STD** - Departure
 
 Features:
-- Real-time progress bar
-- Completed milestone indicators
-- Alternating labels to prevent overlap
+- Real-time progress bar tracking current position
+- Completed milestone indicators (visual feedback)
+- **UTC/Local Time Toggle**: View milestone times in UTC or local timezone
+- Absolute time display (HH:MM format)
+- Milestone positioning spread across timeline
 - Fully responsive design
+
+### 🧮 Flight Duty Period (FDP) Calculator
+Emirates OMA Chapter 7 compliant calculator:
+- **Base FDP Calculation**: Automatic calculation based on reporting time and number of sectors
+- **Acclimatisation Status**: Toggle between acclimatised/non-acclimatised crew
+- **FDP Extension**: Calculate extended FDP with in-flight rest
+  - Bunk rest: Max 18 hours (extension = ½ of rest taken)
+  - Seat rest: Max 15 hours (extension = ⅓ of rest taken)
+- **Time-Based Tables**: Accurate FDP limits based on local reporting time
+- **Visual Results**: Color-coded display showing base FDP and allowed extension
 
 ### 🛠️ Aviation Toolkit
 
@@ -53,12 +81,32 @@ Features:
 - **ISA Deviation Calculator**: Temperature deviation from standard atmosphere
 - **Density Altitude Calculator**: Performance altitude accounting for temperature
 
+### 📝 Decision Making Tools
+- **Decision Making Checklist**: FOR-DEC structured decision-making framework
+  - **F**acts
+  - **O**ptions
+  - **R**isks and Benefits
+  - **D**ecision
+  - **E**xecution
+  - **C**heck
+- Integrated into footer for quick access during critical phases
+
+### 📋 Productivity Tools
+- **Scratchpad**: Quick notes for general use
+- **OFP Notes**: Dedicated notepad for flight plan annotations
+- **Calculator**: Built-in calculator for quick computations
+  - Basic arithmetic operations
+  - Decimal support
+  - Keyboard accessible
+
 ### 🎨 User Experience
 - **Dark/Light Theme Toggle**: Eye-friendly interface for day and night operations
 - **Offline Capability**: Full functionality without internet connection
 - **Auto-Update System**: Automatic detection and installation of new versions
+- **Network Status Indicator**: Visual feedback for online/offline status
 - **Responsive Design**: Optimized for desktop, tablet (iPad 11"), and mobile devices
 - **Progressive Web App**: Install on home screen for app-like experience
+- **Smooth Animations**: Polished transitions and micro-interactions
 
 ## 🚀 Quick Start
 
@@ -137,15 +185,54 @@ Features:
    - Enter STD in UTC format (HH:MM) in the header
    - Timeline automatically appears and starts tracking
 
-2. **Monitor Progress**
+2. **Toggle Between UTC and Local Time**
+   - Click the "UTC" or "LOCAL" button in the timeline header
+   - Milestone times instantly update to selected timezone
+   - Preference is saved and restored on next visit
+
+3. **Monitor Progress**
    - Progress bar shows current position
    - Completed milestones turn purple
-   - Current time marked with pulsing golden dot
+   - Milestone times show absolute clock times (not relative)
 
-3. **Automatic Reminders**
+4. **Automatic Reminders**
    - APU start reminder appears at STD-20 minutes
    - Audio alert plays (if available)
    - Click "ACKNOWLEDGE" to dismiss
+
+### Using Flight Preparation
+
+1. **Access Flight Prep**
+   - Click "Flight Prep" button in the footer
+   - Opens dedicated flight preparation page
+
+2. **Documents Check**
+   - Check off documents as you verify them
+   - Passport, Visa, Company ID, License, Medical, Vaccination Card
+
+3. **Fill Out Sections**
+   - Complete OFP details, MEL/CDL items, NOTAMS, weather, etc.
+   - All fields auto-save every 30 seconds
+
+4. **Manual Save**
+   - Click "Save Flight Preparation" button at bottom
+   - Confirmation notification appears
+
+### Using the FDP Calculator
+
+1. **Access Calculator**
+   - Click "FDP Calc" in the toolkit footer
+
+2. **Set Parameters**
+   - Toggle acclimatisation status (Acclimatised/Non-Acclimatised)
+   - Enter reporting time in local time (HH:MM)
+   - Enter number of sectors (1-8)
+
+3. **Calculate Extension (Optional)**
+   - Click "Calculate FDP Extension"
+   - Select rest type (Bunk/Seat)
+   - Enter total rest minutes
+   - View extended FDP limit
 
 ### Using the Toolkit
 
@@ -173,31 +260,33 @@ Features:
 - **Progressive Web App**: Service Worker, Web App Manifest
 
 ### Data Storage
-- **localStorage**: Client-side persistence
-- **Service Worker Cache**: Offline resource caching
+- **localStorage**: Client-side persistence for all data
+- **Service Worker Cache**: Offline resource caching (Cache-First strategy)
 
 ### APIs Used
 - Date/Time API
 - Web Audio API (for reminders)
 - Service Worker API (for PWA functionality)
+- Notification API (for alerts)
 
 ## 📂 Project Structure
 
 ```
 A380_Emirates_Operations/
 ├── index.html              # Main application HTML
+├── flight-prep.html        # Flight preparation page
 ├── styles.css              # Complete styling and responsive design
 ├── script.js               # Application logic and functionality
 ├── manifest.json           # PWA configuration
 ├── service-worker.js       # Offline caching and auto-update
 ├── icon-192.png           # PWA icon (192x192)
 ├── icon-512.png           # PWA icon (512x512)
-├── brake-cooling-table.jpg # Reference image
-├── ERG.jpg                # Emergency Response Guide
-├── Departure-briefing.jpg  # Departure briefing reference
-├── Fuel-difference-table.jpg # Fuel discrepancy table
-├── Pre-departure-PA.jpg    # PA announcement script
-├── USA-PA.jpg             # USA-specific PA script
+├── Brake-cooling-table.JPG # Reference image
+├── ERG.JPG                # Emergency Response Guide
+├── Departure-briefing.JPG  # Departure briefing reference
+├── Fuel-difference-table.JPG # Fuel discrepancy table
+├── Pre-departure-PA.JPG    # PA announcement script
+├── USA-PA.JPG             # USA-specific PA script
 └── README.md              # This file
 ```
 
@@ -210,7 +299,7 @@ A380_Emirates_Operations/
 
 ## 🔄 Version Control & Updates
 
-### Current Version: 1.0.1
+### Current Version: 1.1.2
 
 ### Update Process
 1. Make changes to application files
@@ -220,6 +309,9 @@ A380_Emirates_Operations/
 5. Users receive automatic update notification
 
 ### Changelog
+- **v1.1.2**: Added documents checklist to flight prep, fixed timeline positioning
+- **v1.1.1**: Added UTC/Local timeline toggle, absolute time display
+- **v1.1.0**: Added FDP calculator with extension, flight prep page, notepad, calculator
 - **v1.0.1**: Added converter rules of thumb, UTC label for STD
 - **v1.0.0**: Initial release with full feature set
 
@@ -338,7 +430,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgments
 
 - Airbus A380 operating procedures
-- Emirates Airlines operational standards
+- Emirates Airlines operational standards (OMA Chapter 7)
 - Aviation community feedback
 - Modern PWA best practices
 
@@ -350,20 +442,21 @@ For issues, questions, or suggestions:
 
 ## 🔐 Security
 
-- No sensitive data transmitted or stored
+- No sensitive data transmitted or stored on external servers
 - All data stored locally in browser
 - No external API calls
 - Input sanitization implemented
+- Offline-first architecture for data privacy
 
 ## 🚧 Roadmap
 
 Future enhancements under consideration:
-- Additional checklists (Landing, Shutdown)
-- Scratchpad for quick notes
-- METAR/TAF weather integration
-- Flight time logger
+- Additional checklists (Landing, Shutdown, Emergency)
+- Enhanced METAR/TAF weather integration
+- Flight time logger with duty tracking
 - Multiple aircraft type support
-- Cloud sync (optional)
+- Export/import flight preparation data
+- Shared checklist templates
 
 ---
 
