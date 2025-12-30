@@ -9,6 +9,7 @@ let departureTime = null;
 let reminderShown = false;
 let clockInterval = null;
 let reminderInterval = null;
+let timelineDisplayMode = 'utc'; // 'utc' or 'local'
 
 // FDP Calculator State
 let isAcclimatised = true;
@@ -206,7 +207,9 @@ function init() {
 
     // Load and setup departure time
     loadDepartureTime();
+    loadTimelineDisplayMode();
     setupDepartureTimeListener();
+    updateTimeline(); // Initial timeline update
 
     // Start reminder checker
     startReminderChecker();
@@ -879,102 +882,152 @@ function closeReminder(button) {
 window.closeReminder = closeReminder;
 
 // ===========================
-// Timeline Functions
+// Timeline Management
 // ===========================
-let timelineInterval = null;
-
 function updateTimeline() {
-    if (!departureTime) {
-        hideTimeline();
+    const timelineSection = document.getElementById('timeline-section');
+
+    if (!departureTime || !timelineSection) {
+        if (timelineSection) {
+            timelineSection.classList.add('hidden');
+        }
         return;
     }
 
-    showTimeline();
+    // Show timeline section
+    timelineSection.classList.remove('hidden');
 
+    // Parse STD time
+    const [stdHours, stdMinutes] = departureTime.split(':').map(Number);
+
+    // Calculate current time until departure
     const now = new Date();
-    const [hours, minutes] = departureTime.split(':').map(Number);
-
-    // Create departure time in UTC today
     const departure = new Date();
-    departure.setUTCHours(hours, minutes, 0, 0);
-
-    // Calculate minutes until departure
+    departure.setUTCHours(stdHours, stdMinutes, 0, 0);
     const minutesUntilDeparture = Math.floor((departure - now) / (1000 * 60));
 
-    // Update milestone positions and progress bar
-    updateMilestonePositions(minutesUntilDeparture);
-}
-
-function updateMilestonePositions(minutesUntilDeparture) {
-    const milestones = document.querySelectorAll('.timeline-milestone');
-    const progressBar = document.getElementById('timeline-progress');
-    const timelineContainer = document.querySelector('.timeline-container');
-
-    if (!timelineContainer) return;
-
-    const containerWidth = timelineContainer.offsetWidth - (2 * 24); // Subtract padding
-
-    // Timeline spans from -85 minutes to 0 (STD)
-    const timelineStart = -85;
-    const timelineEnd = 0;
+    // Timeline configuration
+    const timelineStart = -85;  // Timeline starts 85 minutes before STD
+    const timelineEnd = 0;      // Timeline ends at STD
     const timelineRange = timelineEnd - timelineStart;
 
+    // Get all milestone time elements
+    const milestones = document.querySelectorAll('.timeline-milestone');
+
     milestones.forEach(milestone => {
-        const offsetMinutes = parseInt(milestone.dataset.offset);
-        const position = ((offsetMinutes - timelineStart) / timelineRange) * 100;
+        const offset = parseInt(milestone.getAttribute('data-offset')) || 0;
+        const timeElement = milestone.querySelector('.milestone-time');
+
+        if (!timeElement) return;
+
+        // Calculate absolute time based on STD + offset
+        const milestoneDate = new Date();
+        milestoneDate.setUTCHours(stdHours, stdMinutes, 0, 0);
+        milestoneDate.setMinutes(milestoneDate.getMinutes() + offset);
+
+        // Format time based on display mode
+        let timeString;
+        if (timelineDisplayMode === 'utc') {
+            const hours = String(milestoneDate.getUTCHours()).padStart(2, '0');
+            const minutes = String(milestoneDate.getUTCMinutes()).padStart(2, '0');
+            timeString = `${hours}:${minutes}`;
+        } else {
+            const hours = String(milestoneDate.getHours()).padStart(2, '0');
+            const minutes = String(milestoneDate.getMinutes()).padStart(2, '0');
+            timeString = `${hours}:${minutes}`;
+        }
+
+        timeElement.textContent = timeString;
+
+        // Position milestone along the timeline
+        const position = ((offset - timelineStart) / timelineRange) * 100;
         milestone.style.left = `${position}%`;
 
         // Mark as completed if we've passed this milestone
-        if (minutesUntilDeparture <= offsetMinutes) {
+        if (minutesUntilDeparture <= offset) {
             milestone.classList.add('completed');
         } else {
             milestone.classList.remove('completed');
         }
     });
 
-    // Update progress bar
-    let progressPercent = 0;
-
-    // Timeline spans from -85 to 0 minutes
-    // minutesUntilDeparture is positive when before departure, negative when past
-
-    if (minutesUntilDeparture > Math.abs(timelineStart)) {
-        // More than 85 minutes before departure - haven't started timeline yet
-        progressPercent = 0;
-    } else if (minutesUntilDeparture <= 0) {
-        // Past departure time
-        progressPercent = 100;
-    } else {
-        // In the timeline range (0 to 85 minutes before departure)
-        // Convert to progress: 85 min before = 0%, 0 min (STD) = 100%
-        progressPercent = ((Math.abs(timelineStart) - minutesUntilDeparture) / timelineRange) * 100;
-    }
-
-    if (progressBar) {
-        progressBar.style.width = `${progressPercent}%`;
-    }
+    // Update timeline progress indicator
+    updateTimelineProgress();
 }
 
-function showTimeline() {
-    const timeline = document.getElementById('timeline-section');
-    if (timeline) {
-        timeline.classList.remove('hidden');
-    }
+function updateTimelineProgress() {
+    if (!departureTime) return;
+
+    const progressBar = document.getElementById('timeline-progress');
+    if (!progressBar) return;
+
+    const now = new Date();
+    const [stdHours, stdMinutes] = departureTime.split(':').map(Number);
+
+    // Create departure time today
+    const departure = new Date();
+    departure.setUTCHours(stdHours, stdMinutes, 0, 0);
+
+    // Start of timeline (85 minutes before departure)
+    const timelineStart = new Date(departure.getTime() - 85 * 60 * 1000);
+
+    // Calculate progress percentage
+    const totalDuration = 85 * 60 * 1000; // 85 minutes in milliseconds
+    const elapsed = now - timelineStart;
+    const progress = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
+
+    progressBar.style.width = `${progress}%`;
 }
 
-function hideTimeline() {
-    const timeline = document.getElementById('timeline-section');
-    if (timeline) {
-        timeline.classList.add('hidden');
+function toggleTimelineDisplay() {
+    // Toggle between UTC and Local
+    timelineDisplayMode = timelineDisplayMode === 'utc' ? 'local' : 'utc';
+
+    // Update button text
+    const toggleText = document.getElementById('timeline-toggle-text');
+    if (toggleText) {
+        toggleText.textContent = timelineDisplayMode.toUpperCase();
+    }
+
+    // Save preference
+    try {
+        localStorage.setItem('timeline-display-mode', timelineDisplayMode);
+    } catch (error) {
+        console.error('Error saving timeline display mode:', error);
+    }
+
+    // Update timeline display
+    updateTimeline();
+}
+
+function loadTimelineDisplayMode() {
+    try {
+        const saved = localStorage.getItem('timeline-display-mode');
+        if (saved === 'utc' || saved === 'local') {
+            timelineDisplayMode = saved;
+            const toggleText = document.getElementById('timeline-toggle-text');
+            if (toggleText) {
+                toggleText.textContent = timelineDisplayMode.toUpperCase();
+            }
+        }
+    } catch (error) {
+        console.error('Error loading timeline display mode:', error);
     }
 }
 
 function startTimelineUpdates() {
-    // Update timeline every 10 seconds
-    timelineInterval = setInterval(updateTimeline, 10000);
-    // Initial update
-    updateTimeline();
+    // Update timeline progress every 10 seconds
+    setInterval(() => {
+        if (departureTime) {
+            updateTimelineProgress();
+        }
+    }, 10000);
 }
+
+// Make timeline functions globally accessible
+window.toggleTimelineDisplay = toggleTimelineDisplay;
+window.updateTimeline = updateTimeline;
+
 
 // ===========================
 // Toolkit Functions

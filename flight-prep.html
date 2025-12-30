@@ -193,6 +193,34 @@
             }
         }
 
+
+        .doc-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: var(--spacing-sm);
+            cursor: pointer;
+            accent-color: var(--color-primary);
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .doc-label-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .form-label:hover .doc-label-text {
+            color: var(--color-primary);
+        }
+
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -218,6 +246,49 @@
             <h1 class="nav-title">✈️ Flight Preparation</h1>
             <a href="index.html" class="back-btn">← Back to Checklist</a>
         </header>
+
+        <!-- Documents Checklist Section -->
+        <section class="prep-section">
+            <h2 class="section-title">📄 Documents Check</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-passport" class="doc-checkbox">
+                        <span class="doc-label-text">Passport</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-visa" class="doc-checkbox">
+                        <span class="doc-label-text">Visa (if required)</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-company-id" class="doc-checkbox">
+                        <span class="doc-label-text">Company ID</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-license" class="doc-checkbox">
+                        <span class="doc-label-text">License</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-medical" class="doc-checkbox">
+                        <span class="doc-label-text">Medical</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="doc-vaccination" class="doc-checkbox">
+                        <span class="doc-label-text">Vaccination Card</span>
+                    </label>
+                </div>
+            </div>
+        </section>
 
         <!-- OFP Section -->
         <section class="prep-section">
@@ -362,6 +433,14 @@
         // Save flight preparation data
         function saveFlightPrep() {
             const flightPrepData = {
+                // Documents
+                docPassport: document.getElementById('doc-passport').checked,
+                docVisa: document.getElementById('doc-visa').checked,
+                docCompanyId: document.getElementById('doc-company-id').checked,
+                docLicense: document.getElementById('doc-license').checked,
+                docMedical: document.getElementById('doc-medical').checked,
+                docVaccination: document.getElementById('doc-vaccination').checked,
+                // Flight data
                 flightNumber: document.getElementById('flight-number').value,
                 callSign: document.getElementById('call-sign').value,
                 ofpNumber: document.getElementById('ofp-number').value,
@@ -395,6 +474,14 @@
             const savedData = localStorage.getItem('flightPrepData');
             if (savedData) {
                 const data = JSON.parse(savedData);
+                // Load documents
+                document.getElementById('doc-passport').checked = data.docPassport || false;
+                document.getElementById('doc-visa').checked = data.docVisa || false;
+                document.getElementById('doc-company-id').checked = data.docCompanyId || false;
+                document.getElementById('doc-license').checked = data.docLicense || false;
+                document.getElementById('doc-medical').checked = data.docMedical || false;
+                document.getElementById('doc-vaccination').checked = data.docVaccination || false;
+                // Load flight data
                 document.getElementById('flight-number').value = data.flightNumber || '';
                 document.getElementById('call-sign').value = data.callSign || '';
                 document.getElementById('ofp-number').value = data.ofpNumber || '';
