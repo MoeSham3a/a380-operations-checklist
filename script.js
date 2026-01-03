@@ -148,6 +148,15 @@ const checklistInfo = {
             <img src="Pre-departure-PA.JPG" alt="Pre-departure PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
             <span>USA specific</span>
             <img src="USA-PA.JPG" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
+            <span>Arabic PA:<br>
+            
+            يشاركني في قمرة القيادة (Rank/Name). أما مسؤول طاقم الخدمة فهي/فهو (Purser Name)، ويساعدها/يساعده (CSV Name) في درجة الأعمال، و(CSV Name) في الدرجة السياحية. سيهتمون هم وبقية أفراد الطاقم بسلامتكم وراحتكم.
+            
+            سيستغرق زمن الرحلة إلى (Destination) حوالي (Time)، وسنحلق على ارتفاع (Altitude) ألف قدم. بإمكانكم متابعة مسار الرحلة عبر قناة العرض الجوي (Airshow). نتوقع أحوالاً جوية جيدة لمسارنا مع بعض المطبات الهوائية الخفيفة من حين لآخر. لذا، يرجى التأكد من ربط أحزمة المقاعد في جميع الأوقات أثناء جلوسكم، حتى في حال إطفاء إشارة ربط الأحزمة.
+            
+            سأقوم بتزويدكم بتحديث آخر عن حالة الطقس وموعد الوصول إلى (Destination) قبيل البدء في عملية الهبوط.
+            
+            نتمنى لكم رحلة ممتعة معنا، وإقامة طيبة.</span>
         `
     },
     // Add more items as needed
@@ -1310,12 +1319,84 @@ window.calculateRate1 = calculateRate1;
 window.calculateISA = calculateISA;
 window.calculateDensityAlt = calculateDensityAlt;
 
+// ===========================
+// Split Rest Calculator
+// ===========================
+function calculateSplitRest() {
+    const currentTimeInput = document.getElementById('split-current-time').value;
+    const arrivalTimeInput = document.getElementById('split-arrival-time').value;
+
+    // Validate inputs
+    if (!currentTimeInput || !arrivalTimeInput) {
+        alert('Please enter both current time and arrival time');
+        return;
+    }
+
+    // Parse times
+    const [currentHour, currentMin] = currentTimeInput.split(':').map(Number);
+    const [arrivalHour, arrivalMin] = arrivalTimeInput.split(':').map(Number);
+
+    // Convert to minutes since midnight
+    let currentMinutes = currentHour * 60 + currentMin;
+    let arrivalMinutes = arrivalHour * 60 + arrivalMin;
+
+    // Handle overnight/next day scenarios
+    // If arrival is "earlier" than current, assume it's the next day
+    if (arrivalMinutes <= currentMinutes) {
+        arrivalMinutes += 24 * 60; // Add 24 hours
+    }
+
+    // Calculate total rest in minutes
+    const totalRestMinutes = arrivalMinutes - currentMinutes;
+
+    // Subtract 1 hour (60 minutes) buffer
+    const restAfterBuffer = totalRestMinutes - 60;
+
+    // Helper function to format minutes to HH:MM or Xh Ym
+    function formatMinutes(minutes) {
+        if (minutes < 0) return '0h 0m';
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours}h ${mins.toString().padStart(2, '0')}m`;
+    }
+
+    // Calculate splits
+    const equalSplitMinutes = restAfterBuffer / 2;
+    const firstRestMinutes = (restAfterBuffer / 2) * (2 / 3);
+    const secondRestMinutes = (restAfterBuffer / 2) * (1 / 3);
+
+    // Display results
+    document.getElementById('split-total-result').textContent = formatMinutes(totalRestMinutes);
+    document.getElementById('split-buffer-result').textContent = formatMinutes(restAfterBuffer);
+    document.getElementById('split-equal-result').textContent = formatMinutes(equalSplitMinutes) + ' each';
+    document.getElementById('split-first-result').textContent = formatMinutes(Math.round(firstRestMinutes));
+    document.getElementById('split-second-result').textContent = formatMinutes(Math.round(secondRestMinutes));
+
+    // Show result containers
+    document.getElementById('split-total-container').style.display = 'flex';
+    document.getElementById('split-buffer-container').style.display = 'flex';
+    document.getElementById('split-equal-container').style.display = 'flex';
+    document.getElementById('split-unequal-container').style.display = 'block';
+
+    // Warning for insufficient rest
+    if (restAfterBuffer < 0) {
+        document.getElementById('split-buffer-result').style.color = '#ef4444';
+        alert('⚠️ Warning: Flight duration is too short for rest periods after 1-hour buffer.');
+    } else {
+        document.getElementById('split-buffer-result').style.color = '';
+    }
+}
+
+// Make globally accessible
+window.calculateSplitRest = calculateSplitRest;
+
 // Reset Checklist Function
 function resetChecklist() {
     // Confirm before resetting
     const confirmed = confirm(
         '⚠️ Reset Checklist?\n\n' +
-        'This will uncheck all items in the current checklist.\n' +
+        'This will clear all items and restore the default checklist.\n' +
+        'Custom items will be removed.\n' +
         'This action cannot be undone.\n\n' +
         'Do you want to continue?'
     );
@@ -1324,17 +1405,19 @@ function resetChecklist() {
         return;
     }
 
-    // Uncheck all tasks
-    tasks.forEach(task => {
-        task.completed = false;
-    });
+    // Clear all tasks and repopulate with default checklist
+    if (currentChecklist === 'preflight') {
+        tasks = getDefaultChecklist();
+    } else {
+        tasks = getCruiseChecklist();
+    }
 
     // Save and update UI
     saveTasksToStorage();
     renderTasks();
     updateStats();
 
-    // Show success notification (optional)
+    // Show success notification
     showResetNotification();
 }
 

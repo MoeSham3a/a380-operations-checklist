@@ -351,6 +351,10 @@
                     <span class="toolkit-icon">⏱️</span>
                     <span class="toolkit-label">FDP Calc</span>
                 </button>
+                <button class="toolkit-btn" onclick="openToolkit('splitrest')" aria-label="Split Rest Calculator">
+                    <span class="toolkit-icon">😴</span>
+                    <span class="toolkit-label">Split Rest</span>
+                </button>
                 <a href="mindmap.html" class="toolkit-btn mindmap-btn" aria-label="Workflow Mind Map">
                     <span class="toolkit-icon">🗺️</span>
                     <span class="toolkit-label">Workflow</span>
@@ -647,6 +651,60 @@
                 <div class="isa-info">
                     <p class="isa-note">📋 Based on EK OMA Chapter 7<br>
                         ⚠️ For reference only - always consult updated official FTL documentation</p>
+                </div>
+            </div>
+
+            <!-- Split Rest Calculator -->
+            <div id="splitrest-toolkit" class="toolkit-panel hidden">
+                <h3 class="toolkit-title">Split Rest Calculator</h3>
+
+                <div class="calc-group">
+                    <label class="calc-label">Current Time</label>
+                    <input type="time" id="split-current-time" class="calc-input fdp-time-input">
+                </div>
+
+                <div class="calc-group">
+                    <label class="calc-label">Arrival Time</label>
+                    <input type="time" id="split-arrival-time" class="calc-input fdp-time-input">
+                </div>
+
+                <button class="calc-button" onclick="calculateSplitRest()">Calculate Rest Periods</button>
+
+                <div class="calc-results">
+                    <div class="result-item fdp-result-main" id="split-total-container" style="display:none;">
+                        <span class="result-label">Total Rest Available:</span>
+                        <span id="split-total-result" class="result-value fdp-highlight">--</span>
+                    </div>
+
+                    <div class="result-item" id="split-buffer-container" style="display:none;">
+                        <span class="result-label">After 1hr Buffer:</span>
+                        <span id="split-buffer-result" class="result-value">--</span>
+                    </div>
+                </div>
+
+                <div class="calc-section-divider"></div>
+
+                <div class="calc-results">
+                    <div class="result-item" id="split-equal-container" style="display:none;">
+                        <span class="result-label">Equal Split (50/50):</span>
+                        <span id="split-equal-result" class="result-value">--</span>
+                    </div>
+
+                    <div class="fdp-ext-info-box" id="split-unequal-container" style="display:none;">
+                        <div class="info-row">
+                            <span class="info-label">First Rest (2/3):</span>
+                            <span id="split-first-result" class="info-value-large">--</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Second Rest (1/3):</span>
+                            <span id="split-second-result" class="info-value-large">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="isa-info">
+                    <p class="isa-note">📋 Formula: (Total - 1hr) ÷ 2<br>
+                        💡 Unequal split gives more rest to the pilot flying first leg</p>
                 </div>
             </div>
         </div>

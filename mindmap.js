@@ -119,6 +119,28 @@ const mindMapData = {
             name: "Ground Operations\nand Fueling (AT GATE)",
             children: [
                 {
+                    name: "Engine Oil (FCOM/Limitations/Engine))",
+                    children: [
+                        { name: "EA: 10 quarts / 6 + 0.4 quarts per hour" },
+                        { name: "RR: 10 quarts / 6 + 0.5 quarts per hour" },
+                    ]
+                },
+                {
+                    name: "Flight Crew Oxygen (FCOM/Limitations/oxygen))",
+                    children: [
+                        { name: "2 crew 600 psi" },
+                        { name: "3 crew 750 psi" },
+                        { name: "4 crew 1000 psi" }
+                    ]
+                },
+                {
+                    name: "Cabin Oxygen (FCOM/Limitations/oxygen))",
+                    children: [
+                        { name: "With first class: 1300 psi - DARD 1650 psi" },
+                        { name: "Without first class: 1350 psi - DARD 1750 psi" }
+                    ]
+                },
+                {
                     name: "Fueling (OMA 8.2.1)",
                     children: [
                         { name: "Ramp Fuel -5T" },

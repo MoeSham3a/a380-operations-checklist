@@ -1,5 +1,5 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.1.2';
+const APP_VERSION = '1.2.1';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 
 // Comprehensive list of assets to cache
