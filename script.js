@@ -149,14 +149,7 @@ const checklistInfo = {
             <span>USA specific</span>
             <img src="USA-PA.JPG" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
             <span>Arabic PA:<br>
-            
-            يشاركني في قمرة القيادة (Rank/Name). أما مسؤول طاقم الخدمة فهي/فهو (Purser Name)، ويساعدها/يساعده (CSV Name) في درجة الأعمال، و(CSV Name) في الدرجة السياحية. سيهتمون هم وبقية أفراد الطاقم بسلامتكم وراحتكم.
-            
-            سيستغرق زمن الرحلة إلى (Destination) حوالي (Time)، وسنحلق على ارتفاع (Altitude) ألف قدم. بإمكانكم متابعة مسار الرحلة عبر قناة العرض الجوي (Airshow). نتوقع أحوالاً جوية جيدة لمسارنا مع بعض المطبات الهوائية الخفيفة من حين لآخر. لذا، يرجى التأكد من ربط أحزمة المقاعد في جميع الأوقات أثناء جلوسكم، حتى في حال إطفاء إشارة ربط الأحزمة.
-            
-            سأقوم بتزويدكم بتحديث آخر عن حالة الطقس وموعد الوصول إلى (Destination) قبيل البدء في عملية الهبوط.
-            
-            نتمنى لكم رحلة ممتعة معنا، وإقامة طيبة.</span>
+            </span>
         `
     },
     // Add more items as needed
@@ -674,7 +667,8 @@ function getCruiseChecklist() {
         'Decompression Strategy',
         'DARD (if applicable)',
         'Track and Distance (if applicable)',
-        'Dest Alternate route'
+        'Dest Alternate route',
+        'Wind Update'
     ];
 
     const cruiseTasks = [];
@@ -1452,6 +1446,7 @@ function openDecisionMakingChecklist() {
     const modal = document.getElementById('decision-making-modal');
     if (modal) {
         modal.classList.remove('hidden');
+        loadDMChecklistState();
     }
 }
 
@@ -1465,6 +1460,102 @@ function closeDecisionMakingChecklist() {
 // Make globally accessible
 window.openDecisionMakingChecklist = openDecisionMakingChecklist;
 window.closeDecisionMakingChecklist = closeDecisionMakingChecklist;
+
+// ===========================
+// Departure Change Checklist Functions
+// ===========================
+function openDepartureChangeChecklist() {
+    const modal = document.getElementById('departure-change-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        loadDCChecklistState();
+    }
+}
+
+function closeDepartureChangeChecklist() {
+    const modal = document.getElementById('departure-change-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+// Make globally accessible
+window.openDepartureChangeChecklist = openDepartureChangeChecklist;
+window.closeDepartureChangeChecklist = closeDepartureChangeChecklist;
+
+// ===========================
+// Decision Making Checklist State Management
+// ===========================
+function saveDMChecklistState() {
+    const checkboxes = document.querySelectorAll('.dm-checkbox[id^="dm-check-"]');
+    const state = {};
+    checkboxes.forEach(checkbox => {
+        state[checkbox.id] = checkbox.checked;
+    });
+    localStorage.setItem('dm-checklist-state', JSON.stringify(state));
+}
+
+function loadDMChecklistState() {
+    const stored = localStorage.getItem('dm-checklist-state');
+    if (stored) {
+        const state = JSON.parse(stored);
+        Object.keys(state).forEach(id => {
+            const checkbox = document.getElementById(id);
+            if (checkbox) {
+                checkbox.checked = state[id];
+            }
+        });
+    }
+}
+
+function resetDMChecklist() {
+    const checkboxes = document.querySelectorAll('.dm-checkbox[id^="dm-check-"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    saveDMChecklistState();
+}
+
+// ===========================
+// Departure Change Checklist State Management
+// ===========================
+function saveDCChecklistState() {
+    const checkboxes = document.querySelectorAll('.dm-checkbox[id^="dc-check-"]');
+    const state = {};
+    checkboxes.forEach(checkbox => {
+        state[checkbox.id] = checkbox.checked;
+    });
+    localStorage.setItem('dc-checklist-state', JSON.stringify(state));
+}
+
+function loadDCChecklistState() {
+    const stored = localStorage.getItem('dc-checklist-state');
+    if (stored) {
+        const state = JSON.parse(stored);
+        Object.keys(state).forEach(id => {
+            const checkbox = document.getElementById(id);
+            if (checkbox) {
+                checkbox.checked = state[id];
+            }
+        });
+    }
+}
+
+function resetDCChecklist() {
+    const checkboxes = document.querySelectorAll('.dm-checkbox[id^="dc-check-"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    saveDCChecklistState();
+}
+
+// Make globally accessible
+window.saveDMChecklistState = saveDMChecklistState;
+window.loadDMChecklistState = loadDMChecklistState;
+window.resetDMChecklist = resetDMChecklist;
+window.saveDCChecklistState = saveDCChecklistState;
+window.loadDCChecklistState = loadDCChecklistState;
+window.resetDCChecklist = resetDCChecklist;
 
 // ===========================
 // Utility Functions

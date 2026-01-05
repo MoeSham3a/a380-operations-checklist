@@ -183,6 +183,10 @@
                     aria-label="Decision Making Checklist">
                     ⚡ DM
                 </button>
+                <button id="departure-change-btn" class="decision-making-btn" onclick="openDepartureChangeChecklist()"
+                    aria-label="Departure Change Checklist">
+                    🔄 Dep Change
+                </button>
                 <button id="next-checklist-btn" class="next-checklist-btn" aria-label="Next checklist">
                     Next →
                 </button>
@@ -220,58 +224,152 @@
                 <h3 class="modal-title">⚡ Decision Making Checklist</h3>
                 <div class="dm-checklist">
                     <div class="dm-item">
-                        <span class="dm-number">1</span>
-                        <span class="dm-text">Aviate - Navigate - Communicate</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-1" onchange="saveDMChecklistState()">
+                        <label for="dm-check-1">
+                            <span class="dm-number">1</span>
+                            <span class="dm-text">Aviate - Navigate - Communicate</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">2</span>
-                        <span class="dm-text">Confirm Failure</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-2" onchange="saveDMChecklistState()">
+                        <label for="dm-check-2">
+                            <span class="dm-number">2</span>
+                            <span class="dm-text">Confirm Failure</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">3</span>
-                        <span class="dm-text">OEB</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-3" onchange="saveDMChecklistState()">
+                        <label for="dm-check-3">
+                            <span class="dm-number">3</span>
+                            <span class="dm-text">OEB</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">4</span>
-                        <span class="dm-text">ECAM Actions</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-4" onchange="saveDMChecklistState()">
+                        <label for="dm-check-4">
+                            <span class="dm-number">4</span>
+                            <span class="dm-text">ECAM Actions</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">5</span>
-                        <span class="dm-text">Status? Stop ECAM</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-5" onchange="saveDMChecklistState()">
+                        <label for="dm-check-5">
+                            <span class="dm-number">5</span>
+                            <span class="dm-text">Status? Stop ECAM</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">6</span>
-                        <span class="dm-text">Checklist - Reset - Deferred Procedure (relight - overweight)</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-6" onchange="saveDMChecklistState()">
+                        <label for="dm-check-6">
+                            <span class="dm-number">6</span>
+                            <span class="dm-text">Checklist - Reset - Deferred Procedure (relight - overweight)</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">7</span>
-                        <span class="dm-text">Read Status</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-7" onchange="saveDMChecklistState()">
+                        <label for="dm-check-7">
+                            <span class="dm-number">7</span>
+                            <span class="dm-text">Read Status</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">8</span>
-                        <span class="dm-text">ECAM Actions Complete</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-8" onchange="saveDMChecklistState()">
+                        <label for="dm-check-8">
+                            <span class="dm-number">8</span>
+                            <span class="dm-text">ECAM Actions Complete</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">9</span>
-                        <span class="dm-text">Can we? Fuel Weather LDPA Overweight Specials</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-9" onchange="saveDMChecklistState()">
+                        <label for="dm-check-9">
+                            <span class="dm-number">9</span>
+                            <span class="dm-text">Can we? Fuel Weather LDPA Overweight Specials</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">10</span>
-                        <span class="dm-text">FCOM layer 3/MEL</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-10" onchange="saveDMChecklistState()">
+                        <label for="dm-check-10">
+                            <span class="dm-number">10</span>
+                            <span class="dm-text">FCOM layer 3/MEL</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">11</span>
-                        <span class="dm-text">Call Company (VPNC-MCC-TPOD-MPOD)</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-11" onchange="saveDMChecklistState()">
+                        <label for="dm-check-11">
+                            <span class="dm-number">11</span>
+                            <span class="dm-text">Call Company (VPNC-MCC-TPOD-MPOD)</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">12</span>
-                        <span class="dm-text">Brief situation & give more than 1 option</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-12" onchange="saveDMChecklistState()">
+                        <label for="dm-check-12">
+                            <span class="dm-number">12</span>
+                            <span class="dm-text">Brief situation & give more than 1 option</span>
+                        </label>
                     </div>
                     <div class="dm-item">
-                        <span class="dm-number">13</span>
-                        <span class="dm-text">NITS (Purser & Pax)</span>
+                        <input type="checkbox" class="dm-checkbox" id="dm-check-13" onchange="saveDMChecklistState()">
+                        <label for="dm-check-13">
+                            <span class="dm-number">13</span>
+                            <span class="dm-text">NITS (Purser & Pax)</span>
+                        </label>
                     </div>
                 </div>
+                <button class="dm-reset-btn" onclick="resetDMChecklist()">↺ Reset Decision Making</button>
+            </div>
+        </div>
+
+        <!-- Departure Change Checklist Modal -->
+        <div id="departure-change-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeDepartureChangeChecklist()"></div>
+            <div class="modal-content dm-modal-content">
+                <button class="modal-close" onclick="closeDepartureChangeChecklist()" aria-label="Close">×</button>
+                <h3 class="modal-title">🔄 Departure Change Checklist</h3>
+                <div class="dm-checklist">
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-1" onchange="saveDCChecklistState()">
+                        <label for="dc-check-1">
+                            <span class="dm-number">1</span>
+                            <span class="dm-text">TOPA</span>
+                        </label>
+                    </div>
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-2" onchange="saveDCChecklistState()">
+                        <label for="dc-check-2">
+                            <span class="dm-number">2</span>
+                            <span class="dm-text">PERF</span>
+                        </label>
+                    </div>
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-3" onchange="saveDCChecklistState()">
+                        <label for="dc-check-3">
+                            <span class="dm-number">3</span>
+                            <span class="dm-text">FPLN</span>
+                        </label>
+                    </div>
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-4" onchange="saveDCChecklistState()">
+                        <label for="dc-check-4">
+                            <span class="dm-number">4</span>
+                            <span class="dm-text">FIX Info</span>
+                        </label>
+                    </div>
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-5" onchange="saveDCChecklistState()">
+                        <label for="dc-check-5">
+                            <span class="dm-number">5</span>
+                            <span class="dm-text">ISIS Fix</span>
+                        </label>
+                    </div>
+                    <div class="dm-item">
+                        <input type="checkbox" class="dm-checkbox" id="dc-check-6" onchange="saveDCChecklistState()">
+                        <label for="dc-check-6">
+                            <span class="dm-number">6</span>
+                            <span class="dm-text">Sec FPLN</span>
+                        </label>
+                    </div>
+                </div>
+                <button class="dm-reset-btn" onclick="resetDCChecklist()">↺ Reset Departure Change</button>
             </div>
         </div>
 

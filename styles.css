@@ -2585,3 +2585,103 @@ body::before {
         min-height: 300px;
     }
 }
+/* ===========================
+   Modal Checklist Checkboxes
+   =========================== */
+.dm-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(139, 92, 246, 0.5);
+    border-radius: 6px;
+    background: rgba(15, 23, 42, 0.4);
+    cursor: pointer;
+    position: relative;
+    transition: all var(--transition-base);
+    flex-shrink: 0;
+}
+
+.dm-checkbox:hover {
+    border-color: var(--color-primary);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.dm-checkbox:checked {
+    background: var(--gradient-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.dm-checkbox:checked::after {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dm-item label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    flex: 1;
+}
+
+.dm-item label:hover .dm-number {
+    transform: scale(1.05);
+}
+
+.dm-item input[type="checkbox"]:checked ~ label .dm-text {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+/* Reset Button for Modal Checklists */
+.dm-reset-btn {
+    width: 100%;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    border-radius: var(--radius-md);
+    color: #ef4444;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.dm-reset-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.dm-reset-btn:active {
+    transform: scale(0.98);
+}
+
+/* Light theme support for checkboxes */
+[data-theme="light"] .dm-checkbox {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(124, 58, 237, 0.4);
+}
+
+[data-theme="light"] .dm-checkbox:hover {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+[data-theme="light"] .dm-reset-btn {
+    background: rgba(239, 68, 68, 0.05);
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+[data-theme="light"] .dm-reset-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
