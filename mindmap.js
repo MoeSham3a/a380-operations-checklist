@@ -18,8 +18,8 @@ const mindMapData = {
                 {
                     name: "Reporting Time",
                     children: [
-                        { name: "1:25 in Dubai (DXB) before STD" },
-                        { name: "1 hour outstation before STD" },
+                        { name: "1:25 in Dubai (DXB) before STD (OMA 7.6.1)" },
+                        { name: "1 hour outstation before STD (OMA 7.6.1)" },
                     ]
                 },
             ]
@@ -31,8 +31,8 @@ const mindMapData = {
                 {
                     name: "Flight Time Limits (Block Time)",
                     children: [
-                        { name: "Segment 1: 16 hours or less" },
-                        { name: "Segment 2: More than 16 hours" },
+                        { name: "Segment 1: 16 hours or less (OMA 7.E.1.2)" },
+                        { name: "Segment 2: More than 16 hours (OMA 7.E.1.2)" },
                     ]
                 },
                 {
@@ -43,15 +43,15 @@ const mindMapData = {
                         {
                             name: "Extension of FDP",
                             children: [
-                                { name: "Max 18 hours if bunk available" },
-                                { name: "Max 15 hours if bunk not available" },
+                                { name: "Max 18 hours if bunk available (OMA 7.7.1.3)" },
+                                { name: "Max 15 hours if bunk not available (OMA 7.7.1.3)" },
                             ]
                         },
-                        { name: "Commander's Discretion: 3 hours max (except emergency)" }
+                        { name: "Commander's Discretion: 3 hours max (except emergency) (OMA 7.15)" }
                     ]
                 },
                 {
-                    name: "Duty Hour Limits (Max Duty Hours 7.19",
+                    name: "Duty Hour Limits (Max Duty Hours) 7.19",
                     children: [
                         { name: "55 hours in any 7 consecutive days" },
                         { name: "90 hours in any 14 consecutive days" },
@@ -70,7 +70,7 @@ const mindMapData = {
         {
             name: "Crew Requirements\nand Briefing",
             children: [
-                { name: "Report Time (Briefing Room): 01.25 DXB/01:15 Outstation" },
+                { name: "Report Time (Briefing Room): 01.25 DXB/01:15 Outstation (LRV 7.E.2)" },
                 {
                     name: "Minimum Cabin Crew Complement (OMA 4.3.1)",
                     children: [
@@ -107,7 +107,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Cabin Crew Reduction (OMA 7.E.8",
+                    name: "Cabin Crew Reduction (OMA 7.E.8)",
                     children: [
                         { name: "Reduced by 1 departing DXB" },
                         { name: "Reduced by 2 departing outstation" }
@@ -150,18 +150,18 @@ const mindMapData = {
                 {
                     name: "Refueling with passengers",
                     children: [
-                        { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)" }
+                        { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)\nOMA 8.2.1.3.2" }
                     ]
                 },
                 {
-                    name: "Fuel Uplift Check",
+                    name: "Fuel Uplift Check (OMA 8.2.1.4)",
                     children: [
                         { name: "Actual>Calculated: 5% up to 2 tons" },
                         { name: "Actual<Calculated: 5% up to 1 ton" }
                     ]
                 },
                 {
-                    name: "Fuel Freezing point",
+                    name: "Fuel Freezing point (OMA 8.2.1.5)",
                     children: [
                         { name: "Uplift >= 90% loaded fuel: Freezing point = fuel uploaded type" },
                         { name: "Uplift < 90% loaded fuel: Freezing point = lowest fuel freezing point (Jet A)" }
@@ -186,7 +186,7 @@ const mindMapData = {
         {
             name: "Departure and Taxi",
             children: [
-                { name: "OTP Departure Window: -10/+3 Off Blocks" },
+                { name: "OTP Departure Window: -10/+3 Off Blocks (OMC 1.1.2)" },
                 {
                     name: "Engine Start Fault ECAM (Pushback)",
                     children: [
@@ -232,11 +232,11 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Fuel Status Definintion",
+                    name: "Fuel Status Definition",
                     children: [
-                        { name: "Commit to Land: Landing >= FRF" },
-                        { name: "Minimum Fuel: Change to clearance risks landing < FRF" },
-                        { name: "Mayday Fuel: Landing < FRF" }
+                        { name: "Commit to Land: Landing >= FRF (OMA 8.3.7.2.2)" },
+                        { name: "Minimum Fuel: Change to clearance risks landing < FRF (OMA 8.3.7.4)" },
+                        { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
                     ]
                 },
                 { name: "Fuel Freezing (OMC 10.1.9): -65 degrees C or colder for > 90 minutes" }
@@ -246,7 +246,7 @@ const mindMapData = {
             name: "Descent, Approach,\nand Landing",
             children: [
                 {
-                    name: "Minimum Rate of Descent (fpm)",
+                    name: "Minimum Rate of Descent (OMA 8.3.20.2.22)",
                     children: [
                         { name: "Above 5,000 ft AGL: 5,000 fpm" },
                         { name: "5,000-3,000 ft AGL: 3,000 fpm" },
@@ -255,7 +255,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Approach Stabilization Criteria",
+                    name: "Approach Stabilization Criteria (OMA 8.3.20.2.28)",
                     children: [
                         {
                             name: "At 1,000 ft AAL",
@@ -281,7 +281,7 @@ const mindMapData = {
             name: "Post-Flight\nRequirements",
             children: [
                 {
-                    name: "Rest Period (Greater of)",
+                    name: "Rest Period (Greater of) (OMA 7.6.1)",
                     children: [
                         { name: "As long as preceeding duty period" },
                         { name: "12 hours" }
