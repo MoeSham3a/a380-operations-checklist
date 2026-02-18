@@ -146,7 +146,7 @@ const checklistInfo = {
         title: 'Passenger Announcements',
         content: `
             <img src="Pre-departure-PA.JPG" alt="Pre-departure PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
-            <span>USA specific</span>
+            <span>USA specific (Inbound USA)</span>
             <img src="USA-PA.JPG" alt="USA PA" style="width: 100%; max-width: 600px; border-radius: 8px;">
             <span>Arabic PA:<br>
             </span>

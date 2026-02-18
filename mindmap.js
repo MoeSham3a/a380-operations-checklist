@@ -246,7 +246,7 @@ const mindMapData = {
             name: "Descent, Approach,\nand Landing",
             children: [
                 {
-                    name: "Minimum Rate of Descent (OMA 8.3.20.2.22)",
+                    name: "Maximum Rate of Descent (OMA 8.3.20.2.22)",
                     children: [
                         { name: "Above 5,000 ft AGL: 5,000 fpm" },
                         { name: "5,000-3,000 ft AGL: 3,000 fpm" },

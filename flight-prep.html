@@ -26,7 +26,7 @@
 
     <style>
         .flight-prep-container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: var(--spacing-lg);
         }
@@ -57,7 +57,7 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: var(--spacing-lg);
         }
 
@@ -76,7 +76,8 @@
         }
 
         .form-input,
-        .form-textarea {
+        .form-textarea,
+        .form-select {
             background: rgba(15, 23, 42, 0.4);
             border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: var(--radius-md);
@@ -88,11 +89,27 @@
         }
 
         .form-input:focus,
-        .form-textarea:focus {
+        .form-textarea:focus,
+        .form-select:focus {
             outline: none;
             border-color: var(--color-primary);
             background: rgba(15, 23, 42, 0.6);
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238b5cf6' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .form-select option {
+            background: #1e293b;
+            color: #f1f5f9;
         }
 
         .form-textarea {
@@ -193,7 +210,162 @@
             }
         }
 
+        /* ── Sector Selector ── */
+        .sector-selector-section {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.4s ease-out;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
 
+        .sector-selector-label {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            white-space: nowrap;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .sector-selector-label span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sector-count-select {
+            width: 180px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: var(--spacing-md) var(--spacing-lg);
+            padding-right: 44px;
+        }
+
+        /* ── Sector Container ── */
+        #sectors-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        /* ── Sector Block ── */
+        .sector-block {
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 2px solid transparent;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .sector-block[data-sector="1"] {
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .sector-block[data-sector="2"] {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .sector-block[data-sector="3"] {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .sector-block[data-sector="4"] {
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .sector-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            color: white;
+        }
+
+        .sector-block[data-sector="1"] .sector-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(109, 40, 217, 0.2));
+        }
+
+        .sector-block[data-sector="2"] .sector-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(29, 78, 216, 0.2));
+        }
+
+        .sector-block[data-sector="3"] .sector-header {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.2));
+        }
+
+        .sector-block[data-sector="4"] .sector-header {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.2));
+        }
+
+        .sector-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .sector-block[data-sector="1"] .sector-badge {
+            background: rgba(139, 92, 246, 0.6);
+        }
+
+        .sector-block[data-sector="2"] .sector-badge {
+            background: rgba(59, 130, 246, 0.6);
+        }
+
+        .sector-block[data-sector="3"] .sector-badge {
+            background: rgba(16, 185, 129, 0.6);
+        }
+
+        .sector-block[data-sector="4"] .sector-badge {
+            background: rgba(245, 158, 11, 0.6);
+        }
+
+        .sector-inner {
+            padding: var(--spacing-lg);
+            background: rgba(15, 23, 42, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        /* ── Multi-sector: sub-sections inside a sector ── */
+        .sector-sub-section {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+        }
+
+        .sub-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        /* ── Documents section ── */
         .doc-checkbox {
             width: 20px;
             height: 20px;
@@ -235,6 +407,15 @@
             .nav-title {
                 font-size: 1.5rem;
             }
+
+            .sector-selector-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sector-count-select {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -247,8 +428,22 @@
             <a href="index.html" class="back-btn">← Back to Checklist</a>
         </header>
 
-        <!-- Documents Checklist Section -->
-        <section class="prep-section">
+        <!-- Sector Selector -->
+        <div class="sector-selector-section">
+            <label class="sector-selector-label" for="sector-count-select">
+                🗂️ <span>How many sectors operating today?</span>
+            </label>
+            <select id="sector-count-select" class="form-select form-input sector-count-select"
+                onchange="handleSectorChange(this.value)">
+                <option value="1">1 Sector</option>
+                <option value="2">2 Sectors</option>
+                <option value="3">3 Sectors</option>
+                <option value="4">4 Sectors</option>
+            </select>
+        </div>
+
+        <!-- Documents Checklist Section (shared – not duplicated) -->
+        <section class="prep-section" id="documents-section">
             <h2 class="section-title">📄 Documents Check</h2>
             <div class="form-grid">
                 <div class="form-group">
@@ -290,223 +485,369 @@
             </div>
         </section>
 
-        <!-- OFP Section -->
-        <section class="prep-section">
-            <h2 class="section-title">📋 Operational Flight Plan (OFP)</h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label" for="flight-number">Flight Number</label>
-                    <input type="text" id="flight-number" class="form-input" placeholder="EK123">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="call-sign">Call Sign</label>
-                    <input type="text" id="call-sign" class="form-input" placeholder="UAE123">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="ofp-number">OFP Number</label>
-                    <input type="text" id="ofp-number" class="form-input" placeholder="12345">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="registration">Registration</label>
-                    <input type="text" id="registration" class="form-input" placeholder="A6-XXX">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="engine-type">Engine Type</label>
-                    <input type="text" id="engine-type" class="form-input" placeholder="Trent 970/972">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="cost-index">Cost Index</label>
-                    <input type="number" id="cost-index" class="form-input" placeholder="40">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="cruise-altitude">Initial Cruising Altitude</label>
-                    <input type="text" id="cruise-altitude" class="form-input" placeholder="FL350">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="taxi-time">Expected Taxi Time</label>
-                    <input type="text" id="taxi-time" class="form-input" placeholder="15 min">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="trip-time">Trip Time</label>
-                    <input type="text" id="trip-time" class="form-input" placeholder="07:35">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="contingency-fuel">Contingency Fuel</label>
-                    <input type="text" id="contingency-fuel" class="form-input" placeholder="5%">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="additional-fuel">Additional Fuel</label>
-                    <input type="text" id="additional-fuel" class="form-input" placeholder="2.0 tons">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="alternate-airport">Alternate Airport</label>
-                    <input type="text" id="alternate-airport" class="form-input" placeholder="OMDB">
-                </div>
-            </div>
-        </section>
-
-        <!-- MEL/CDL Section -->
-        <section class="prep-section">
-            <h2 class="section-title">🔧 MEL/CDL</h2>
-            <div class="form-group">
-                <label class="form-label" for="mel-cdl">MEL/CDL Items</label>
-                <textarea id="mel-cdl" class="form-textarea"
-                    placeholder="Enter MEL/CDL items...&#10;Example:&#10;MEL 21-31-01A - APU BLEED VALVE INOPERATIVE"></textarea>
-            </div>
-        </section>
-
-        <!-- AIRAC/ERM Section -->
-        <section class="prep-section">
-            <h2 class="section-title">📅 AIRAC/ERM</h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label" for="airac-cycle">AIRAC Cycle</label>
-                    <input type="text" id="airac-cycle" class="form-input" placeholder="2513">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="erm-updates">ERM Updates</label>
-                    <input type="text" id="erm-updates" class="form-input" placeholder="ERM Revision">
-                </div>
-            </div>
-            <div class="form-group" style="margin-top: var(--spacing-lg);">
-                <label class="form-label" for="airac-notes">Notes</label>
-                <textarea id="airac-notes" class="form-textarea"
-                    placeholder="AIRAC updates and ERM revision notes..."></textarea>
-            </div>
-        </section>
-
-        <!-- NOTAMs/Weather Section -->
-        <section class="prep-section">
-            <h2 class="section-title">🌦️ NOTAMs/Weather</h2>
-            <div class="form-group">
-                <label class="form-label" for="notams">NOTAMs</label>
-                <textarea id="notams" class="form-textarea"
-                    placeholder="Enter relevant NOTAMs...&#10;Example:&#10;OMDB - RWY 12R/30L CLSD"></textarea>
-            </div>
-            <div class="form-group" style="margin-top: var(--spacing-lg);">
-                <label class="form-label" for="weather">Weather Briefing</label>
-                <textarea id="weather" class="form-textarea"
-                    placeholder="Weather information, TAF, METAR, significant weather..."></textarea>
-            </div>
-        </section>
-
-        <!-- FCI/FCN/ACI/SCB/Network Report Section -->
-        <section class="prep-section">
-            <h2 class="section-title">📢 FCI/FCN/ACI/SCB/Network Report</h2>
-            <div class="form-group">
-                <label class="form-label" for="company-notices">Company Notices</label>
-                <textarea id="company-notices" class="form-textarea"
-                    placeholder="Enter relevant company notices...&#10;- FCI (Flight Crew Information)&#10;- FCN (Flight Crew Notice)&#10;- ACI (Airport Crew Information)&#10;- SCB (Station Crew Briefing)&#10;- Network Reports"></textarea>
-            </div>
-        </section>
-
-        <!-- Threats Section -->
-        <section class="prep-section">
-            <h2 class="section-title">⚠️ Threats</h2>
-            <div class="form-group">
-                <label class="form-label" for="threats">Operational Threats</label>
-                <textarea id="threats" class="form-textarea"
-                    placeholder="Identify operational threats...&#10;Example:&#10;- Complex departure procedure&#10;- Weather at destination&#10;- Time pressure&#10;- Fatigue considerations"></textarea>
-            </div>
-        </section>
-
-        <!-- Rest Strategy Section -->
-        <section class="prep-section">
-            <h2 class="section-title">😴 Rest Strategy</h2>
-            <div class="form-group">
-                <label class="form-label" for="rest-strategy">Crew Rest Planning</label>
-                <textarea id="rest-strategy" class="form-textarea"
-                    placeholder="Plan crew rest periods...&#10;Example:&#10;- Rest slots and duration&#10;- Bunk assignment&#10;- Fatigue mitigation strategies"></textarea>
-            </div>
-        </section>
+        <!-- Dynamic Sectors Container -->
+        <div id="sectors-container"></div>
 
         <!-- Save Button -->
         <button class="save-btn" onclick="saveFlightPrep()">💾 Save Flight Preparation</button>
     </div>
 
     <script>
-        // Load saved data on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            loadFlightPrep();
-        });
+        // ─────────────────────────────────────────────
+        // Sector colours / labels
+        // ─────────────────────────────────────────────
+        const SECTOR_COLORS = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b'];
+        const SECTOR_EMOJIS = ['🟣', '🔵', '🟢', '🟡'];
 
-        // Save flight preparation data
-        function saveFlightPrep() {
+        // ─────────────────────────────────────────────
+        // Generate HTML for one sector block
+        // ─────────────────────────────────────────────
+        function generateSectorHTML(n) {
+            const s = n; // sector number (1-based)
+            return `
+            <div class="sector-block" data-sector="${s}">
+                <div class="sector-header">
+                    <div class="sector-badge">${s}</div>
+                    Sector ${s}
+                </div>
+                <div class="sector-inner">
+
+                    <!-- OFP -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">📋 Operational Flight Plan (OFP)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="flight-number-${s}">Flight Number</label>
+                                <input type="text" id="flight-number-${s}" class="form-input" placeholder="EK123">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="call-sign-${s}">Call Sign</label>
+                                <input type="text" id="call-sign-${s}" class="form-input" placeholder="UAE123">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="ofp-number-${s}">OFP Number</label>
+                                <input type="text" id="ofp-number-${s}" class="form-input" placeholder="12345">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="registration-${s}">Registration</label>
+                                <input type="text" id="registration-${s}" class="form-input" placeholder="A6-XXX">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="engine-type-${s}">Engine Type</label>
+                                <input type="text" id="engine-type-${s}" class="form-input" placeholder="Trent 970/972">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cost-index-${s}">Cost Index</label>
+                                <input type="number" id="cost-index-${s}" class="form-input" placeholder="40">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cruise-altitude-${s}">Initial Cruising Altitude</label>
+                                <input type="text" id="cruise-altitude-${s}" class="form-input" placeholder="FL350">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="taxi-time-${s}">Expected Taxi Time</label>
+                                <input type="text" id="taxi-time-${s}" class="form-input" placeholder="15 min">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="trip-time-${s}">Trip Time</label>
+                                <input type="text" id="trip-time-${s}" class="form-input" placeholder="07:35">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contingency-fuel-${s}">Contingency Fuel</label>
+                                <input type="text" id="contingency-fuel-${s}" class="form-input" placeholder="5%">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="additional-fuel-${s}">Additional Fuel</label>
+                                <input type="text" id="additional-fuel-${s}" class="form-input" placeholder="2.0 tons">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="alternate-airport-${s}">Alternate Airport</label>
+                                <input type="text" id="alternate-airport-${s}" class="form-input" placeholder="OMDB">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEL/CDL -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">🔧 MEL/CDL</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="mel-cdl-${s}">MEL/CDL Items</label>
+                            <textarea id="mel-cdl-${s}" class="form-textarea"
+                                placeholder="Enter MEL/CDL items...&#10;Example:&#10;MEL 21-31-01A - APU BLEED VALVE INOPERATIVE"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- AIRAC/ERM -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">📅 AIRAC/ERM</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="airac-cycle-${s}">AIRAC Cycle</label>
+                                <input type="text" id="airac-cycle-${s}" class="form-input" placeholder="2513">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="erm-updates-${s}">ERM Updates</label>
+                                <input type="text" id="erm-updates-${s}" class="form-input" placeholder="ERM Revision">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: var(--spacing-lg);">
+                            <label class="form-label" for="airac-notes-${s}">Notes</label>
+                            <textarea id="airac-notes-${s}" class="form-textarea"
+                                placeholder="AIRAC updates and ERM revision notes..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- NOTAMs/Weather -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">🌦️ NOTAMs/Weather</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="notams-${s}">NOTAMs</label>
+                            <textarea id="notams-${s}" class="form-textarea"
+                                placeholder="Enter relevant NOTAMs...&#10;Example:&#10;OMDB - RWY 12R/30L CLSD"></textarea>
+                        </div>
+                        <div class="form-group" style="margin-top: var(--spacing-lg);">
+                            <label class="form-label" for="weather-${s}">Weather Briefing</label>
+                            <textarea id="weather-${s}" class="form-textarea"
+                                placeholder="Weather information, TAF, METAR, significant weather..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- FCI/FCN/ACI/SCB -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">📢 FCI/FCN/ACI/SCB/Network Report</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="company-notices-${s}">Company Notices</label>
+                            <textarea id="company-notices-${s}" class="form-textarea"
+                                placeholder="Enter relevant company notices...&#10;- FCI (Flight Crew Information)&#10;- FCN (Flight Crew Notice)&#10;- ACI (Airport Crew Information)&#10;- SCB (Station Crew Briefing)&#10;- Network Reports"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Threats -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">⚠️ Threats</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="threats-${s}">Operational Threats</label>
+                            <textarea id="threats-${s}" class="form-textarea"
+                                placeholder="Identify operational threats...&#10;Example:&#10;- Complex departure procedure&#10;- Weather at destination&#10;- Time pressure&#10;- Fatigue considerations"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Rest Strategy -->
+                    <div class="sector-sub-section">
+                        <h3 class="sub-section-title">😴 Rest Strategy</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="rest-strategy-${s}">Crew Rest Planning</label>
+                            <textarea id="rest-strategy-${s}" class="form-textarea"
+                                placeholder="Plan crew rest periods...&#10;Example:&#10;- Rest slots and duration&#10;- Bunk assignment&#10;- Fatigue mitigation strategies"></textarea>
+                        </div>
+                    </div>
+
+                </div><!-- /sector-inner -->
+            </div><!-- /sector-block -->
+            `;
+        }
+
+        // ─────────────────────────────────────────────
+        // Render sectors
+        // ─────────────────────────────────────────────
+        function renderSectors(count) {
+            const container = document.getElementById('sectors-container');
+            let html = '';
+            for (let i = 1; i <= count; i++) {
+                html += generateSectorHTML(i);
+            }
+            container.innerHTML = html;
+        }
+
+        // ─────────────────────────────────────────────
+        // Handle dropdown change
+        // ─────────────────────────────────────────────
+        function handleSectorChange(value) {
+            const count = parseInt(value, 10);
+            // Save current data first
+            saveFlightPrep(true); // silent save
+            renderSectors(count);
+            // Re-populate from saved data
+            const saved = localStorage.getItem('flightPrepData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                populateSectors(data.sectors || [], count);
+            }
+        }
+
+        // ─────────────────────────────────────────────
+        // Collect data for one sector
+        // ─────────────────────────────────────────────
+        function collectSectorData(s) {
+            const val = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value : '';
+            };
+            return {
+                flightNumber: val(`flight-number-${s}`),
+                callSign: val(`call-sign-${s}`),
+                ofpNumber: val(`ofp-number-${s}`),
+                registration: val(`registration-${s}`),
+                engineType: val(`engine-type-${s}`),
+                costIndex: val(`cost-index-${s}`),
+                cruiseAltitude: val(`cruise-altitude-${s}`),
+                taxiTime: val(`taxi-time-${s}`),
+                tripTime: val(`trip-time-${s}`),
+                contingencyFuel: val(`contingency-fuel-${s}`),
+                additionalFuel: val(`additional-fuel-${s}`),
+                alternateAirport: val(`alternate-airport-${s}`),
+                melCdl: val(`mel-cdl-${s}`),
+                airacCycle: val(`airac-cycle-${s}`),
+                ermUpdates: val(`erm-updates-${s}`),
+                airacNotes: val(`airac-notes-${s}`),
+                notams: val(`notams-${s}`),
+                weather: val(`weather-${s}`),
+                companyNotices: val(`company-notices-${s}`),
+                threats: val(`threats-${s}`),
+                restStrategy: val(`rest-strategy-${s}`)
+            };
+        }
+
+        // ─────────────────────────────────────────────
+        // Populate one sector from saved data
+        // ─────────────────────────────────────────────
+        function populateSectorData(s, d) {
+            if (!d) return;
+            const set = (id, v) => {
+                const el = document.getElementById(id);
+                if (el) el.value = v || '';
+            };
+            set(`flight-number-${s}`, d.flightNumber);
+            set(`call-sign-${s}`, d.callSign);
+            set(`ofp-number-${s}`, d.ofpNumber);
+            set(`registration-${s}`, d.registration);
+            set(`engine-type-${s}`, d.engineType);
+            set(`cost-index-${s}`, d.costIndex);
+            set(`cruise-altitude-${s}`, d.cruiseAltitude);
+            set(`taxi-time-${s}`, d.taxiTime);
+            set(`trip-time-${s}`, d.tripTime);
+            set(`contingency-fuel-${s}`, d.contingencyFuel);
+            set(`additional-fuel-${s}`, d.additionalFuel);
+            set(`alternate-airport-${s}`, d.alternateAirport);
+            set(`mel-cdl-${s}`, d.melCdl);
+            set(`airac-cycle-${s}`, d.airacCycle);
+            set(`erm-updates-${s}`, d.ermUpdates);
+            set(`airac-notes-${s}`, d.airacNotes);
+            set(`notams-${s}`, d.notams);
+            set(`weather-${s}`, d.weather);
+            set(`company-notices-${s}`, d.companyNotices);
+            set(`threats-${s}`, d.threats);
+            set(`rest-strategy-${s}`, d.restStrategy);
+        }
+
+        function populateSectors(sectorsArray, count) {
+            for (let i = 1; i <= count; i++) {
+                populateSectorData(i, sectorsArray[i - 1]);
+            }
+        }
+
+        // ─────────────────────────────────────────────
+        // Save
+        // ─────────────────────────────────────────────
+        function saveFlightPrep(silent = false) {
+            const sectorCount = parseInt(document.getElementById('sector-count-select').value, 10);
+
+            const sectors = [];
+            for (let i = 1; i <= sectorCount; i++) {
+                sectors.push(collectSectorData(i));
+            }
+
             const flightPrepData = {
-                // Documents
-                docPassport: document.getElementById('doc-passport').checked,
-                docVisa: document.getElementById('doc-visa').checked,
-                docCompanyId: document.getElementById('doc-company-id').checked,
-                docLicense: document.getElementById('doc-license').checked,
-                docMedical: document.getElementById('doc-medical').checked,
-                docVaccination: document.getElementById('doc-vaccination').checked,
-                // Flight data
-                flightNumber: document.getElementById('flight-number').value,
-                callSign: document.getElementById('call-sign').value,
-                ofpNumber: document.getElementById('ofp-number').value,
-                registration: document.getElementById('registration').value,
-                engineType: document.getElementById('engine-type').value,
-                costIndex: document.getElementById('cost-index').value,
-                cruiseAltitude: document.getElementById('cruise-altitude').value,
-                taxiTime: document.getElementById('taxi-time').value,
-                tripTime: document.getElementById('trip-time').value,
-                contingencyFuel: document.getElementById('contingency-fuel').value,
-                additionalFuel: document.getElementById('additional-fuel').value,
-                alternateAirport: document.getElementById('alternate-airport').value,
-                melCdl: document.getElementById('mel-cdl').value,
-                airacCycle: document.getElementById('airac-cycle').value,
-                ermUpdates: document.getElementById('erm-updates').value,
-                airacNotes: document.getElementById('airac-notes').value,
-                notams: document.getElementById('notams').value,
-                weather: document.getElementById('weather').value,
-                companyNotices: document.getElementById('company-notices').value,
-                threats: document.getElementById('threats').value,
-                restStrategy: document.getElementById('rest-strategy').value,
+                sectorCount,
+                sectors,
+                documents: {
+                    docPassport: document.getElementById('doc-passport').checked,
+                    docVisa: document.getElementById('doc-visa').checked,
+                    docCompanyId: document.getElementById('doc-company-id').checked,
+                    docLicense: document.getElementById('doc-license').checked,
+                    docMedical: document.getElementById('doc-medical').checked,
+                    docVaccination: document.getElementById('doc-vaccination').checked
+                },
                 lastSaved: new Date().toISOString()
             };
 
             localStorage.setItem('flightPrepData', JSON.stringify(flightPrepData));
-            showSaveNotification();
+            if (!silent) showSaveNotification();
         }
 
-        // Load flight preparation data
+        // ─────────────────────────────────────────────
+        // Load
+        // ─────────────────────────────────────────────
         function loadFlightPrep() {
-            const savedData = localStorage.getItem('flightPrepData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                // Load documents
+            const raw = localStorage.getItem('flightPrepData');
+            if (!raw) {
+                // Default: 1 sector, empty
+                renderSectors(1);
+                return;
+            }
+
+            const data = JSON.parse(raw);
+
+            // Handle legacy single-sector format (no sectorCount key)
+            if (!data.sectorCount) {
+                // Migrate old format
+                const legacyDocs = data;
+                const legacySector = {
+                    flightNumber: data.flightNumber,
+                    callSign: data.callSign,
+                    ofpNumber: data.ofpNumber,
+                    registration: data.registration,
+                    engineType: data.engineType,
+                    costIndex: data.costIndex,
+                    cruiseAltitude: data.cruiseAltitude,
+                    taxiTime: data.taxiTime,
+                    tripTime: data.tripTime,
+                    contingencyFuel: data.contingencyFuel,
+                    additionalFuel: data.additionalFuel,
+                    alternateAirport: data.alternateAirport,
+                    melCdl: data.melCdl,
+                    airacCycle: data.airacCycle,
+                    ermUpdates: data.ermUpdates,
+                    airacNotes: data.airacNotes,
+                    notams: data.notams,
+                    weather: data.weather,
+                    companyNotices: data.companyNotices,
+                    threats: data.threats,
+                    restStrategy: data.restStrategy
+                };
+                renderSectors(1);
+                populateSectorData(1, legacySector);
                 document.getElementById('doc-passport').checked = data.docPassport || false;
                 document.getElementById('doc-visa').checked = data.docVisa || false;
                 document.getElementById('doc-company-id').checked = data.docCompanyId || false;
                 document.getElementById('doc-license').checked = data.docLicense || false;
                 document.getElementById('doc-medical').checked = data.docMedical || false;
                 document.getElementById('doc-vaccination').checked = data.docVaccination || false;
-                // Load flight data
-                document.getElementById('flight-number').value = data.flightNumber || '';
-                document.getElementById('call-sign').value = data.callSign || '';
-                document.getElementById('ofp-number').value = data.ofpNumber || '';
-                document.getElementById('registration').value = data.registration || '';
-                document.getElementById('engine-type').value = data.engineType || '';
-                document.getElementById('cost-index').value = data.costIndex || '';
-                document.getElementById('cruise-altitude').value = data.cruiseAltitude || '';
-                document.getElementById('taxi-time').value = data.taxiTime || '';
-                document.getElementById('trip-time').value = data.tripTime || '';
-                document.getElementById('contingency-fuel').value = data.contingencyFuel || '';
-                document.getElementById('additional-fuel').value = data.additionalFuel || '';
-                document.getElementById('alternate-airport').value = data.alternateAirport || '';
-                document.getElementById('mel-cdl').value = data.melCdl || '';
-                document.getElementById('airac-cycle').value = data.airacCycle || '';
-                document.getElementById('erm-updates').value = data.ermUpdates || '';
-                document.getElementById('airac-notes').value = data.airacNotes || '';
-                document.getElementById('notams').value = data.notams || '';
-                document.getElementById('weather').value = data.weather || '';
-                document.getElementById('company-notices').value = data.companyNotices || '';
-                document.getElementById('threats').value = data.threats || '';
-                document.getElementById('rest-strategy').value = data.restStrategy || '';
+                return;
+            }
+
+            // Normal multi-sector format
+            const count = data.sectorCount || 1;
+            const select = document.getElementById('sector-count-select');
+            select.value = String(count);
+
+            renderSectors(count);
+            populateSectors(data.sectors || [], count);
+
+            // Documents
+            if (data.documents) {
+                document.getElementById('doc-passport').checked = data.documents.docPassport || false;
+                document.getElementById('doc-visa').checked = data.documents.docVisa || false;
+                document.getElementById('doc-company-id').checked = data.documents.docCompanyId || false;
+                document.getElementById('doc-license').checked = data.documents.docLicense || false;
+                document.getElementById('doc-medical').checked = data.documents.docMedical || false;
+                document.getElementById('doc-vaccination').checked = data.documents.docVaccination || false;
             }
         }
 
-        // Show save notification
+        // ─────────────────────────────────────────────
+        // Notification
+        // ─────────────────────────────────────────────
         function showSaveNotification() {
             const notification = document.createElement('div');
             notification.className = 'save-notification';
@@ -515,19 +856,22 @@
 
             setTimeout(() => {
                 notification.style.animation = 'slideInRight 0.3s ease-out reverse';
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
+                setTimeout(() => notification.remove(), 300);
             }, 2000);
         }
+
+        // ─────────────────────────────────────────────
+        // Init
+        // ─────────────────────────────────────────────
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFlightPrep();
+        });
 
         // Auto-save every 30 seconds
         setInterval(() => {
             const hasContent = Array.from(document.querySelectorAll('.form-input, .form-textarea'))
                 .some(input => input.value.trim() !== '');
-            if (hasContent) {
-                saveFlightPrep();
-            }
+            if (hasContent) saveFlightPrep(true);
         }, 30000);
     </script>
 </body>
