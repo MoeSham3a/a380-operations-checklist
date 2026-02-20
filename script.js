@@ -235,10 +235,17 @@ function registerServiceWorker() {
             .then(registration => {
                 console.log('[App] Service Worker registered successfully');
 
-                // Check for updates immediately
+                // Always check for a new SW version on every page load
                 checkForUpdates(registration);
 
-                // Check for updates every 5 minutes
+                // If a SW is already controlling this page (not first install),
+                // explicitly call update() so the browser re-fetches service-worker.js
+                // and installs a new version if the file changed.
+                if (navigator.serviceWorker.controller) {
+                    registration.update().catch(() => {});
+                }
+
+                // Also re-check periodically while the app is open (every 5 min)
                 setInterval(() => checkForUpdates(registration), 5 * 60 * 1000);
 
                 // Listen for updates
@@ -1460,6 +1467,18 @@ function closeDecisionMakingChecklist() {
 // Make globally accessible
 window.openDecisionMakingChecklist = openDecisionMakingChecklist;
 window.closeDecisionMakingChecklist = closeDecisionMakingChecklist;
+
+// ===========================
+// DM Panel Expand / Collapse
+// ===========================
+function toggleDMPanel(num) {
+    const panel = document.getElementById('dm-panel-' + num);
+    const btn   = document.getElementById('dm-btn-' + num);
+    if (!panel) return;
+    const isOpen = panel.classList.toggle('open');
+    if (btn) btn.classList.toggle('open', isOpen);
+}
+window.toggleDMPanel = toggleDMPanel;
 
 // ===========================
 // Departure Change Checklist Functions

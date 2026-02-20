@@ -1,5 +1,5 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.4.0';
+const APP_VERSION = '1.5.0';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 
 // Comprehensive list of assets to cache
@@ -90,26 +90,46 @@ self.addEventListener('install', event => {
     self.skipWaiting();
 });
 
-// Activate event - clean up old caches
+// Activate event - clean up old caches and refresh assets
 self.addEventListener('activate', event => {
     console.log('[ServiceWorker] Activating version', APP_VERSION);
     const cacheWhitelist = [CACHE_NAME];
 
     event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
+        // Step 1: Delete all old caches
+        caches.keys()
+            .then(cacheNames => Promise.all(
                 cacheNames.map(cacheName => {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    if (!cacheWhitelist.includes(cacheName)) {
                         console.log('[ServiceWorker] Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
-            );
-        })
-    );
+            ))
+            // Step 2: Claim all clients immediately
+            .then(() => self.clients.claim())
+            // Step 3: Pre-cache all assets fresh from network (non-blocking failure)
+            .then(() => caches.open(CACHE_NAME))
+            .then(cache => {
+                console.log('[ServiceWorker] Refreshing asset cache after activation...');
+                const critical = ['./', './index.html', './flight-prep.html', './styles.css', './script.js', './manifest.json'];
+                const optional = ['./icon-192.png', './icon-512.png', './mindmap.html', './mindmap.css', './mindmap.js',
+                    './Brake-cooling-table.JPG', './ERG.JPG', './Departure-briefing.JPG',
+                    './Fuel-difference-table.JPG', './Pre-departure-PA.JPG', './USA-PA.JPG',
+                    './Workflow-Mind-Map.png'];
 
-    // Take control of all pages immediately
-    self.clients.claim();
+                return cache.addAll(critical)
+                    .then(() => Promise.allSettled(
+                        optional.map(url =>
+                            fetch(url, { cache: 'no-cache' })
+                                .then(resp => resp.ok ? cache.put(url, resp) : null)
+                                .catch(() => null)
+                        )
+                    ))
+                    .then(() => console.log('[ServiceWorker] Asset cache refreshed'));
+            })
+            .catch(err => console.warn('[ServiceWorker] Activate cache refresh error:', err))
+    );
 });
 
 // Fetch event - intelligent caching strategy
