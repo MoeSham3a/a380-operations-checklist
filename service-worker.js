@@ -1,11 +1,12 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.3.3';
+const APP_VERSION = '1.4.0';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 
 // Comprehensive list of assets to cache
 const urlsToCache = [
     './',
     './index.html',
+    './flight-prep.html',
     './styles.css',
     './script.js',
     './manifest.json',
@@ -40,6 +41,7 @@ self.addEventListener('install', event => {
                 const criticalResources = [
                     './',
                     './index.html',
+                    './flight-prep.html',
                     './styles.css',
                     './script.js',
                     './manifest.json'
