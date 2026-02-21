@@ -1,5 +1,5 @@
 // Version number - increment this when you update the app
-const APP_VERSION = '1.5.0';
+const APP_VERSION = '1.6.0';
 const CACHE_NAME = `a380-operations-v${APP_VERSION}`;
 
 // Comprehensive list of assets to cache
@@ -16,6 +16,8 @@ const urlsToCache = [
     './mindmap.html',
     './mindmap.css',
     './mindmap.js',
+    // Vendored libraries (offline-safe, no CDN dependency)
+    './d3.v7.min.js',
     // Image assets
     './Brake-cooling-table.JPG',
     './ERG.JPG',
@@ -44,7 +46,8 @@ self.addEventListener('install', event => {
                     './flight-prep.html',
                     './styles.css',
                     './script.js',
-                    './manifest.json'
+                    './manifest.json',
+                    './d3.v7.min.js'
                 ];
 
                 // Cache optional resources (images, etc - failures are tolerated)
@@ -112,7 +115,7 @@ self.addEventListener('activate', event => {
             .then(() => caches.open(CACHE_NAME))
             .then(cache => {
                 console.log('[ServiceWorker] Refreshing asset cache after activation...');
-                const critical = ['./', './index.html', './flight-prep.html', './styles.css', './script.js', './manifest.json'];
+                const critical = ['./', './index.html', './flight-prep.html', './styles.css', './script.js', './manifest.json', './d3.v7.min.js'];
                 const optional = ['./icon-192.png', './icon-512.png', './mindmap.html', './mindmap.css', './mindmap.js',
                     './Brake-cooling-table.JPG', './ERG.JPG', './Departure-briefing.JPG',
                     './Fuel-difference-table.JPG', './Pre-departure-PA.JPG', './USA-PA.JPG',

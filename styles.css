@@ -1887,64 +1887,94 @@ body::before {
    Decision Making Modal
    =========================== */
 .dm-modal-content {
-    max-width: 600px;
-    max-height: 80vh;
+    /* Explicit centering — overrides any inherited layout quirks */
+    position: relative;
+    margin: auto;
+    align-self: center;
+    /* Sizing */
+    width: 92%;
+    max-width: 640px;
+    max-height: 85vh;
+    /* Scroll */
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(220,38,38,0.4) transparent;
+}
+
+/* Guarantee the modal wrapper itself is a full-screen flex centering container */
+#decision-making-modal {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1000;
+}
+#decision-making-modal.hidden {
+    display: none !important;
 }
 
 .dm-checklist {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 8px;
     margin-top: var(--spacing-lg);
 }
 
+/* ── DM Item: column container ── */
 .dm-item {
     display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(239, 68, 68, 0.05));
-    border-left: 4px solid #dc2626;
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    background: linear-gradient(135deg, rgba(220,38,38,0.10), rgba(30,15,15,0.18));
+    border-left: 3px solid #dc2626;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: default;
 }
 
 .dm-item:hover {
-    transform: translateX(5px);
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(239, 68, 68, 0.08));
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 4px 18px rgba(220,38,38,0.22);
+    border-left-color: #ef4444;
 }
 
+/* Number badge */
 .dm-number {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #dc2626, #ef4444);
+    min-width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, #b91c1c, #dc2626);
     color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-radius: 50%;
+    font-weight: 800;
+    font-size: 0.78rem;
+    border-radius: 6px;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    letter-spacing: 0;
+    box-shadow: 0 2px 6px rgba(220,38,38,0.35);
 }
 
 .dm-text {
     flex: 1;
     color: var(--color-text-primary);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 /* Light theme adjustments for DM modal */
 [data-theme="light"] .dm-item {
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(239, 68, 68, 0.04));
+    background: linear-gradient(135deg, rgba(220,38,38,0.07), rgba(255,255,255,0.6));
 }
 
 [data-theme="light"] .dm-item:hover {
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(239, 68, 68, 0.06));
+    background: linear-gradient(135deg, rgba(220,38,38,0.11), rgba(255,255,255,0.7));
 }
 
 /* Update Notification */
@@ -2627,18 +2657,20 @@ body::before {
 .dm-item label {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: 8px;
     cursor: pointer;
     flex: 1;
 }
 
 .dm-item label:hover .dm-number {
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #dc2626, #f87171);
+    box-shadow: 0 2px 8px rgba(220,38,38,0.45);
 }
 
 .dm-item input[type="checkbox"]:checked ~ label .dm-text {
-    opacity: 0.6;
     text-decoration: line-through;
+    opacity: 0.45;
+    color: var(--color-text-secondary);
 }
 
 /* Reset Button for Modal Checklists */
@@ -2687,90 +2719,126 @@ body::before {
 }
 
 /* ── Interactive DM Expandable Panels ── */
-.dm-item {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0;
-    cursor: default;
-}
+
+/* Header row inside each item */
 .dm-item-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
+    gap: 10px;
+    padding: 10px 14px;
 }
+
+/* Expand chevron button */
 .dm-expand-btn {
     margin-left: auto;
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.35);
-    border-radius: var(--radius-sm);
+    background: rgba(220,38,38,0.12);
+    border: 1px solid rgba(220,38,38,0.3);
+    border-radius: 50%;
     color: #fca5a5;
-    font-size: 0.72rem;
-    width: 26px;
-    height: 26px;
+    font-size: 0.65rem;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.2s ease;
+    transition: transform 0.28s ease, background 0.2s ease, border-color 0.2s ease;
 }
 .dm-expand-btn:hover {
-    background: rgba(220, 38, 38, 0.3);
+    background: rgba(220,38,38,0.28);
     border-color: #ef4444;
     color: white;
 }
 .dm-expand-btn.open {
-    background: rgba(220, 38, 38, 0.35);
+    transform: rotate(180deg);
+    background: #dc2626;
     border-color: #ef4444;
     color: white;
-    transform: rotate(180deg);
+    box-shadow: 0 0 8px rgba(220,38,38,0.5);
 }
+
+/* Collapsible panel */
 .dm-panel {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.38s ease, padding 0.25s ease;
-    padding: 0 var(--spacing-md);
-    border-top: 0px solid rgba(220, 38, 38, 0.2);
+    transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1), padding 0.25s ease;
+    padding: 0 14px;
+    border-top: 0px solid rgba(220,38,38,0.18);
+    background: rgba(0,0,0,0.18);
 }
 .dm-panel.open {
-    max-height: 700px;
-    padding: var(--spacing-md);
+    max-height: 1400px;
+    padding: 14px;
     border-top-width: 1px;
 }
-.dm-action-group { margin-bottom: var(--spacing-md); }
+
+/* Action groups inside panel */
+.dm-action-group {
+    margin-bottom: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(220,38,38,0.15);
+}
 .dm-action-group:last-child { margin-bottom: 0; }
+
 .dm-group-title {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #fca5a5;
-    margin-bottom: 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid rgba(220, 38, 38, 0.25);
-}
-.dm-actions { display: flex; flex-direction: column; gap: 5px; }
-.dm-action-step {
+    letter-spacing: 0.13em;
+    color: #fff;
+    background: linear-gradient(90deg, #b91c1c, #7f1d1d);
+    padding: 5px 12px;
+    margin: 0;
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.88rem;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Action steps as pill tags */
+.dm-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px;
+    background: rgba(220,38,38,0.05);
+}
+.dm-action-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    font-weight: 600;
     color: var(--color-text-primary);
-    line-height: 1.4;
-    padding: 6px 10px;
-    border-radius: var(--radius-sm);
-    background: rgba(220, 38, 38, 0.06);
-    border-left: 3px solid rgba(220, 38, 38, 0.35);
-    transition: background 0.15s ease, border-color 0.15s ease;
+    background: rgba(220,38,38,0.10);
+    border: 1px solid rgba(220,38,38,0.28);
+    border-radius: 20px;
+    padding: 4px 12px;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    cursor: default;
+    white-space: nowrap;
 }
 .dm-action-step:hover {
-    background: rgba(220, 38, 38, 0.12);
-    border-left-color: #ef4444;
+    background: rgba(220,38,38,0.22);
+    border-color: #ef4444;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220,38,38,0.25);
 }
-.dm-action-arrow { color: #ef4444; font-size: 0.7rem; margin-top: 3px; flex-shrink: 0; }
+.dm-action-arrow { display: none; }
 .dm-action-label { font-weight: 700; color: #fde68a; }
-.dm-action-detail { color: var(--color-text-secondary); font-size: 0.8rem; margin-top: 1px; }
-[data-theme="light"] .dm-action-step { background: rgba(220,38,38,0.04); color: #1e293b; }
-[data-theme="light"] .dm-action-label { color: #b45309; }
-[data-theme="light"] .dm-group-title  { color: #dc2626; }
+.dm-action-detail {
+    color: #fca5a5;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+/* Light theme overrides for expandable panels */
+[data-theme="light"] .dm-panel { background: rgba(0,0,0,0.03); }
+[data-theme="light"] .dm-action-group { border-color: rgba(220,38,38,0.2); }
+[data-theme="light"] .dm-group-title { background: linear-gradient(90deg, #dc2626, #ef4444); }
+[data-theme="light"] .dm-actions { background: rgba(220,38,38,0.04); }
+[data-theme="light"] .dm-action-step { background: rgba(220,38,38,0.06); color: #1e293b; border-color: rgba(220,38,38,0.25); }
+[data-theme="light"] .dm-action-label { color: #92400e; }
+[data-theme="light"] .dm-action-detail { color: #b45309; }
