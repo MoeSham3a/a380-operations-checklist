@@ -2,12 +2,15 @@
 // Mind Map Data Structure
 // ===========================
 const mindMapData = {
-    name: "Workflow for Flights\n(Operations Manual)",
+    name: "A380 Operations",
     children: [
         {
-            name: "Pre-Flight Preparation\n(Duty Day -1 & At Home)",
+            name: "Workflow for Flights\n(Operations Manual)",
             children: [
-                { name: "Review NOTAMs of previous day" },
+                {
+                    name: "Pre-Flight Preparation\n(Duty Day -1 & At Home)",
+                    children: [
+                        { name: "Review NOTAMs of previous day" },
                 {
                     name: "At Home actions",
                     children: [
@@ -91,7 +94,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Operation with lesss than Minimum Cabin Crew Complement (OMA 4.3.2)",
+                    name: "Operation with less than Minimum Cabin Crew Complement (OMA 4.3.2)",
                     children: [
                         { name: "The unattended cabin door shall be considered inoperative for the purpose of determining the maximum number of passengers" },
                         { name: "Carriage of less than regulatory minimum crew shall be authorized by DSVP-FO or his designee" },
@@ -119,6 +122,17 @@ const mindMapData = {
                     children: [
                         { name: "Reduced by 1 departing DXB" },
                         { name: "Reduced by 2 departing outstation" }
+                    ]
+                },
+                {
+                    name: "First Officer Operational Restrictions (OMA 5.2.4.4)",
+                    children: [
+                        { name: "Any reported Runway Condtion Code is less than 5" },
+                        { name: "The crosswind component including gusts exceeds 20 knots" },
+                        { name: "Any relevant RVR/Visibility for take-off is 500m or less" },
+                        { name: "Operating to/from an aerodrome with a company publication requiring Commander only take-off or landing" },
+                        { name: "The approach conducted is a CAT I ILS/GLS with autoland, Cat II, or CAT III" },
+                        { name: "Shall not taxi if a 180 degree turn is required" },
                     ]
                 }
             ]
@@ -178,6 +192,7 @@ const mindMapData = {
                 {
                     name: "Deicing and Antiicing (OMA 8.2.4)",
                     children: [
+                        { name: "FCOM/(EK) AWO TAKEOFF CONSIDERATIONS" },
                         { name: "De-icing/anti-icing worksheet (OMC 10.3.1.3)" },
                         { name: "FCTM/NOR/SUPP/ADVERSE WEATHER" },
                         { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/ENGINE ICE SHEDDING ON GROUND" },
@@ -186,7 +201,8 @@ const mindMapData = {
                         { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/COLD WEATHER PROCEDURES" },
                         { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/AIRFRAME DEICING/ANTI-ICING PROCEDURE ON GROUND" },
                         { name: "FCOM/PERF/TAKEOFF/RUNWAY CONTAMINATION/EQUIVALENCES FOR PERFORMANCE" },
-                        { name: "Altitude Corrections (OMC 10.4)" }
+                        { name: "Altitude Corrections (OMC 10.4)" },
+                        { name: "FCOM/(EK) AWO APPROACH AND LANDING CONSIDERATIONS" }
                     ]
                 },
             ]
@@ -293,6 +309,47 @@ const mindMapData = {
                     children: [
                         { name: "As long as preceeding duty period" },
                         { name: "12 hours" }
+                    ]
+                }
+            ]
+        }
+    ]
+},
+{
+    name: "Crew Health Precautions",
+            children: [
+                {
+                    name: "Anaesthetics 6.1.13",
+                    children: [
+                        { name: "crew member shall not fly for at least 12 hours after a local anaesthetic" },
+                        { name: "shall not fly for 48 hours after a general anaesthetic, sedation, or spinal anaesthetic" }
+                    ]
+                },
+                {
+                    name: "Deep Diving 6.1.14",
+                    children: [
+                        { name: "crew member should not fly within 12 hours of a single day, no-decompression dive" },
+                        { name: "18 hours of multiple day or repetitive no-decompressive dives" },
+                        { name: "24 hours if the dive required decompression stops" }
+                    ]
+                },
+                {
+                    name: "Blood/Bone Marrow Donation 6.1.15",
+                    children: [
+                        { name: "(by peripheral blood collection) by crew members is not permitted within 48 hours of a flight" },
+                        { name: "by aspiration may require longer recovery of up to five days. Should Contact AME" }
+                    ]
+                },
+                {
+                    name: "Vaccination and Immunisation 6.1.20",
+                    children: [
+                        { name: "at least 12 hours prior to a flight" }
+                    ]
+                },
+                {
+                    name: "Cosmic Radiation 6.2",
+                    children: [
+                        { name: "No controls are necessary for an individual crew member whose annual dose can be shown to be less than 1 mSv (6.2.4)" }
                     ]
                 }
             ]
