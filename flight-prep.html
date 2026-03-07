@@ -393,6 +393,120 @@
             color: var(--color-primary);
         }
 
+        /* ── Crew Consideration ── */
+        .crew-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-base);
+        }
+
+        .crew-section-header:hover {
+            opacity: 0.8;
+        }
+
+        .crew-section-header .section-title {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .crew-toggle-icon {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .crew-toggle-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .crew-content-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .crew-content-wrapper.expanded {
+            max-height: 800px;
+        }
+
+        .crew-subheading {
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .crew-subheading:first-child {
+            margin-top: var(--spacing-sm);
+        }
+
+        .crew-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .crew-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+            color: #cbd5e1;
+            /* slate-300 */
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .crew-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: inherit;
+        }
+
+        .crew-sublist {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .crew-sublist li::before {
+            content: "◦";
+            color: #94a3b8;
+            /* lighter chevron for sublist */
+            font-size: 1.1rem;
+        }
+
+        .crew-note {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: var(--spacing-md);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: flex-start;
+        }
+
+        .crew-note .note-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .crew-note .note-text {
+            color: #f8fafc;
+            /* slate-50 */
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -481,6 +595,47 @@
                         <input type="checkbox" id="doc-vaccination" class="doc-checkbox">
                         <span class="doc-label-text">Vaccination Card</span>
                     </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crew Consideration Section -->
+        <section class="prep-section" id="crew-consideration-section">
+            <div class="crew-section-header" onclick="toggleCrewConsideration()">
+                <h2 class="section-title">👥 Flight Crew Consideration</h2>
+                <div class="crew-toggle-icon" id="crew-toggle-icon">▼</div>
+            </div>
+
+            <div class="crew-content-wrapper" id="crew-content-wrapper">
+                <div class="crew-consideration-content">
+                    <p class="crew-subheading"><strong>Inexperienced flight crew (OMA 4.1.4):</strong></p>
+                    <ul class="crew-list">
+                        <li>100 flight hours and 10 sectors within 120 days</li>
+                        <li>150 flight hours and 20 sectors</li>
+                        <li>Not more than one inexperienced flight crew shall occupy their operating seat at the same
+                            time</li>
+                    </ul>
+                    <div class="crew-note">
+                        <span class="note-icon">ℹ️</span>
+                        <span class="note-text"><strong>Note:</strong> New commanders shall operate first 10 sectors as
+                            PF unless to accommodate recency requirements</span>
+                    </div>
+
+                    <p class="crew-subheading"><strong>Pilot aged 60 or Older (OMA 4.2.4):</strong></p>
+                    <ul class="crew-list">
+                        <li>Not more than one shall occupy operating seat at the same time</li>
+                    </ul>
+
+                    <p class="crew-subheading"><strong>Pilot with Operational Multi-Crew Limitation (OMA
+                            4.2.5):</strong></p>
+                    <ul class="crew-list">
+                        <li>Shall only occupy operating seat if other flight crew member in operating seat:
+                            <ul class="crew-sublist">
+                                <li>Not subject to OML</li>
+                                <li>Not attained age of 60 years</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -866,6 +1021,22 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadFlightPrep();
         });
+
+        // ─────────────────────────────────────────────
+        // Crew Consideration Toggle
+        // ─────────────────────────────────────────────
+        function toggleCrewConsideration() {
+            const wrapper = document.getElementById('crew-content-wrapper');
+            const icon = document.getElementById('crew-toggle-icon');
+
+            if (wrapper.classList.contains('expanded')) {
+                wrapper.classList.remove('expanded');
+                icon.classList.remove('expanded');
+            } else {
+                wrapper.classList.add('expanded');
+                icon.classList.add('expanded');
+            }
+        }
 
         // Auto-save every 30 seconds
         setInterval(() => {

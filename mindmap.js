@@ -80,7 +80,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Minimum Required Cabin Crew by Aircraft Type",
+                    name: "Minimum Required Cabin Crew by Aircraft Type (OMA 4.3.1)",
                     children: [
                         { name: "A380 (3 class): 18 (Note 2)" },
                         { name: "A380 (2 class): 19 (Note 3)" },
@@ -88,6 +88,14 @@ const mindMapData = {
                         { name: "B777-200LR: 8 CC" },
                         { name: "A350: 8 CC (Note 4)" },
                         { name: "A319: 2 CC (Note 1)" }
+                    ]
+                },
+                {
+                    name: "Operation with lesss than Minimum Cabin Crew Complement (OMA 4.3.2)",
+                    children: [
+                        { name: "The unattended cabin door shall be considered inoperative for the purpose of determining the maximum number of passengers" },
+                        { name: "Carriage of less than regulatory minimum crew shall be authorized by DSVP-FO or his designee" },
+                        { name: "A report shall be submitted to UAE GCAA after completion of each such flight" }
                     ]
                 },
                 {

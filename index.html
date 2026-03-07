@@ -917,6 +917,12 @@
             <div id="fdp-toolkit" class="toolkit-panel hidden">
                 <h3 class="toolkit-title">Flight Duty Period Calculator</h3>
 
+                <!-- Local Start Time (Now Reporting Time) -->
+                <div class="calc-group" id="fdp-start-time-group">
+                    <label class="calc-label">Reporting Time (Local)</label>
+                    <input type="time" id="fdp-start-time" class="calc-input fdp-time-input" value="06:00">
+                </div>
+
                 <!-- Acclimatization Status -->
                 <div class="calc-group">
                     <label class="calc-label">Acclimatised Status</label>
@@ -926,12 +932,6 @@
                         <button type="button" id="fdp-acclimatised-no" class="fdp-toggle-btn"
                             onclick="setAcclimatisation(false)">No</button>
                     </div>
-                </div>
-
-                <!-- Local Start Time -->
-                <div class="calc-group" id="fdp-start-time-group">
-                    <label class="calc-label">Local Start Time</label>
-                    <input type="time" id="fdp-start-time" class="calc-input fdp-time-input" value="06:00">
                 </div>
 
                 <!-- Rest Period (Non-Acclimatised Only) -->
@@ -952,9 +952,15 @@
                 <button class="calc-button" onclick="calculateFDP()">Calculate FDP</button>
 
                 <div class="calc-results">
-                    <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none;">
-                        <span class="result-label">Maximum FDP:</span>
-                        <span id="fdp-result" class="result-value fdp-highlight">--</span>
+                    <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="result-label">Maximum FDP:</span>
+                            <span id="fdp-result" class="result-value fdp-highlight">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span class="result-label">FDP End:</span>
+                            <span id="fdp-end-result" class="result-value fdp-highlight">--</span>
+                        </div>
                     </div>
                 </div>
 

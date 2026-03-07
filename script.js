@@ -242,7 +242,7 @@ function registerServiceWorker() {
                 // explicitly call update() so the browser re-fetches service-worker.js
                 // and installs a new version if the file changed.
                 if (navigator.serviceWorker.controller) {
-                    registration.update().catch(() => {});
+                    registration.update().catch(() => { });
                 }
 
                 // Also re-check periodically while the app is open (every 5 min)
@@ -1473,7 +1473,7 @@ window.closeDecisionMakingChecklist = closeDecisionMakingChecklist;
 // ===========================
 function toggleDMPanel(num) {
     const panel = document.getElementById('dm-panel-' + num);
-    const btn   = document.getElementById('dm-btn-' + num);
+    const btn = document.getElementById('dm-btn-' + num);
     if (!panel) return;
     const isOpen = panel.classList.toggle('open');
     if (btn) btn.classList.toggle('open', isOpen);
@@ -1714,16 +1714,12 @@ function setAcclimatisation(acclimatised) {
     // Update button states
     const yesBtn = document.getElementById('fdp-acclimatised-yes');
     const noBtn = document.getElementById('fdp-acclimatised-no');
-    const startTimeGroup = document.getElementById('fdp-start-time-group');
+    // Reporting time is now always visible to calculate the end time
     const restPeriodGroup = document.getElementById('fdp-rest-period-group');
 
     if (acclimatised) {
         yesBtn.classList.add('active');
         noBtn.classList.remove('active');
-        // Show start time for acclimatised (time-based FDP)
-        if (startTimeGroup) {
-            startTimeGroup.style.display = 'block';
-        }
         // Hide rest period selector for acclimatised
         if (restPeriodGroup) {
             restPeriodGroup.style.display = 'none';
@@ -1731,10 +1727,6 @@ function setAcclimatisation(acclimatised) {
     } else {
         yesBtn.classList.remove('active');
         noBtn.classList.add('active');
-        // Hide start time for non-acclimatised (rest-based FDP)
-        if (startTimeGroup) {
-            startTimeGroup.style.display = 'none';
-        }
         // Show rest period selector for non-acclimatised
         if (restPeriodGroup) {
             restPeriodGroup.style.display = 'block';
@@ -1779,6 +1771,7 @@ function calculateFDP() {
     const restPeriodSelect = document.getElementById('fdp-rest-period');
     const resultContainer = document.getElementById('fdp-result-container');
     const resultSpan = document.getElementById('fdp-result');
+    const endSpan = document.getElementById('fdp-end-result');
 
     if (!startTimeInput || !sectorsInput) {
         console.error('FDP input elements not found');
@@ -1790,7 +1783,7 @@ function calculateFDP() {
 
     // Validate inputs
     if (!startTime) {
-        alert('Please select a start time');
+        alert('Please enter a reporting time');
         return;
     }
 
@@ -1841,7 +1834,32 @@ function calculateFDP() {
         const formattedFDP = minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
 
         resultSpan.textContent = formattedFDP;
-        resultContainer.style.display = 'block';
+
+        // Calculate FDP End
+        const [startHours, startMinutes] = startTime.split(':').map(Number);
+        let endHours = startHours + hours;
+        let endMinutes = startMinutes + minutes;
+
+        if (endMinutes >= 60) {
+            endHours += Math.floor(endMinutes / 60);
+            endMinutes = endMinutes % 60;
+        }
+
+        let dayOffset = Math.floor(endHours / 24);
+        endHours = endHours % 24;
+
+        const formattedEndHours = String(endHours).padStart(2, '0');
+        const formattedEndMinutes = String(endMinutes).padStart(2, '0');
+        let formattedEnd = `${formattedEndHours}:${formattedEndMinutes}`;
+        if (dayOffset > 0) {
+            formattedEnd += ` (+${dayOffset})`;
+        }
+
+        if (endSpan) {
+            endSpan.textContent = formattedEnd;
+        }
+
+        resultContainer.style.display = 'flex'; // Use flex layout
 
         // Add animation
         resultContainer.classList.add('result-flash');
