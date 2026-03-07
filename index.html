@@ -951,13 +951,14 @@
 
                 <button class="calc-button" onclick="calculateFDP()">Calculate FDP</button>
 
-                <div class="calc-results">
-                    <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; justify-content: space-between; width: 100%;">
-                            <span class="result-label">Maximum FDP:</span>
-                            <span id="fdp-result" class="result-value fdp-highlight">--</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div id="fdp-results-anchor-top">
+                    <div class="calc-results" id="fdp-results-wrapper">
+                        <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none; flex-direction: column; gap: 10px;">
+                            <div id="fdp-max-row" style="display: flex; justify-content: space-between; width: 100%;">
+                                <span class="result-label">Maximum FDP:</span>
+                                <span id="fdp-result" class="result-value fdp-highlight">--</span>
+                            </div>
+                        <div id="fdp-end-row" style="display: flex; justify-content: space-between; width: 100%;">
                             <span class="result-label">FDP End:</span>
                             <span id="fdp-end-result" class="result-value fdp-highlight">--</span>
                         </div>
@@ -994,7 +995,56 @@
                             Extension: 1/2 of total rest taken
                         </div>
                     </div>
+
+                    <!-- Commander's Discretion -->
+                    <div class="calc-section-divider"></div>
+                    
+                    <div class="discretion-toggle-container" style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <input type="checkbox" id="discretion-toggle" onchange="toggleCommandersDiscretion()">
+                        <label for="discretion-toggle" style="color: white; font-weight: bold; cursor: pointer;">Captain's Discretion</label>
+                    </div>
+
+                    <div id="discretion-options-section" style="display:none; padding-left: 10px; border-left: 2px solid #4a5568;">
+                        <div class="calc-group">
+                            <label class="calc-label">Sector Type</label>
+                            <div class="fdp-toggle-group">
+                                <button type="button" id="discretion-sector-single" class="fdp-toggle-btn active"
+                                    onclick="setDiscretionSectorType('single')">Single Sector</button>
+                                <button type="button" id="discretion-sector-multi" class="fdp-toggle-btn"
+                                    onclick="setDiscretionSectorType('multi')">Multi-sector</button>
+                            </div>
+                        </div>
+
+                        <div class="calc-group" id="discretion-last-sector-group" style="display:none;">
+                            <label class="calc-label">Is this the last sector?</label>
+                            <div class="fdp-toggle-group">
+                                <button type="button" id="discretion-last-yes" class="fdp-toggle-btn active"
+                                    onclick="setDiscretionLastSector(true)">Yes</button>
+                                <button type="button" id="discretion-last-no" class="fdp-toggle-btn"
+                                    onclick="setDiscretionLastSector(false)">No</button>
+                            </div>
+                        </div>
+
+                        <div class="calc-group">
+                            <label class="calc-label">Additional Discretion</label>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <input type="number" id="discretion-hours" class="calc-input" min="0" max="3" value="0" placeholder="Hrs" oninput="validateDiscretionInput()" style="margin-bottom: 5px;">
+                                    <span style="color: #a0aec0; font-size: 0.8rem;">Hours</span>
+                                </div>
+                                <div style="flex: 1;">
+                                    <input type="number" id="discretion-minutes" class="calc-input" min="0" max="59" value="0" placeholder="Mins" oninput="validateDiscretionInput()" style="margin-bottom: 5px;">
+                                    <span style="color: #a0aec0; font-size: 0.8rem;">Minutes</span>
+                                </div>
+                            </div>
+                            <div class="info-note" id="discretion-max-note" style="margin-top: 5px;">
+                                Max allowed: 3h 0m
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div id="fdp-results-anchor-bottom"></div>
 
                 <div class="isa-info">
                     <p class="isa-note">📋 Based on EK OMA Chapter 7<br>

@@ -113,9 +113,6 @@ const FDP_TABLE_NON_ACCLIMATISED = [
     }
 ];
 
-// FDP Extension state
-let restType = 'bunk'; // 'bunk' or 'seat'
-
 // Checklist item information database
 const checklistInfo = {
     'Brake Temp': {
@@ -1828,6 +1825,21 @@ function calculateFDP() {
 
     // Display result
     if (maxFDP !== null) {
+        const extensionSection = document.getElementById('fdp-extension-section');
+        let effectiveMaxFDP = maxFDP;
+        let isExpanded = extensionSection && extensionSection.style.display === 'block';
+
+        if (isExpanded) {
+            effectiveMaxFDP = restType === 'bunk' ? 18 : 15;
+            
+            // Add Commander's Discretion if enabled
+            if (isDiscretionEnabled) {
+                const discHours = parseInt(document.getElementById('discretion-hours').value) || 0;
+                const discMinutes = parseInt(document.getElementById('discretion-minutes').value) || 0;
+                effectiveMaxFDP += discHours + (discMinutes / 60);
+            }
+        }
+
         // Format FDP (convert decimal hours to hours:minutes)
         const hours = Math.floor(maxFDP);
         const minutes = Math.round((maxFDP - hours) * 60);
@@ -1836,9 +1848,12 @@ function calculateFDP() {
         resultSpan.textContent = formattedFDP;
 
         // Calculate FDP End
+        const effHours = Math.floor(effectiveMaxFDP);
+        const effMinutes = Math.round((effectiveMaxFDP - effHours) * 60);
+
         const [startHours, startMinutes] = startTime.split(':').map(Number);
-        let endHours = startHours + hours;
-        let endMinutes = startMinutes + minutes;
+        let endHours = startHours + effHours;
+        let endMinutes = startMinutes + effMinutes;
 
         if (endMinutes >= 60) {
             endHours += Math.floor(endMinutes / 60);
@@ -1878,12 +1893,27 @@ function toggleFDPExtension() {
     const section = document.getElementById('fdp-extension-section');
     const icon = document.getElementById('fdp-ext-toggle-icon');
 
+    const wrapper = document.getElementById('fdp-results-wrapper');
+    const anchorTop = document.getElementById('fdp-results-anchor-top');
+    const anchorBottom = document.getElementById('fdp-results-anchor-bottom');
+    const maxRow = document.getElementById('fdp-max-row');
+
     if (section.style.display === 'none') {
         section.style.display = 'block';
         icon.textContent = '▼';
+        
+        if (anchorBottom && wrapper) anchorBottom.appendChild(wrapper);
+        if (maxRow) maxRow.style.display = 'none';
     } else {
         section.style.display = 'none';
         icon.textContent = '▶';
+        
+        if (anchorTop && wrapper) anchorTop.appendChild(wrapper);
+        if (maxRow) maxRow.style.display = 'flex';
+    }
+    
+    if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
+        calculateFDP();
     }
 }
 
@@ -1909,6 +1939,98 @@ function setRestType(type) {
         maxDisplay.textContent = '15h';
         note.textContent = 'Extension: 1/3 of total rest taken';
     }
+    
+    if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
+        calculateFDP();
+    }
+}
+
+// ===========================
+// Commander's Discretion
+// ===========================
+
+function toggleCommandersDiscretion() {
+    isDiscretionEnabled = document.getElementById('discretion-toggle').checked;
+    const optionsSection = document.getElementById('discretion-options-section');
+    optionsSection.style.display = isDiscretionEnabled ? 'block' : 'none';
+    
+    if (!isDiscretionEnabled) {
+        // Reset inputs when turned off
+        document.getElementById('discretion-hours').value = 0;
+        document.getElementById('discretion-minutes').value = 0;
+    }
+    
+    if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
+        calculateFDP();
+    }
+}
+
+function setDiscretionSectorType(type) {
+    discretionSectorType = type;
+    const singleBtn = document.getElementById('discretion-sector-single');
+    const multiBtn = document.getElementById('discretion-sector-multi');
+    const lastSectorGroup = document.getElementById('discretion-last-sector-group');
+    
+    if (type === 'single') {
+        singleBtn.classList.add('active');
+        multiBtn.classList.remove('active');
+        lastSectorGroup.style.display = 'none';
+    } else {
+        singleBtn.classList.remove('active');
+        multiBtn.classList.add('active');
+        lastSectorGroup.style.display = 'block';
+    }
+    
+    validateDiscretionInput();
+}
+
+function setDiscretionLastSector(isLast) {
+    discretionLastSector = isLast;
+    const yesBtn = document.getElementById('discretion-last-yes');
+    const noBtn = document.getElementById('discretion-last-no');
+    
+    if (isLast) {
+        yesBtn.classList.add('active');
+        noBtn.classList.remove('active');
+    } else {
+        yesBtn.classList.remove('active');
+        noBtn.classList.add('active');
+    }
+    
+    validateDiscretionInput();
+}
+
+function getMaxDiscretion() {
+    if (discretionSectorType === 'single') return 3;
+    if (discretionSectorType === 'multi' && discretionLastSector) return 3;
+    return 2;
+}
+
+function validateDiscretionInput() {
+    const hoursInput = document.getElementById('discretion-hours');
+    const minutesInput = document.getElementById('discretion-minutes');
+    const maxNote = document.getElementById('discretion-max-note');
+    
+    const maxAllowed = getMaxDiscretion();
+    maxNote.textContent = `Max allowed: ${maxAllowed}h 0m`;
+    
+    let hours = parseInt(hoursInput.value) || 0;
+    let minutes = parseInt(minutesInput.value) || 0;
+    
+    // Total max validation
+    if (hours > maxAllowed || (hours === maxAllowed && minutes > 0)) {
+        hoursInput.value = maxAllowed;
+        minutesInput.value = 0;
+    }
+    
+    // Bounds validation
+    if (hoursInput.value < 0) hoursInput.value = 0;
+    if (minutesInput.value > 59) minutesInput.value = 59;
+    if (minutesInput.value < 0) minutesInput.value = 0;
+    
+    if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
+        calculateFDP();
+    }
 }
 
 // Make globally accessible
@@ -1916,6 +2038,10 @@ window.setAcclimatisation = setAcclimatisation;
 window.calculateFDP = calculateFDP;
 window.toggleFDPExtension = toggleFDPExtension;
 window.setRestType = setRestType;
+window.toggleCommandersDiscretion = toggleCommandersDiscretion;
+window.setDiscretionSectorType = setDiscretionSectorType;
+window.setDiscretionLastSector = setDiscretionLastSector;
+window.validateDiscretionInput = validateDiscretionInput;
 
 // Cleanup intervals on page unload
 window.addEventListener('beforeunload', () => {
