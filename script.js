@@ -1368,8 +1368,8 @@ function calculateSplitRest() {
 
     // Calculate splits
     const equalSplitMinutes = restAfterBuffer / 2;
-    const firstRestMinutes = (restAfterBuffer / 2) * (2 / 3);
-    const secondRestMinutes = (restAfterBuffer / 2) * (1 / 3);
+    const firstRestMinutes = restAfterBuffer * (2 / 3);
+    const secondRestMinutes = restAfterBuffer * (1 / 3);
 
     // Display results
     document.getElementById('split-total-result').textContent = formatMinutes(totalRestMinutes);
