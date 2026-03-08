@@ -172,6 +172,14 @@ const departureTimeInput = document.getElementById('departure-time');
 // ===========================
 // Initialize App
 // ===========================
+
+// FDP Extension State
+let isInFlightReliefEnabled = false;
+let isDiscretionEnabled = false;
+let restType = 'bunk';
+let discretionSectorType = 'single';
+let discretionLastSector = true;
+
 function init() {
     loadThemeFromStorage();
     loadTasksFromStorage();
@@ -1829,23 +1837,53 @@ function calculateFDP() {
         let effectiveMaxFDP = maxFDP;
         let isExpanded = extensionSection && extensionSection.style.display === 'block';
 
+        let breakdownParts = [];
+        const baseHours = Math.floor(maxFDP);
+        const baseMins = Math.round((maxFDP - baseHours) * 60);
+        const baseStr = baseMins > 0 ? `${baseHours}h ${baseMins}m` : `${baseHours}h`;
+
         if (isExpanded) {
-            effectiveMaxFDP = restType === 'bunk' ? 18 : 15;
-            
-            // Add Commander's Discretion if enabled
-            if (isDiscretionEnabled) {
-                const discHours = parseInt(document.getElementById('discretion-hours').value) || 0;
-                const discMinutes = parseInt(document.getElementById('discretion-minutes').value) || 0;
-                effectiveMaxFDP += discHours + (discMinutes / 60);
+            let extensionsAdded = false;
+
+            // 1. In-Flight Relief
+            if (isInFlightReliefEnabled) {
+                const reliefLimit = restType === 'bunk' ? 18 : 15;
+                if (reliefLimit > maxFDP) {
+                    const reliefAdded = reliefLimit - maxFDP;
+                    effectiveMaxFDP = reliefLimit;
+                    
+                    const rHours = Math.floor(reliefAdded);
+                    const rMins = Math.round((reliefAdded - rHours) * 60);
+                    const rStr = rMins > 0 ? `${rHours}h ${rMins}m` : `${rHours}h`;
+                    breakdownParts.push(`${rStr} Relief`);
+                    extensionsAdded = true;
+                }
             }
+
+            // 2. Commander's Discretion
+            if (isDiscretionEnabled) {
+                const discAllowed = getMaxDiscretion();
+                effectiveMaxFDP += discAllowed;
+                breakdownParts.push(`${discAllowed}h CDR Discr`);
+                extensionsAdded = true;
+            }
+
+            // Generate Breakdown String
+            if (extensionsAdded) {
+                const totalHours = Math.floor(effectiveMaxFDP);
+                const totalMins = Math.round((effectiveMaxFDP - totalHours) * 60);
+                const totalStr = totalMins > 0 ? `${totalHours}h ${totalMins}m` : `${totalHours}h`;
+                
+                resultSpan.textContent = `${totalStr}  (${baseStr} Base + ${breakdownParts.join(' + ')})`;
+                resultSpan.style.fontSize = "0.85rem"; // Slightly smaller to fit
+            } else {
+                resultSpan.textContent = baseStr;
+                resultSpan.style.fontSize = ""; // Reset
+            }
+        } else {
+            resultSpan.textContent = baseStr;
+            resultSpan.style.fontSize = ""; // Reset
         }
-
-        // Format FDP (convert decimal hours to hours:minutes)
-        const hours = Math.floor(maxFDP);
-        const minutes = Math.round((maxFDP - hours) * 60);
-        const formattedFDP = minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
-
-        resultSpan.textContent = formattedFDP;
 
         // Calculate FDP End
         const effHours = Math.floor(effectiveMaxFDP);
@@ -1903,13 +1941,11 @@ function toggleFDPExtension() {
         icon.textContent = '▼';
         
         if (anchorBottom && wrapper) anchorBottom.appendChild(wrapper);
-        if (maxRow) maxRow.style.display = 'none';
     } else {
         section.style.display = 'none';
         icon.textContent = '▶';
         
         if (anchorTop && wrapper) anchorTop.appendChild(wrapper);
-        if (maxRow) maxRow.style.display = 'flex';
     }
     
     if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
@@ -1946,19 +1982,38 @@ function setRestType(type) {
 }
 
 // ===========================
-// Commander's Discretion
+// In-Flight Relief & Discretion 
 // ===========================
+
+function checkHideInfoBox() {
+    const reliefBox = document.getElementById('fdp-relief-info-box');
+    if (reliefBox) {
+        if (isInFlightReliefEnabled && isDiscretionEnabled) {
+            reliefBox.style.display = 'none';
+        } else {
+            reliefBox.style.display = 'block';
+        }
+    }
+}
+
+function toggleInFlightRelief() {
+    isInFlightReliefEnabled = document.getElementById('relief-toggle').checked;
+    const optionsSection = document.getElementById('relief-options-section');
+    optionsSection.style.display = isInFlightReliefEnabled ? 'block' : 'none';
+    
+    checkHideInfoBox();
+    
+    if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
+        calculateFDP();
+    }
+}
 
 function toggleCommandersDiscretion() {
     isDiscretionEnabled = document.getElementById('discretion-toggle').checked;
     const optionsSection = document.getElementById('discretion-options-section');
     optionsSection.style.display = isDiscretionEnabled ? 'block' : 'none';
     
-    if (!isDiscretionEnabled) {
-        // Reset inputs when turned off
-        document.getElementById('discretion-hours').value = 0;
-        document.getElementById('discretion-minutes').value = 0;
-    }
+    checkHideInfoBox();
     
     if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
         calculateFDP();
@@ -1981,7 +2036,7 @@ function setDiscretionSectorType(type) {
         lastSectorGroup.style.display = 'block';
     }
     
-    validateDiscretionInput();
+    updateDiscretionMaxDisplay();
 }
 
 function setDiscretionLastSector(isLast) {
@@ -1997,7 +2052,7 @@ function setDiscretionLastSector(isLast) {
         noBtn.classList.add('active');
     }
     
-    validateDiscretionInput();
+    updateDiscretionMaxDisplay();
 }
 
 function getMaxDiscretion() {
@@ -2006,27 +2061,12 @@ function getMaxDiscretion() {
     return 2;
 }
 
-function validateDiscretionInput() {
-    const hoursInput = document.getElementById('discretion-hours');
-    const minutesInput = document.getElementById('discretion-minutes');
+function updateDiscretionMaxDisplay() {
     const maxNote = document.getElementById('discretion-max-note');
-    
-    const maxAllowed = getMaxDiscretion();
-    maxNote.textContent = `Max allowed: ${maxAllowed}h 0m`;
-    
-    let hours = parseInt(hoursInput.value) || 0;
-    let minutes = parseInt(minutesInput.value) || 0;
-    
-    // Total max validation
-    if (hours > maxAllowed || (hours === maxAllowed && minutes > 0)) {
-        hoursInput.value = maxAllowed;
-        minutesInput.value = 0;
+    if (maxNote) {
+        const maxAllowed = getMaxDiscretion();
+        maxNote.textContent = `Max allowed: ${maxAllowed}h 0m`;
     }
-    
-    // Bounds validation
-    if (hoursInput.value < 0) hoursInput.value = 0;
-    if (minutesInput.value > 59) minutesInput.value = 59;
-    if (minutesInput.value < 0) minutesInput.value = 0;
     
     if (document.getElementById('fdp-result-container') && document.getElementById('fdp-result-container').style.display !== 'none') {
         calculateFDP();
@@ -2039,9 +2079,9 @@ window.calculateFDP = calculateFDP;
 window.toggleFDPExtension = toggleFDPExtension;
 window.setRestType = setRestType;
 window.toggleCommandersDiscretion = toggleCommandersDiscretion;
+window.toggleInFlightRelief = toggleInFlightRelief;
 window.setDiscretionSectorType = setDiscretionSectorType;
 window.setDiscretionLastSector = setDiscretionLastSector;
-window.validateDiscretionInput = validateDiscretionInput;
 
 // Cleanup intervals on page unload
 window.addEventListener('beforeunload', () => {

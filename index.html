@@ -974,25 +974,33 @@
                 </div>
 
                 <div id="fdp-extension-section" class="fdp-ext-section" style="display:none;">
-                    <!-- Rest Type Toggle -->
-                    <div class="calc-group">
-                        <label class="calc-label">Rest Type</label>
-                        <div class="fdp-toggle-group">
-                            <button type="button" id="rest-type-bunk" class="fdp-toggle-btn active"
-                                onclick="setRestType('bunk')">🛏️ Bunk</button>
-                            <button type="button" id="rest-type-seat" class="fdp-toggle-btn"
-                                onclick="setRestType('seat')">💺 Seat</button>
-                        </div>
+                    <!-- In-Flight Relief Toggle -->
+                    <div class="discretion-toggle-container" style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <input type="checkbox" id="relief-toggle" onchange="toggleInFlightRelief()">
+                        <label for="relief-toggle" style="color: white; font-weight: bold; cursor: pointer;">In-Flight Relief</label>
                     </div>
 
-                    <!-- Max FDP Display -->
-                    <div class="fdp-ext-info-box">
-                        <div class="info-row">
-                            <span class="info-label">Max Permissible FDP:</span>
-                            <span id="fdp-ext-max-display" class="info-value-large">18h</span>
+                    <div id="relief-options-section" style="display:none; padding-left: 10px; border-left: 2px solid #4a5568; margin-bottom: 15px;">
+                        <!-- Rest Type Toggle -->
+                        <div class="calc-group">
+                            <label class="calc-label">Rest Type</label>
+                            <div class="fdp-toggle-group">
+                                <button type="button" id="rest-type-bunk" class="fdp-toggle-btn active"
+                                    onclick="setRestType('bunk')">🛏️ Bunk</button>
+                                <button type="button" id="rest-type-seat" class="fdp-toggle-btn"
+                                    onclick="setRestType('seat')">💺 Seat</button>
+                            </div>
                         </div>
-                        <div class="info-note" id="fdp-ext-note">
-                            Extension: 1/2 of total rest taken
+
+                        <!-- Max FDP Display -->
+                        <div class="fdp-ext-info-box" id="fdp-relief-info-box">
+                            <div class="info-row">
+                                <span class="info-label">Max Permissible FDP:</span>
+                                <span id="fdp-ext-max-display" class="info-value-large">18h</span>
+                            </div>
+                            <div class="info-note" id="fdp-ext-note">
+                                Extension: 1/2 of total rest taken
+                            </div>
                         </div>
                     </div>
 
@@ -1025,21 +1033,8 @@
                             </div>
                         </div>
 
-                        <div class="calc-group">
-                            <label class="calc-label">Additional Discretion</label>
-                            <div style="display: flex; gap: 10px;">
-                                <div style="flex: 1;">
-                                    <input type="number" id="discretion-hours" class="calc-input" min="0" max="3" value="0" placeholder="Hrs" oninput="validateDiscretionInput()" style="margin-bottom: 5px;">
-                                    <span style="color: #a0aec0; font-size: 0.8rem;">Hours</span>
-                                </div>
-                                <div style="flex: 1;">
-                                    <input type="number" id="discretion-minutes" class="calc-input" min="0" max="59" value="0" placeholder="Mins" oninput="validateDiscretionInput()" style="margin-bottom: 5px;">
-                                    <span style="color: #a0aec0; font-size: 0.8rem;">Minutes</span>
-                                </div>
-                            </div>
-                            <div class="info-note" id="discretion-max-note" style="margin-top: 5px;">
-                                Max allowed: 3h 0m
-                            </div>
+                        <div class="info-note" id="discretion-max-note" style="margin-top: 5px;">
+                            Max allowed: 3h 0m
                         </div>
                     </div>
                 </div>
