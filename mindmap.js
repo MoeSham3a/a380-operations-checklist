@@ -11,290 +11,322 @@ const mindMapData = {
                     name: "Pre-Flight Preparation\n(Duty Day -1 & At Home)",
                     children: [
                         { name: "Review NOTAMs of previous day" },
-                {
-                    name: "At Home actions",
-                    children: [
-                        { name: "Read briefing package, Network Report,/FCI/FCN/ACI/SCB" },
-                        { name: "Check Stand and runway in use" },
-                    ]
-                },
-                {
-                    name: "Reporting Time",
-                    children: [
-                        { name: "1:25 in Dubai (DXB) before STD (OMA 7.6.1)" },
-                        { name: "1 hour outstation before STD (OMA 7.6.1)" },
-                    ]
-                },
-            ]
-        },
-        {
-            name: "Flight and Duty\nTime Limitations (FTL)",
-            children: [
-                { name: "Check FTL OMA 7.6.2.1 or 7.6.2.2\nand crew composition 4.3.1" },
-                {
-                    name: "Flight Time Limits (Block Time)",
-                    children: [
-                        { name: "Segment 1: 16 hours or less (OMA 7.E.1.2)" },
-                        { name: "Segment 2: More than 16 hours (OMA 7.E.1.2)" },
-                    ]
-                },
-                {
-                    name: "Flight Duty Period (FDP) Limitations",
-                    children: [
-                        { name: "Two or More Flight Crew - Acclimatised (Table 7.6.2.1)" },
-                        { name: "Two or More Flight Crew - Not Acclimatised (Table 7.6.2.2)" },
                         {
-                            name: "Extension of FDP",
+                            name: "At Home actions",
                             children: [
-                                { name: "Max 18 hours if bunk available (OMA 7.7.1.3)" },
-                                { name: "Max 15 hours if bunk not available (OMA 7.7.1.3)" },
+                                { name: "Read briefing package, Network Report,/FCI/FCN/ACI/SCB" },
+                                { name: "Check Stand and runway in use" },
                             ]
                         },
-                        { name: "Commander's Discretion: 3 hours max (except emergency) (OMA 7.15)" }
+                        {
+                            name: "Reporting Time",
+                            children: [
+                                { name: "1:25 in Dubai (DXB) before STD (OMA 7.6.1)" },
+                                { name: "1 hour outstation before STD (OMA 7.6.1)" },
+                            ]
+                        },
                     ]
                 },
                 {
-                    name: "Duty Hour Limits (Max Duty Hours) 7.19",
+                    name: "Flight and Duty\nTime Limitations (FTL)",
                     children: [
-                        { name: "55 hours in any 7 consecutive days" },
-                        { name: "90 hours in any 14 consecutive days" },
-                        { name: "190 hours in any 28 consecutive days" }
-                    ]
-                },
-                {
-                    name: "Absolute Flying Limit (7.20)",
-                    children: [
-                        { name: "100 hours during 28 days" },
-                        { name: "900 hours during 12 months" },
-                    ]
-                }
-            ]
-        },
-        {
-            name: "Crew Requirements\nand Briefing",
-            children: [
-                { name: "Report Time (Briefing Room): 01.25 DXB/01:15 Outstation (LRV 7.E.2)" },
-                {
-                    name: "Minimum Cabin Crew Complement (OMA 4.3.1)",
-                    children: [
-                        { name: "101-150 seats: 3 CC" },
-                        { name: "151-200 seats: 4 CC" },
-                        { name: "Additional CC: 1 for each 50 passenger seats or portion of" },
-                    ]
-                },
-                {
-                    name: "Minimum Required Cabin Crew by Aircraft Type (OMA 4.3.1)",
-                    children: [
-                        { name: "A380 (3 class): 18 (Note 2)" },
-                        { name: "A380 (2 class): 19 (Note 3)" },
-                        { name: "B777-300ER: 10 CC" },
-                        { name: "B777-200LR: 8 CC" },
-                        { name: "A350: 8 CC (Note 4)" },
-                        { name: "A319: 2 CC (Note 1)" }
-                    ]
-                },
-                {
-                    name: "Operation with less than Minimum Cabin Crew Complement (OMA 4.3.2)",
-                    children: [
-                        { name: "The unattended cabin door shall be considered inoperative for the purpose of determining the maximum number of passengers" },
-                        { name: "Carriage of less than regulatory minimum crew shall be authorized by DSVP-FO or his designee" },
-                        { name: "A report shall be submitted to UAE GCAA after completion of each such flight" }
-                    ]
-                },
-                {
-                    name: "Flight Crew Briefing Topics (OMA 8.1.13)",
-                    children: [
-                        { name: "OFP,Weather, NOTAMS" },
-                        { name: "SCB, FCI, FCN, ACI, Network Report" },
-                        { name: "Documents, Rest Strategy" }
-                    ]
-                },
-                {
-                    name: "Cabin Crew Briefing Topics (OME 3.1.2.3)",
-                    children: [
-                        { name: "Introduction of flight crew and chain of command" },
-                        { name: "Taxi time, Weather and turbulence" },
-                        { name: "Flight deck door policy, Security requirements at destination" }
-                    ]
-                },
-                {
-                    name: "Cabin Crew Reduction (OMA 7.E.8)",
-                    children: [
-                        { name: "Reduced by 1 departing DXB" },
-                        { name: "Reduced by 2 departing outstation" }
-                    ]
-                },
-                {
-                    name: "First Officer Operational Restrictions (OMA 5.2.4.4)",
-                    children: [
-                        { name: "Any reported Runway Condtion Code is less than 5" },
-                        { name: "The crosswind component including gusts exceeds 20 knots" },
-                        { name: "Any relevant RVR/Visibility for take-off is 500m or less" },
-                        { name: "Operating to/from an aerodrome with a company publication requiring Commander only take-off or landing" },
-                        { name: "The approach conducted is a CAT I ILS/GLS with autoland, Cat II, or CAT III" },
-                        { name: "Shall not taxi if a 180 degree turn is required" },
-                    ]
-                }
-            ]
-        },
-        {
-            name: "Ground Operations\nand Fueling (AT GATE)",
-            children: [
-                {
-                    name: "Engine Oil (FCOM/Limitations/Engine))",
-                    children: [
-                        { name: "EA: 10 quarts / 6 + 0.4 quarts per hour" },
-                        { name: "RR: 10 quarts / 6 + 0.5 quarts per hour" },
-                    ]
-                },
-                {
-                    name: "Flight Crew Oxygen (FCOM/Limitations/oxygen))",
-                    children: [
-                        { name: "2 crew 600 psi" },
-                        { name: "3 crew 750 psi" },
-                        { name: "4 crew 1000 psi" }
-                    ]
-                },
-                {
-                    name: "Cabin Oxygen (FCOM/Limitations/oxygen))",
-                    children: [
-                        { name: "With first class: 1300 psi - DARD 1650 psi" },
-                        { name: "Without first class: 1350 psi - DARD 1750 psi" }
-                    ]
-                },
-                {
-                    name: "Fueling (OMA 8.2.1)",
-                    children: [
-                        { name: "Ramp Fuel -5T" },
-                        { name: "Updated OFP if TOW change of 2 tons or more" }
-                    ]
-                },
-                {
-                    name: "Refueling with passengers",
-                    children: [
-                        { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)\nOMA 8.2.1.3.2" }
-                    ]
-                },
-                {
-                    name: "Fuel Uplift Check (OMA 8.2.1.4)",
-                    children: [
-                        { name: "Actual>Calculated: 5% up to 2 tons" },
-                        { name: "Actual<Calculated: 5% up to 1 ton" }
-                    ]
-                },
-                {
-                    name: "Fuel Freezing point (OMA 8.2.1.5)",
-                    children: [
-                        { name: "Uplift >= 90% loaded fuel: Freezing point = fuel uploaded type" },
-                        { name: "Uplift < 90% loaded fuel: Freezing point = lowest fuel freezing point (Jet A)" }
-                    ]
-                },
-                {
-                    name: "Deicing and Antiicing (OMA 8.2.4)",
-                    children: [
-                        { name: "FCOM/(EK) AWO TAKEOFF CONSIDERATIONS" },
-                        { name: "De-icing/anti-icing worksheet (OMC 10.3.1.3)" },
-                        { name: "FCTM/NOR/SUPP/ADVERSE WEATHER" },
-                        { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/ENGINE ICE SHEDDING ON GROUND" },
-                        { name: "Snowfall Intensities as a Function of Prevailing Visibility (OMC 10.3.1.2)" },
-                        { name: "Type 4 Fluid Holdover Guidelines (OMC 10.3.10.5)" },
-                        { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/COLD WEATHER PROCEDURES" },
-                        { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/AIRFRAME DEICING/ANTI-ICING PROCEDURE ON GROUND" },
-                        { name: "FCOM/PERF/TAKEOFF/RUNWAY CONTAMINATION/EQUIVALENCES FOR PERFORMANCE" },
-                        { name: "Altitude Corrections (OMC 10.4)" },
-                        { name: "FCOM/(EK) AWO APPROACH AND LANDING CONSIDERATIONS" }
-                    ]
-                },
-            ]
-        },
-        {
-            name: "Departure and Taxi",
-            children: [
-                { name: "OTP Departure Window: -10/+3 Off Blocks (OMC 1.1.2)" },
-                {
-                    name: "Engine Start Fault ECAM (Pushback)",
-                    children: [
-                        { name: "ANC - Confirm failure - OEB - Actions - status? - checklist, reset, deferred procedure - MEL - Failure prior to takeoff" }
-                    ]
-                },
-                {
-                    name: "Hazardous Weather Decision tree (OMC 10.2.2.3)",
-                    children: [
-                        { name: "Evaluate weather within 15 nm of airport" },
-                        { name: "Do not takeoff/land if Microburst Alert issued" },
-                        { name: "Maintain 3 nm horizontal separation if aircraft at or below 1,000 ft AGL" },
+                        { name: "Check FTL OMA 7.6.2.1 or 7.6.2.2\nand crew composition 4.3.1" },
+                        {
+                            name: "Flight Duty Period (FDP) Limitations",
+                            children: [
+                                { name: "Two or More Flight Crew - Acclimatised (Table 7.6.2.1)" },
+                                { name: "Two or More Flight Crew - Not Acclimatised (Table 7.6.2.2)" },
+                                {
+                                    name: "Extension of FDP",
+                                    children: [
+                                        { name: "Max 18 hours if bunk available (OMA 7.7.1.3)" },
+                                        { name: "Max 15 hours if bunk not available (OMA 7.7.1.3)" },
+                                    ]
+                                },
+                                { name: "Commander's Discretion: 3 hours max (except emergency) (OMA 7.15)" }
+                            ]
+                        },
+                        {
+                            name: "Duty Hour Limits (Max Duty Hours) 7.19",
+                            children: [
+                                { name: "55 hours in any 7 consecutive days" },
+                                { name: "90 hours in any 14 consecutive days" },
+                                { name: "190 hours in any 28 consecutive days" }
+                            ]
+                        },
+                        {
+                            name: "Absolute Flying Limit (7.20)",
+                            children: [
+                                { name: "100 hours during 28 days" },
+                                { name: "900 hours during 12 months" },
+                            ]
+                        },
+                        {
+                            name: "Long Range Variation",
+                            children: [
+                                {
+                                    name: "Flight Time Limits (Block Time)",
+                                    children: [
+                                        { name: "Segment 1: 16 hours or less (OMA 7.E.1.2)" },
+                                        { name: "Segment 2: More than 16 hours (OMA 7.E.1.2)" },
+                                    ]
+                                },
+                                {
+                                    name: "Key Rules and Conditions (7.E.2)",
+                                    children: [
+                                        { name: "Reporting Time: 01:25 DXB/01:15 Outstation" },
+                                        { name: "Shall be acclimatized prior to LRV flight or Standby" },
+                                        { name: "For S2, 54 hours free of duty including 3 local nights of rest acclimatization" },
+                                        { name: "Minimum Rest: As long as preceding duty OR S1: 16 hours, S2: 20 hours" },
+                                        { name: "Minimum post-flight rest at home base: 34 hours including 2 local nights if followed by non LRV Pairing, 54 hours including 3 local nights if followed by LRV pairing" },
+                                        { name: "Home base crossing more than 4 time zones in both directions: 78 hurs followed and 4 local nights if LRV, 54 hours and 3 local nights if non LRV" }
+                                    ]
+                                },
+                            ]
+                        },
+
 
                     ]
                 },
                 {
-                    name: "Initial Turns (OMA 8.3.29.2.13)",
+                    name: "Crew Requirements\nand Briefing",
                     children: [
-                        { name: "No turns below 400 ft AGL (unless required)" },
-                        { name: "Max Bank Angle below 200 ft: 15 degrees" },
-                        { name: "Max Bank Angle 200-400 ft: 15 degrees (20 degrees with specific approval)" }
-                    ]
-                },
-                {
-                    name: "Cabin Crew Release for Inflight Duties (OMA 8.3.20.2.16)",
-                    children: [
-                        { name: "Flaps retracted" },
-                        { name: "Above 5000 ft AAL" },
-                        { name: "Turbulence None or Light" }
-                    ]
-                }
-            ]
-        },
-        {
-            name: "Cruise Flight\nOperations",
-            children: [
-                {
-                    name: "In-flight Fuel Management (OMA 8.3.7)",
-                    children: [
-                        { name: "Regular Checks not exceeding 60 minutes" },
-                        { name: "Aim: Arrive at destination with FRF + alternate fuel" },
-                        { name: "If landing < FRF + alternate fuel: Must achieve safe landing at 2 different aerodromes with >= FRF" }
-                    ]
-                },
-                {
-                    name: "Fuel Status Definition",
-                    children: [
-                        { name: "Commit to Land: Landing >= FRF (OMA 8.3.7.2.2)" },
-                        { name: "Minimum Fuel: Change to clearance risks landing < FRF (OMA 8.3.7.4)" },
-                        { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
-                    ]
-                },
-                { name: "Fuel Freezing (OMC 10.1.9): -65 degrees C or colder for > 90 minutes" }
-            ]
-        },
-        {
-            name: "Descent, Approach,\nand Landing",
-            children: [
-                {
-                    name: "Maximum Rate of Descent (OMA 8.3.20.2.22)",
-                    children: [
-                        { name: "Above 5,000 ft AGL: 5,000 fpm" },
-                        { name: "5,000-3,000 ft AGL: 3,000 fpm" },
-                        { name: "3,000-1000 ft AGL: 2,000 fpm" },
-                        { name: "Below 1,000 ft AGL: 1,000 fpm" }
-                    ]
-                },
-                {
-                    name: "Approach Stabilization Criteria (OMA 8.3.20.2.28)",
-                    children: [
+                        { name: "Report Time (Briefing Room): 01.25 DXB/01:15 Outstation (LRV 7.E.2)" },
                         {
-                            name: "At 1,000 ft AAL",
+                            name: "Minimum Cabin Crew Complement (OMA 4.3.1)",
                             children: [
-                                { name: "Landing gear down and locked" },
-                                { name: "Landing flaps set and in position" },
-                                { name: "speedbrakes retracted" }
+                                { name: "101-150 seats: 3 CC" },
+                                { name: "151-200 seats: 4 CC" },
+                                { name: "Additional CC: 1 for each 50 passenger seats or portion of" },
                             ]
                         },
                         {
-                            name: "At 500 ft AAL",
+                            name: "Minimum Required Cabin Crew by Aircraft Type (OMA 4.3.1)",
                             children: [
-                                { name: "Speed VREF to Approach speed + 10 kts" },
-                                { name: "Thrust appropriate to configuration" },
-                                { name: "All checklists completed" }
+                                { name: "A380 (3 class): 18 (Note 2)" },
+                                { name: "A380 (2 class): 19 (Note 3)" },
+                                { name: "B777-300ER: 10 CC" },
+                                { name: "B777-200LR: 8 CC" },
+                                { name: "A350: 8 CC (Note 4)" },
+                                { name: "A319: 2 CC (Note 1)" }
+                            ]
+                        },
+                        {
+                            name: "Operation with less than Minimum Cabin Crew Complement (OMA 4.3.2)",
+                            children: [
+                                { name: "The unattended cabin door shall be considered inoperative for the purpose of determining the maximum number of passengers" },
+                                { name: "Carriage of less than regulatory minimum crew shall be authorized by DSVP-FO or his designee" },
+                                { name: "A report shall be submitted to UAE GCAA after completion of each such flight" }
+                            ]
+                        },
+                        {
+                            name: "Flight Crew Briefing Topics (OMA 8.1.13)",
+                            children: [
+                                { name: "OFP,Weather, NOTAMS" },
+                                { name: "SCB, FCI, FCN, ACI, Network Report" },
+                                { name: "Documents, Rest Strategy" }
+                            ]
+                        },
+                        {
+                            name: "Cabin Crew Briefing Topics (OME 3.1.2.3)",
+                            children: [
+                                { name: "Introduction of flight crew and chain of command" },
+                                { name: "Taxi time, Weather and turbulence" },
+                                { name: "Flight deck door policy, Security requirements at destination" }
+                            ]
+                        },
+                        {
+                            name: "Cabin Crew Reduction (OMA 7.E.8)",
+                            children: [
+                                { name: "Reduced by 1 departing DXB" },
+                                { name: "Reduced by 2 departing outstation" }
+                            ]
+                        },
+                        {
+                            name: "First Officer Operational Restrictions (OMA 5.2.4.4)",
+                            children: [
+                                { name: "Any reported Runway Condtion Code is less than 5" },
+                                { name: "The crosswind component including gusts exceeds 20 knots" },
+                                { name: "Any relevant RVR/Visibility for take-off is 500m or less" },
+                                { name: "Operating to/from an aerodrome with a company publication requiring Commander only take-off or landing" },
+                                { name: "The approach conducted is a CAT I ILS/GLS with autoland, Cat II, or CAT III" },
+                                { name: "Shall not taxi if a 180 degree turn is required" },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ground Operations\nand Fueling (AT GATE)",
+                    children: [
+                        {
+                            name: "Engine Oil (FCOM/Limitations/Engine))",
+                            children: [
+                                { name: "EA: 10 quarts / 6 + 0.4 quarts per hour" },
+                                { name: "RR: 10 quarts / 6 + 0.5 quarts per hour" },
+                            ]
+                        },
+                        {
+                            name: "Flight Crew Oxygen (FCOM/Limitations/oxygen))",
+                            children: [
+                                { name: "2 crew 600 psi" },
+                                { name: "3 crew 750 psi" },
+                                { name: "4 crew 1000 psi" }
+                            ]
+                        },
+                        {
+                            name: "Cabin Oxygen (FCOM/Limitations/oxygen))",
+                            children: [
+                                { name: "With first class: 1300 psi - DARD 1650 psi" },
+                                { name: "Without first class: 1350 psi - DARD 1750 psi" }
+                            ]
+                        },
+                        {
+                            name: "Fueling (OMA 8.2.1)",
+                            children: [
+                                { name: "Ramp Fuel -5T" },
+                                { name: "Updated OFP if TOW change of 2 tons or more" }
+                            ]
+                        },
+                        {
+                            name: "Refueling with passengers",
+                            children: [
+                                { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)\nOMA 8.2.1.3.2" }
+                            ]
+                        },
+                        {
+                            name: "Fuel Uplift Check (OMA 8.2.1.4)",
+                            children: [
+                                { name: "Actual>Calculated: 5% up to 2 tons" },
+                                { name: "Actual<Calculated: 5% up to 1 ton" }
+                            ]
+                        },
+                        {
+                            name: "Fuel Freezing point (OMA 8.2.1.5)",
+                            children: [
+                                { name: "Uplift >= 90% loaded fuel: Freezing point = fuel uploaded type" },
+                                { name: "Uplift < 90% loaded fuel: Freezing point = lowest fuel freezing point (Jet A)" }
+                            ]
+                        },
+                        {
+                            name: "Deicing and Antiicing (OMA 8.2.4)",
+                            children: [
+                                { name: "FCOM/(EK) AWO TAKEOFF CONSIDERATIONS" },
+                                { name: "De-icing/anti-icing worksheet (OMC 10.3.1.3)" },
+                                { name: "FCTM/NOR/SUPP/ADVERSE WEATHER" },
+                                { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/ENGINE ICE SHEDDING ON GROUND" },
+                                { name: "Snowfall Intensities as a Function of Prevailing Visibility (OMC 10.3.1.2)" },
+                                { name: "Type 4 Fluid Holdover Guidelines (OMC 10.3.10.5)" },
+                                { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/COLD WEATHER PROCEDURES" },
+                                { name: "FCOM/NOR/SUPP/ADVERSE WEATHER/AIRFRAME DEICING/ANTI-ICING PROCEDURE ON GROUND" },
+                                { name: "FCOM/PERF/TAKEOFF/RUNWAY CONTAMINATION/EQUIVALENCES FOR PERFORMANCE" },
+                                { name: "Altitude Corrections (OMC 10.4)" },
+                                { name: "FCOM/(EK) AWO APPROACH AND LANDING CONSIDERATIONS" }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    name: "Departure and Taxi",
+                    children: [
+                        { name: "OTP Departure Window: -10/+3 Off Blocks (OMC 1.1.2)" },
+                        {
+                            name: "Engine Start Fault ECAM (Pushback)",
+                            children: [
+                                { name: "ANC - Confirm failure - OEB - Actions - status? - checklist, reset, deferred procedure - MEL - Failure prior to takeoff" }
+                            ]
+                        },
+                        {
+                            name: "Hazardous Weather Decision tree (OMC 10.2.2.3)",
+                            children: [
+                                { name: "Evaluate weather within 15 nm of airport" },
+                                { name: "Do not takeoff/land if Microburst Alert issued" },
+                                { name: "Maintain 3 nm horizontal separation if aircraft at or below 1,000 ft AGL" },
+
+                            ]
+                        },
+                        {
+                            name: "Initial Turns (OMA 8.3.29.2.13)",
+                            children: [
+                                { name: "No turns below 400 ft AGL (unless required)" },
+                                { name: "Max Bank Angle below 200 ft: 15 degrees" },
+                                { name: "Max Bank Angle 200-400 ft: 15 degrees (20 degrees with specific approval)" }
+                            ]
+                        },
+                        {
+                            name: "Cabin Crew Release for Inflight Duties (OMA 8.3.20.2.16)",
+                            children: [
+                                { name: "Flaps retracted" },
+                                { name: "Above 5000 ft AAL" },
+                                { name: "Turbulence None or Light" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Cruise Flight\nOperations",
+                    children: [
+                        {
+                            name: "In-flight Fuel Management (OMA 8.3.7)",
+                            children: [
+                                { name: "Regular Checks not exceeding 60 minutes" },
+                                { name: "Aim: Arrive at destination with FRF + alternate fuel" },
+                                { name: "If landing < FRF + alternate fuel: Must achieve safe landing at 2 different aerodromes with >= FRF" }
+                            ]
+                        },
+                        {
+                            name: "Fuel Status Definition",
+                            children: [
+                                { name: "Commit to Land: Landing >= FRF (OMA 8.3.7.2.2)" },
+                                { name: "Minimum Fuel: Change to clearance risks landing < FRF (OMA 8.3.7.4)" },
+                                { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
+                            ]
+                        },
+                        { name: "Fuel Freezing (OMC 10.1.9): -65 degrees C or colder for > 90 minutes" }
+                    ]
+                },
+                {
+                    name: "Descent, Approach,\nand Landing",
+                    children: [
+                        {
+                            name: "Maximum Rate of Descent (OMA 8.3.20.2.22)",
+                            children: [
+                                { name: "Above 5,000 ft AGL: 5,000 fpm" },
+                                { name: "5,000-3,000 ft AGL: 3,000 fpm" },
+                                { name: "3,000-1000 ft AGL: 2,000 fpm" },
+                                { name: "Below 1,000 ft AGL: 1,000 fpm" }
+                            ]
+                        },
+                        {
+                            name: "Approach Stabilization Criteria (OMA 8.3.20.2.28)",
+                            children: [
+                                {
+                                    name: "At 1,000 ft AAL",
+                                    children: [
+                                        { name: "Landing gear down and locked" },
+                                        { name: "Landing flaps set and in position" },
+                                        { name: "speedbrakes retracted" }
+                                    ]
+                                },
+                                {
+                                    name: "At 500 ft AAL",
+                                    children: [
+                                        { name: "Speed VREF to Approach speed + 10 kts" },
+                                        { name: "Thrust appropriate to configuration" },
+                                        { name: "All checklists completed" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Post-Flight\nRequirements",
+                    children: [
+                        {
+                            name: "Rest Period (Greater of) (OMA 7.6.1)",
+                            children: [
+                                { name: "As long as preceeding duty period" },
+                                { name: "12 hours" }
                             ]
                         }
                     ]
@@ -302,21 +334,7 @@ const mindMapData = {
             ]
         },
         {
-            name: "Post-Flight\nRequirements",
-            children: [
-                {
-                    name: "Rest Period (Greater of) (OMA 7.6.1)",
-                    children: [
-                        { name: "As long as preceeding duty period" },
-                        { name: "12 hours" }
-                    ]
-                }
-            ]
-        }
-    ]
-},
-{
-    name: "Crew Health Precautions",
+            name: "Crew Health Precautions",
             children: [
                 {
                     name: "Anaesthetics 6.1.13",
