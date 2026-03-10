@@ -79,7 +79,16 @@ const mindMapData = {
                                         { name: "For S2, 54 hours free of duty including 3 local nights of rest acclimatization" },
                                         { name: "Minimum Rest: As long as preceding duty OR S1: 16 hours, S2: 20 hours" },
                                         { name: "Minimum post-flight rest at home base: 34 hours including 2 local nights if followed by non LRV Pairing, 54 hours including 3 local nights if followed by LRV pairing" },
-                                        { name: "Home base crossing more than 4 time zones in both directions: 78 hurs followed and 4 local nights if LRV, 54 hours and 3 local nights if non LRV" }
+                                        { name: "Home base crossing more than 4 time zones in both directions: 78 hours followed and 4 local nights if LRV, 54 hours and 3 local nights if non LRV" }
+                                    ]
+                                },
+                                {
+                                    name: "Unforeseen Circumstances (7.E.8)",
+                                    children: [
+                                        { name: "3 man crew FDP limit 18 hours, 4 man crew 22 hours" },
+                                        { name: "Cabin crew complement can be reduced by: 1 departing DXB, 2 departing outstation" },
+                                        { name: "Rest period can be reduced to 54 hours and 3 local nights for transition between east-west or west-east except for S2" },
+                                        { name: "In case of sickness: 4 man crew can be reduced to 3: Max FDP 18 hours and 15 hours flight time" }
                                     ]
                                 },
                             ]
