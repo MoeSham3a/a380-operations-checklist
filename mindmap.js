@@ -165,96 +165,6 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Flight Preparation (OMA 8.1)",
-                    children: [
-                        {
-                            name: "Rescue and Fire Fighting Services (OMA 8.1.2.4) A380",
-                            children: [
-                                { name: "Departures and Destination: 10 (1*,2*)" },
-                                { name: "Take-off, En-route,and Destination Alternate: 8 (3*)" },
-                                { name: "ETOPS, Driftdown and Depressurisation Alternate: 6" },
-                                { name: "Note 1: One category below the minimum required RFFS category is authorised" },
-                                { name: "Note 2:  The minimum required RFFS categories in case of temporary downgrade can be lowered to 8 (not exceeding 72 hours)" },
-                                { name: "Note 3:  The minimum required RFFS categories in case of temporary downgrade can be lowered to 7 (not exceeding 72 hours)" }
-                            ]
-                        },
-                        {
-                            name: "Dispatch - Landing Distance Requirements (OMA 8.1.2.6.4.1) alternate airodrome requirements",
-                            children: [
-                                {
-                                    name: "Runway Condition at Destination Aerodromes",
-                                    children: [
-                                        {
-                                            name: "Dry",
-                                            children: [
-                                                { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
-                                                { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
-                                            ]
-                                        },
-                                        {
-                                            name: "Wet",
-                                            children: [
-                                                { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
-                                                { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
-                                            ]
-                                        },
-                                        {
-                                            name: "Contaminated",
-                                            children: [
-                                                { name: "Most Favorable Runway in Still Air: Two Destination alternate aerodrome required" },
-                                                { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            name: "Take-off Alternate Aerodrome (OMA 8.1.3.1.1)",
-                            children: [
-                                { name: "A380: Non-ETOPS: 950 NM" },
-                                { name: "One Engine inpoerative cruising speed in still air, standard conditions, and maximum take-off weight" }
-                            ]
-                        },
-                        {
-                            name: "Fuel En-route Alternate Aerodrome (OMA 8.1.3.1.3)",
-                            children: [
-                                { name: "Requirement for planning with 3% Contingency Fuel" },
-                                { name: "Shall be located within a circle of radius equal to 20% of total flight plan distance" },
-                                { name: "The centre lies on the planned route at a distance from destination of 25% of total flight distance OR 20% total flight plan distance plus 50NM whichever is greater" },
-                            ]
-                        },
-                        {
-                            name: "Destination Alternate Aerodrome (OMA 8.1.3.1.6)",
-                            children: [
-                                { name: "Unless destination aerodrome is isolated, At least  one destination alternate shall be selected" },
-                                {
-                                    name: "Two destination alternate aerodromes shall be selected when:",
-                                    children: [
-                                        { name: "The appropriate weather reports and/or forecasts for the destination aerodrome indicate that during a period commencing 1 hour before and ending 1 hour after the estimated time of arrival, the weather conditions will be below the applicable planning minima" },
-                                        { name: "No meteorological information is available" }
-                                    ]
-                                }
-
-                            ]
-                        },
-                        {
-                            name: "Instrument Approach Classification (OMA 8.1.3.2)",
-                            children: [
-                                { name: "Type A instrument approach operation means an instrument approach operation with an MDH or a DH at or above 250 ft" },
-                                {
-                                    name: "Type B instrument approach operation means an operation with an MDH or a DH below 250 ft",
-                                    children: [
-                                        { name: "CAT I: DH not lower than 200 ft and RVR not less than 550 m or visibility not less than 800 m" },
-                                        { name: "CAT II: DH not lower than 100 ft up to 200 ft and RVRnot less than 300 m" },
-                                        { name: "CAT III: DH lower than 100 ft or no DH and RVR less than 300 m" }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
                     name: "Ground Operations\nand Fueling (AT GATE)",
                     children: [
                         {
@@ -467,6 +377,96 @@ const mindMapData = {
                     name: "Cosmic Radiation 6.2",
                     children: [
                         { name: "No controls are necessary for an individual crew member whose annual dose can be shown to be less than 1 mSv (6.2.4)" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Flight Preparation (OMA 8.1)",
+            children: [
+                {
+                    name: "Rescue and Fire Fighting Services (OMA 8.1.2.4) A380",
+                    children: [
+                        { name: "Departures and Destination: 10 (1*,2*)" },
+                        { name: "Take-off, En-route,and Destination Alternate: 8 (3*)" },
+                        { name: "ETOPS, Driftdown and Depressurisation Alternate: 6" },
+                        { name: "Note 1: One category below the minimum required RFFS category is authorised" },
+                        { name: "Note 2:  The minimum required RFFS categories in case of temporary downgrade can be lowered to 8 (not exceeding 72 hours)" },
+                        { name: "Note 3:  The minimum required RFFS categories in case of temporary downgrade can be lowered to 7 (not exceeding 72 hours)" }
+                    ]
+                },
+                {
+                    name: "Dispatch - Landing Distance Requirements (OMA 8.1.2.6.4.1) alternate airodrome requirements",
+                    children: [
+                        {
+                            name: "Runway Condition at Destination Aerodromes",
+                            children: [
+                                {
+                                    name: "Dry",
+                                    children: [
+                                        { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                    ]
+                                },
+                                {
+                                    name: "Wet",
+                                    children: [
+                                        { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                    ]
+                                },
+                                {
+                                    name: "Contaminated",
+                                    children: [
+                                        { name: "Most Favorable Runway in Still Air: Two Destination alternate aerodrome required" },
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Take-off Alternate Aerodrome (OMA 8.1.3.1.1)",
+                    children: [
+                        { name: "A380: Non-ETOPS: 950 NM" },
+                        { name: "One Engine inpoerative cruising speed in still air, standard conditions, and maximum take-off weight" }
+                    ]
+                },
+                {
+                    name: "Fuel En-route Alternate Aerodrome (OMA 8.1.3.1.3)",
+                    children: [
+                        { name: "Requirement for planning with 3% Contingency Fuel" },
+                        { name: "Shall be located within a circle of radius equal to 20% of total flight plan distance" },
+                        { name: "The centre lies on the planned route at a distance from destination of 25% of total flight distance OR 20% total flight plan distance plus 50NM whichever is greater" },
+                    ]
+                },
+                {
+                    name: "Destination Alternate Aerodrome (OMA 8.1.3.1.6)",
+                    children: [
+                        { name: "Unless destination aerodrome is isolated, At least  one destination alternate shall be selected" },
+                        {
+                            name: "Two destination alternate aerodromes shall be selected when:",
+                            children: [
+                                { name: "The appropriate weather reports and/or forecasts for the destination aerodrome indicate that during a period commencing 1 hour before and ending 1 hour after the estimated time of arrival, the weather conditions will be below the applicable planning minima" },
+                                { name: "No meteorological information is available" }
+                            ]
+                        }
+
+                    ]
+                },
+                {
+                    name: "Instrument Approach Classification (OMA 8.1.3.2)",
+                    children: [
+                        { name: "Type A instrument approach operation means an instrument approach operation with an MDH or a DH at or above 250 ft" },
+                        {
+                            name: "Type B instrument approach operation means an operation with an MDH or a DH below 250 ft",
+                            children: [
+                                { name: "CAT I: DH not lower than 200 ft and RVR not less than 550 m or visibility not less than 800 m" },
+                                { name: "CAT II: DH not lower than 100 ft up to 200 ft and RVRnot less than 300 m" },
+                                { name: "CAT III: DH lower than 100 ft or no DH and RVR less than 300 m" }
+                            ]
+                        }
                     ]
                 }
             ]
