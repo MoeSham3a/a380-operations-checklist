@@ -468,6 +468,58 @@ const mindMapData = {
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Required Visual Reference at MDA/H or DA (OMA 8.1.5.3.1)",
+                    children: [
+                        {
+                            name: "Instrument approach operations Type A, Cat I instrument approach Type B, APV, Non-precision: At least one of the following",
+                            children: [
+                                { name: "Elements of the approach lights system" },
+                                { name: "The threshold" },
+                                { name: "The threshold markings" },
+                                { name: "The threshold lights" },
+                                { name: "The thrshold identification lights" },
+                                { name: "The visual glide path indicator" },
+                                { name: "The touchdown zone or touchdown zone markings" },
+                                { name: "The touchdown zone lights" },
+                                { name: "Runway edge lights" }
+                            ]
+                        },
+                        {
+                            name: "CAT II: at least 3 consecutive lights",
+                            children: [
+                                { name: "Centre line of the approach lights" },
+                                { name: "Touchdown zone lights" },
+                                { name: "Runway edge lights" },
+                                { name: "Runway centre line lights" },
+                                { name: "Combination of these is attained and can be maintained" },
+                                { name: "A lateral element of the ground pattern" }
+                            ]
+                        },
+                        {
+                            name: "CAT III fail-passive flight control system (WITH DH): at least 3 consecutive lights",
+                            children: [
+                                { name: "Centre line of the approach lights" },
+                                { name: "Touchdown zone lights" },
+                                { name: "Runway centre line lights" },
+                                { name: "Runway edge lights" },
+                                { name: "Combination of these is attained and can be maintained" }
+                            ]
+                        },
+                        {
+                            name: "CAT II fail-operational flight control system",
+                            children: [
+                                { name: "at least one centre line light is attained and can be maintained" }
+                            ]
+                        },
+                        {
+                            name: "CAT III NO DH",
+                            children: [
+                                { name: "No requirement for visual contact with the runway prior to touchdown" }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
