@@ -190,23 +190,23 @@ const mindMapData = {
                             ]
                         },
                         {
-                            name: "Fueling (OMA 8.2.1)",
+                            name: "Ordering of Fuel (OMA 8.2.1.1)",
                             children: [
                                 { name: "Ramp Fuel -5T" },
-                                { name: "Updated OFP if TOW change of 2 tons or more" }
+                                { name: "May update OFP if TOW change of 2 tons or more" }
                             ]
                         },
                         {
-                            name: "Refueling with passengers",
+                            name: "Refueling with passengers (OMA 8.2.1.3.2)",
                             children: [
-                                { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)\nOMA 8.2.1.3.2" }
+                                { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)" }
                             ]
                         },
                         {
                             name: "Fuel Uplift Check (OMA 8.2.1.4)",
                             children: [
-                                { name: "Actual>Calculated: 5% up to 2 tons" },
-                                { name: "Actual<Calculated: 5% up to 1 ton" }
+                                { name: "if Actual>Calculated: 5% up to 2 tons" },
+                                { name: "if Actual<Calculated: 5% up to 1 ton" }
                             ]
                         },
                         {
@@ -519,6 +519,76 @@ const mindMapData = {
                                 { name: "No requirement for visual contact with the runway prior to touchdown" }
                             ]
                         }
+                    ]
+                },
+                {
+                    name: "Fuel Tankering (OMA 8.1.7.6)",
+                    children: [
+                        { name: "Max Landing Weight minus 1%" },
+                        { name: "Regulated Landing Weight minus 1%" },
+                        { name: "Commander may deviate and uplift up to MLW or RLW whichever is less" }
+                    ]
+                },
+                {
+                    name: "Fuel Tankering with Cold Soaked Fuel",
+                    children: [
+                        { name: "Less than 2 hours flight time: No restriction" },
+                        { name: "Between 2 and 4 hours flight time: 25 tons Forecasted OAT at destination less than 15°C and no precipitation or condensation or less than 20°C with precipitation or condensation excluding mist and haze" },
+                        { name: "More than 4 hours flight time: 25 tons Forecasted OAT at destination less than 20°C" },
+                        {
+                            name: "Restrictions do not apply if:",
+                            children: [
+                                { name: "While in flight" },
+                                { name: "Fuel tankering for operational reasons" },
+                                { name: "Scheduled ground time at destination exceeds 12 hours" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Standard Masses (including hand luggage)(OMA 8.1.8.2)",
+                    children: [
+                        { name: "Flight Crew: 85kg" },
+                        { name: "Cabin Crew: 75kg" },
+                        { name: "Male passenger: 88kg" },
+                        { name: "Female Passenger: 70kg" },
+                        { name: "Children: 35kg" },
+                        { name: "Infant: 0kg" }
+                    ]
+                },
+                {
+                    name: "Last Minute Change (OMA 8.1.8.6.2)",
+                    children: [
+                        { name: "The LMC does not exceed the calculated underload or any mass limitation of the aeroplane" },
+                        { name: "The load limitations of compartments and loading positions are not exceeded" },
+                        { name: "The center of gravity stays within the allowed limits" },
+                        { name: "Individual or total LMC shall be 500 kg or less" },
+                        { name: "Maximum structural and performance limited weights not exceeded" },
+                        { name: "Loading limitations not exceeded" }
+                    ]
+                },
+                {
+                    name: "Stations without an Authorised Engineer (OMA 8.1.11.2.2)",
+                    children: [
+                        { name: "Perform pre-flight inspection" },
+                        { name: "Perform/oversee refueling" },
+                        { name: "Add defects to the ADD section of the Aircraft Technical Log in accordance with the conditions of the Minimum Equipment List" }
+                    ]
+                },
+                {
+                    name: "List of Documents, Forms and Additional Information to be Carried (OMA 8.1.12)",
+                    children: [
+                        { name: "Certificate of Registration (Original)*" },
+                        { name: "Certificate of Airworthiness (Original)*" },
+                        { name: "Noise Certificate (Copy)*" },
+                        { name: "Air Operator Certificate (AOC) (Certified true copy)*" },
+                        { name: "Operations Specification relevant to the aeroplane type issued in conjunction with the AOC (Copy)*" },
+                        { name: "Aircraft Radio Station License (Original)*" },
+                        { name: "Insurance Certificate(s), which cover the aeroplane, its crew, passengers and third party liability clauses (Copy)*" },
+                        { name: "Airworthiness Review Certificates (ARC), if applicable (Original)*" },
+                        { name: "General Declaration (Original)" },
+                        { name: "Other documents needed for the intended operation" },
+                        { name: "Note 1: For any missing document, advise NCC as soon as practicable. In case of loss or theft of the documents above, operation is permitted to continue to a destination where replacements documents can be provided" }
                     ]
                 }
             ]
