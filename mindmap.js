@@ -278,16 +278,44 @@ const mindMapData = {
                             name: "In-flight Fuel Management (OMA 8.3.7)",
                             children: [
                                 { name: "Regular Checks not exceeding 60 minutes" },
-                                { name: "Aim: Arrive at destination with FRF + alternate fuel" },
-                                { name: "If landing < FRF + alternate fuel: Must achieve safe landing at 2 different aerodromes with >= FRF" }
+                                { name: "Aim: Arrive at destination with FRF + alternate fuel (OMA 8.3.7.2.1)" },
+                                { name: "If landing < FRF + alternate fuel: May continue towards destination if safe landing can be achieved at 2 different aerodromes with >= FRF (OMA 8.3.7.2.1)" },
+                                { name: "Commit to Land: Safe Landing with Commander as PF >= FRF (OMA 8.3.7.2.2)" },
+                                { name: "Minimum Fuel: Change to existing clearance risks landing < FRF (OMA 8.3.7.4)" },
+                                { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
                             ]
                         },
                         {
-                            name: "Fuel Status Definition",
+                            name: "Adverse and Potentially Hazardous Atmospheric Conditions (OMA 8.3.8)",
                             children: [
-                                { name: "Commit to Land: Landing >= FRF (OMA 8.3.7.2.2)" },
-                                { name: "Minimum Fuel: Change to clearance risks landing < FRF (OMA 8.3.7.4)" },
-                                { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
+                                {
+                                    name: "Thunderstorms",
+                                    children: [
+                                        { name: "Strong weather radar echoes shall be avoided by at least 10 NM at or below FL200, and by at least 20 NM above FL200" },
+                                        { name: "When lightning is expected, flight deck lights should be set to high intensity" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Pilot Seat Qualification (OMA 8.3.10.1.1)",
+                            children: [
+                                { name: "Captain: Left hand seat ✔ Right hand seat ✖" },
+                                { name: "Captain with Right hand seat qualification: Left hand seat ✔ Right hand seat ✔" },
+                                { name: "First Officer: Right hand seat ✔ Left hand seat ✔" },
+                                { name: "Note: Flight crew member not occupying his qualified operating seat shall familiarise himself with the location of controls that would be required in an emergency" }
+                            ]
+                        },
+                        {
+                            name: "Handover Briefing (OMA 8.3.10.1.5)",
+                            children: [
+                                { name: "Aeroplane position, cleared route, ETA next waypoint, FL" },
+                                { name: "ATC/FIR environment, boundaries, clearances and/or restrictions" },
+                                { name: "Any threats and mitigations, such as terrain and weather" },
+                                { name: "Destination and alternate aerodrome weather" },
+                                { name: "Any other information relevant to the safe operation of the aeroplane" },
+                                { name: "Aeroplane status" },
+                                { name: "Any other relevant information" }
                             ]
                         },
                         { name: "Fuel Freezing (OMC 10.1.9): -65 degrees C or colder for > 90 minutes" }
