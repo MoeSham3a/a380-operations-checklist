@@ -5,10 +5,10 @@ const mindMapData = {
     name: "A380 Operations",
     children: [
         {
-            name: "Workflow for Flights\n(Operations Manual)",
+            name: "Workflow for Flights\n (Operations Manual)",
             children: [
                 {
-                    name: "Pre-Flight Preparation\n(Duty Day -1 & At Home)",
+                    name: "Pre-Flight Preparation\n (Duty Day -1 & At Home)",
                     children: [
                         { name: "Review NOTAMs of previous day" },
                         {
@@ -28,7 +28,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Flight and Duty\nTime Limitations (FTL)",
+                    name: "Flight and Duty\n Time Limitations (FTL)",
                     children: [
                         { name: "Check FTL OMA 7.6.2.1 or 7.6.2.2\nand crew composition 4.3.1" },
                         {
@@ -165,7 +165,7 @@ const mindMapData = {
                     ]
                 },
                 {
-                    name: "Ground Operations\nand Fueling (AT GATE)",
+                    name: "Ground Operations\n and Fueling (AT GATE)",
                     children: [
                         {
                             name: "Engine Oil (FCOM/Limitations/Engine))",
@@ -619,6 +619,86 @@ const mindMapData = {
                         { name: "Note 1: For any missing document, advise NCC as soon as practicable. In case of loss or theft of the documents above, operation is permitted to continue to a destination where replacements documents can be provided" }
                     ]
                 }
+            ]
+        },
+        {
+            name: "Flight Procedures",
+            children: [
+                {
+                    name: "Use of Seat Belts for Crew and Passengers (OMA 8.3.11)",
+                    children: [
+                        {
+                            name: "Crew seatbelts and shoulder harness(OMA 8.3.11.1)",
+                            children: [
+                                { name: "Taxiing" },
+                                { name: "Take- off and landing" },
+                                { name: "Whenever deemed necessary by the Commander" }]
+                        },
+                        {
+                            name: "Use of fasten Seat Belt Sign(OMA 8.3.11.3)",
+                            children: [
+                                {
+                                    name: "Taxiing, take- off, and for all phases below 10,000 ft AAL"
+                                },
+                                { name: "At or below 25,000 ft AAL during descent" },
+                                { name: "Whenever deemed necessary by Commander" }]
+                        }]
+                },
+                {
+                    name: "Incapacitation of Crew Members(OMA 8.3.14)",
+                    children: [
+                        {
+                            name: "Incapacitation suspected when:",
+                            children: [
+                                { name: "Two verbal communications when above 1000 ft AGL" },
+                                { name: "One verbal communication when below 1000 ft AGL" },
+                                { name: "Any verbal communication associated with significant deviation from the intended flight path" }]
+                        },
+                        {
+                            name: "When incapacitation is obvious:",
+                            children: [
+                                { name: "Ensure a safe condition of flight" },
+                                { name: "Take over the controls immediately" },
+                                { name: "Ensure autopilot is engaged" },
+                                { name: "Transmit an urgency or distress message" },
+                                { name: "Call a cabin crew member for assistance" },
+                                { name: "Cabin crew to remove the incapacitated pilot from the controls" },
+                                { name: "Evaluate all operational aspects of the flight" },
+                                { name: "Determine the suitability of en- route alternate aerodromes for a diversion" }
+                            ]
+                        },
+                        {
+                            name: "Additional considerations",
+                            children: [
+                                { name: "Medical assistance in-flight and after landing should be arranged" },
+                                { name: "Allow enough time for preparations to land" },
+                                { name: "Request radar vectors for long final approach" },
+                                { name: "Perform required normal checklists as early as practicable" },
+                                { name: "Arrange a suitable parking bay.Tow if parking guidance calibrated for left hand seat" }]
+                        }
+                    ]
+                },
+                {
+                    name: "Policy on the use of Autopilot and Autothrottle(OMA 8.3.18)",
+                    children: [
+                        { name: "Flight Directors: shall always be on unless unserviceable or off according to procedure" },
+                        { name: "Autopilot: At or above 20,000 ft MSL shall always be engaged" },
+                        { name: "Autothrust: Shall remain engaged" },
+                        { name: "FCU/ MCP and FMS / FMC: flight path monitored, mode changes announced and cross - checked, intervention to achieve desired flight path, in high workload times FMS modifications reduced to essential" }]
+                },
+                {
+                    name: "Sterile flight deck(OMA 8.3.20.1.1)",
+                    children: [
+                        { name: "Departure: final door closure till 10,000 ft AAL" },
+                        { name: "Arrival: 25,000 ft AAL till first door opened" }]
+                },
+                {
+                    name: "No Contact Period(OMA 8.3.20.1.1.2)",
+                    children: [
+                        { name: "Departure: start of take- off roll till landing gear retracts" },
+                        { name: "Arrival: Extension of landing gear till vacating the runway" }]
+                },
+
             ]
         }
     ]
