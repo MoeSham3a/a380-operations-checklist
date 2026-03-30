@@ -21,8 +21,8 @@ const mindMapData = {
                         {
                             name: "Reporting Time",
                             children: [
-                                { name: "1:25 in Dubai (DXB) before STD (OMA 7.6.1)" },
-                                { name: "1 hour outstation before STD (OMA 7.6.1)" },
+                                { name: "1:25 in Dubai (DXB) before STD\n (OMA 7.6.1)" },
+                                { name: "1 hour outstation before STD\n (OMA 7.6.1)" },
                             ]
                         },
                     ]
@@ -34,16 +34,16 @@ const mindMapData = {
                         {
                             name: "Flight Duty Period (FDP) Limitations",
                             children: [
-                                { name: "Two or More Flight Crew - Acclimatised (Table 7.6.2.1)" },
-                                { name: "Two or More Flight Crew - Not Acclimatised (Table 7.6.2.2)" },
+                                { name: "Two or More Flight Crew - Acclimatised\n (Table 7.6.2.1)" },
+                                { name: "Two or More Flight Crew - Not Acclimatised\n (Table 7.6.2.2)" },
                                 {
                                     name: "Extension of FDP",
                                     children: [
-                                        { name: "Max 18 hours if bunk available (OMA 7.7.1.3)" },
-                                        { name: "Max 15 hours if bunk not available (OMA 7.7.1.3)" },
+                                        { name: "Max 18 hours if bunk available\n (OMA 7.7.1.3)" },
+                                        { name: "Max 15 hours if bunk not available\n (OMA 7.7.1.3)" },
                                     ]
                                 },
-                                { name: "Commander's Discretion: 3 hours max (except emergency) (OMA 7.15)" }
+                                { name: "Commander's Discretion: 3 hours max (except emergency)\n (OMA 7.15)" }
                             ]
                         },
                         {
@@ -67,8 +67,8 @@ const mindMapData = {
                                 {
                                     name: "Flight Time Limits (Block Time)",
                                     children: [
-                                        { name: "Segment 1: 16 hours or less (OMA 7.E.1.2)" },
-                                        { name: "Segment 2: More than 16 hours (OMA 7.E.1.2)" },
+                                        { name: "Segment 1: 16 hours or less\n (OMA 7.E.1.2)" },
+                                        { name: "Segment 2: More than 16 hours\n (OMA 7.E.1.2)" },
                                     ]
                                 },
                                 {
@@ -78,8 +78,8 @@ const mindMapData = {
                                         { name: "Shall be acclimatized prior to LRV flight or Standby" },
                                         { name: "For S2, 54 hours free of duty including 3 local nights of rest acclimatization" },
                                         { name: "Minimum Rest: As long as preceding duty OR S1: 16 hours, S2: 20 hours" },
-                                        { name: "Minimum post-flight rest at home base: 34 hours including 2 local nights if followed by non LRV Pairing, 54 hours including 3 local nights if followed by LRV pairing" },
-                                        { name: "Home base crossing more than 4 time zones in both directions: 78 hours followed and 4 local nights if LRV, 54 hours and 3 local nights if non LRV" }
+                                        { name: "Minimum post-flight rest at home base: 34 hours including 2 local nights if followed by non LRV Pairing,\n 54 hours including 3 local nights if followed by LRV pairing" },
+                                        { name: "Home base crossing more than 4 time zones in both directions: 78 hours followed and 4 local nights if LRV,\n 54 hours and 3 local nights if non LRV" }
                                     ]
                                 },
                                 {
@@ -137,10 +137,11 @@ const mindMapData = {
                             ]
                         },
                         {
-                            name: "Cabin Crew Briefing Topics (OME 3.1.2.3)",
+                            name: "Cabin Crew Briefing Topics (OMA 8.3.20.2.1 / OME 3.1.2.3)",
                             children: [
-                                { name: "Introduction of flight crew and chain of command" },
-                                { name: "Taxi time, Weather and turbulence" },
+                                { name: "Introduction of flight crew, roles and responsibilities" },
+                                { name: "Taxi time, Flight time, and cruise altitudes" },
+                                { name: "Weather and turbulence" },
                                 { name: "Flight deck door policy, Security requirements at destination" }
                             ]
                         },
@@ -159,7 +160,7 @@ const mindMapData = {
                                 { name: "Any relevant RVR/Visibility for take-off is 500m or less" },
                                 { name: "Operating to/from an aerodrome with a company publication requiring Commander only take-off or landing" },
                                 { name: "The approach conducted is a CAT I ILS/GLS with autoland, Cat II, or CAT III" },
-                                { name: "Shall not taxi if a 180 degree turn is required" },
+                                { name: "Shall not taxi if a 180º  turn is required" },
                             ]
                         }
                     ]
@@ -199,7 +200,7 @@ const mindMapData = {
                         {
                             name: "Refueling with passengers (OMA 8.2.1.3.2)",
                             children: [
-                                { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2), 1 Upper Deck (UL1 or ML5 if unavailable)" }
+                                { name: "Designated Evacuation Doors: 2 main deck (ML1, ML2),\n 1 Upper Deck (UL1 or ML5 if unavailable)" }
                             ]
                         },
                         {
@@ -241,7 +242,7 @@ const mindMapData = {
                         {
                             name: "Engine Start Fault ECAM (Pushback)",
                             children: [
-                                { name: "ANC - Confirm failure - OEB - Actions - status? - checklist, reset, deferred procedure - MEL - Failure prior to takeoff" }
+                                { name: "ANC - Confirm failure - OEB - Actions - status? - checklist,\n reset, deferred procedure - MEL - Failure prior to takeoff" }
                             ]
                         },
                         {
@@ -254,12 +255,17 @@ const mindMapData = {
                             ]
                         },
                         {
-                            name: "Initial Turns (OMA 8.3.29.2.13)",
+                            name: "Initial Turns (OMA 8.3.20.2.13)",
                             children: [
-                                { name: "No turns below 400 ft AGL (unless required)" },
-                                { name: "Max Bank Angle below 200 ft: 15 degrees" },
-                                { name: "Max Bank Angle 200-400 ft: 15 degrees (20 degrees with specific approval)" }
+                                { name: "No turns below 400 ft AGL (unless procedurally required)" },
+                                { name: "Max Bank Angle below 200 ft: 15º" },
+                                { name: "Max Bank Angle 200-400 ft: 15º (20º with specific approval)" },
+                                { name: "Above 400 ft: 30º" },
+                                { name: "Procedures shall not require turns below a height equal to one half the wingspan\n or less than 50 ft AGL, whichever is higher" }
                             ]
+                        },
+                        {
+                            name: "Minimum Thrust Reduction and Acceleration Height shall not be less than 1,000 ft AAL(8.3.20.2.15)",
                         },
                         {
                             name: "Cabin Crew Release for Inflight Duties (OMA 8.3.20.2.16)",
@@ -279,7 +285,7 @@ const mindMapData = {
                             children: [
                                 { name: "Regular Checks not exceeding 60 minutes" },
                                 { name: "Aim: Arrive at destination with FRF + alternate fuel (OMA 8.3.7.2.1)" },
-                                { name: "If landing < FRF + alternate fuel: May continue towards destination if safe landing can be achieved at 2 different aerodromes with >= FRF (OMA 8.3.7.2.1)" },
+                                { name: "If landing < FRF + alternate fuel: May continue towards destination if\n safe landing can be achieved at 2 different aerodromes with >= FRF (OMA 8.3.7.2.1)" },
                                 { name: "Commit to Land: Safe Landing with Commander as PF >= FRF (OMA 8.3.7.2.2)" },
                                 { name: "Minimum Fuel: Change to existing clearance risks landing < FRF (OMA 8.3.7.4)" },
                                 { name: "Mayday Fuel: Landing < FRF (OMA 8.3.7.5)" }
@@ -291,7 +297,7 @@ const mindMapData = {
                                 {
                                     name: "Thunderstorms",
                                     children: [
-                                        { name: "Strong weather radar echoes shall be avoided by at least 10 NM at or below FL200, and by at least 20 NM above FL200" },
+                                        { name: "Strong weather radar echoes shall be avoided by at least 10 NM at or below FL200,\n and by at least 20 NM above FL200" },
                                         { name: "When lightning is expected, flight deck lights should be set to high intensity" }
                                     ]
                                 }
@@ -303,7 +309,7 @@ const mindMapData = {
                                 { name: "Captain: Left hand seat ✔ Right hand seat ✖" },
                                 { name: "Captain with Right hand seat qualification: Left hand seat ✔ Right hand seat ✔" },
                                 { name: "First Officer: Right hand seat ✔ Left hand seat ✔" },
-                                { name: "Note: Flight crew member not occupying his qualified operating seat shall familiarise himself with the location of controls that would be required in an emergency" }
+                                { name: "Note: Flight crew member not occupying his qualified operating seat shall familiarise himself\n with the location of controls that would be required in an emergency" }
                             ]
                         },
                         {
@@ -318,24 +324,62 @@ const mindMapData = {
                                 { name: "Any other relevant information" }
                             ]
                         },
-                        { name: "Fuel Freezing (OMC 10.1.9): -65 degrees C or colder for > 90 minutes" }
+                        { name: "Fuel Freezing (OMC 10.1.9): -65º C or colder for > 90 minutes" }
                     ]
                 },
                 {
                     name: "Descent, Approach,\nand Landing",
                     children: [
                         {
+                            name: "Category I (CAT I) Approach, Approach Procedure with Vertical Guidance (APV),\n Non-precision Approach (without vertical guidance) (OMA 8.3.20.2.23.2)",
+                            children: [
+                                {
+                                    name: " FMS/FMC based approach functions (such as FLS, LNAV/VNAV) the following conditions apply",
+                                    children: [
+                                        { name: "The approach shall be line selectable from the navigation database" },
+                                        { name: "Any modifications at or beyond the FAF shall be in accordance with the respective type specific procedure" },
+                                        { name: "Maximum Difference (FMS/FMC vs Charted Value) approach shall be validated as follows: Final approach course: 3º,\n Vertical profile: 0.1º,\n Distance FAF to RW/MAWP: 1 NM,\n Minimum crossing altitudes: 10 ft" },
+                                    ]
+                                },
+                                { name: "10,000 ft AMSL and below: Vmo" }
+                            ]
+                        },
+                        {
                             name: "Maximum Rate of Descent (OMA 8.3.20.2.22)",
                             children: [
                                 { name: "Above 5,000 ft AGL: 5,000 fpm" },
                                 { name: "5,000-3,000 ft AGL: 3,000 fpm" },
                                 { name: "3,000-1000 ft AGL: 2,000 fpm" },
-                                { name: "Below 1,000 ft AGL: 1,000 fpm" }
+                                { name: "Below 1,000 ft AGL: 1,000 fpm" },
+                                { name: "When required by a procedural vertical profile,\n the maximum descent rates may be exceeded if briefed accordingly" }
                             ]
+                        },
+                        {
+                            name: "Commencement and Continuation of Approach (Approach Ban Point)\ (OMA 8.3.20.2.25)",
+                            children: [
+                                { name: "Commander may commence an instrument approach regardless of the reported visibility or RVR" },
+                                {
+                                    name: "If the reported visibility or controlling RVR is less than the applicable minimum,\n approach operation shall not be continued:",
+                                    children: [
+                                        { name: "Past a point at which the aeroplane is 1,000 ft above the aerodrome elevation" },
+                                        { name: "Into the final approach segment (FAS) if the DH or MDH is higher than 1,000 ft" }
+                                    ]
+                                },
+                                { name: "If no RVR reported, and reported VIS si less than applicable minuimum,\n but converted meteorological visibility (CMV) in accordance with 8.1.5.3.2 is equal or greater than the applicable minimum,\n the instrument approach can be continued to the DA/H or MDA/H" }
+                            ]
+
                         },
                         {
                             name: "Approach Stabilization Criteria (OMA 8.3.20.2.28)",
                             children: [
+                                {
+                                    name: "Lateral Path",
+                                    children: [
+                                        { name: "At the charted FAF/FAP at the charted altitude" },
+                                        { name: "Intercepting the glideslope/glidepath at the cleared ATC vectored altitude, if lower" },
+                                        { name: "Wings shall be level by 500 feet AAL,\n unless required by charted approach procedure and authorized by CCI or CONOTAM" }
+                                    ]
+                                },
                                 {
                                     name: "At 1,000 ft AAL",
                                     children: [
@@ -352,6 +396,47 @@ const mindMapData = {
                                         { name: "All checklists completed" }
                                     ]
                                 }
+                            ]
+                        },
+                        {
+                            name: "Missed Approach acceleration altitude (OMA 8.3.20.2.33.1)",
+                            children: [
+                                { name: "Published missed approach altitude on approach chart" },
+                                { name: "Level off altitude prior to the published missed approach altitude, as practicable" },
+                                { name: "State published missed approach acceleration altitude, if lower" }
+                            ]
+                        },
+                        {
+                            name: "Subsequent Approaches Following a Missed Approach (OMA 8.3.20.2.33.2)",
+                            children: [
+                                { name: "If the second approach was unsuccessful and both missed approaches were due to weather conditions,\n the Commander shall divert to the alternate aerodrome unless already committed to destination" },
+                                { name: "A third approach may only be flown when one or both missed approaches was non weather related" }
+                            ]
+                        },
+                        {
+                            name: "Diversion (OMA 8.3.20.2.34)",
+                            children: [
+                                { name: "Diversion aerodrome has been discussed and communicated with NCC (ACARS diversion report)" },
+                                { name: "Cabin Crew has been advised" },
+                                { name: "Passengers have been briefed" }
+                            ]
+                        },
+                        {
+                            name: "Diversion to Aerodromes Without Company Support (OMA 8.3.20.2.34.3)",
+                            children: [
+                                { name: "Security and maintenance of the aeroplane" },
+                                { name: "Passengers, such as meals, hotel accommodation" },
+                                { name: "Baggage and cargo" },
+                                { name: "Flight preparations, such as OFP, ATC flight plan" },
+                                { name: "The Commander shall coordinate with NCC, as practicable" }
+                            ]
+                        },
+                        {
+                            name: "Layover Briefing (OMA 8.3.20.2.37)",
+                            children: [
+                                { name: "Wake-up and pick-up time for next duty" },
+                                { name: "Threats associated with the layover destination" },
+                                { name: "Planned crew changes" }
                             ]
                         }
                     ]
@@ -433,21 +518,21 @@ const mindMapData = {
                                     name: "Dry",
                                     children: [
                                         { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
-                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction:\n One Destination alternate aerodrome required" }
                                     ]
                                 },
                                 {
                                     name: "Wet",
                                     children: [
                                         { name: "Most Favorable Runway in Still Air: Dispatch not allowed" },
-                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction:\n One Destination alternate aerodrome required" }
                                     ]
                                 },
                                 {
                                     name: "Contaminated",
                                     children: [
                                         { name: "Most Favorable Runway in Still Air: Two Destination alternate aerodrome required" },
-                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction: One Destination alternate aerodrome required" }
+                                        { name: "Runway Most Likely to be Assigned, Considering the Probable Wind Speed and Direction:\n One Destination alternate aerodrome required" }
                                     ]
                                 }
                             ]
@@ -466,7 +551,7 @@ const mindMapData = {
                     children: [
                         { name: "Requirement for planning with 3% Contingency Fuel" },
                         { name: "Shall be located within a circle of radius equal to 20% of total flight plan distance" },
-                        { name: "The centre lies on the planned route at a distance from destination of 25% of total flight distance OR 20% total flight plan distance plus 50NM whichever is greater" },
+                        { name: "The centre lies on the planned route at a distance from destination of 25% of total flight distance OR\n 20% total flight plan distance plus 50NM whichever is greater" },
                     ]
                 },
                 {
@@ -476,7 +561,7 @@ const mindMapData = {
                         {
                             name: "Two destination alternate aerodromes shall be selected when:",
                             children: [
-                                { name: "The appropriate weather reports and/or forecasts for the destination aerodrome indicate that during a period commencing 1 hour before and ending 1 hour after the estimated time of arrival, the weather conditions will be below the applicable planning minima" },
+                                { name: "The appropriate weather reports and/or forecasts for the destination aerodrome indicate that during a period commencing 1 hour before\n and ending 1 hour after the estimated time of arrival, the weather conditions will be below the applicable planning minima" },
                                 { name: "No meteorological information is available" }
                             ]
                         }
@@ -561,7 +646,7 @@ const mindMapData = {
                     name: "Fuel Tankering with Cold Soaked Fuel",
                     children: [
                         { name: "Less than 2 hours flight time: No restriction" },
-                        { name: "Between 2 and 4 hours flight time: 25 tons Forecasted OAT at destination less than 15°C and no precipitation or condensation or less than 20°C with precipitation or condensation excluding mist and haze" },
+                        { name: "Between 2 and 4 hours flight time: 25 tons Forecasted OAT at destination less than 15°C and no precipitation\n or condensation or less than 20°C with precipitation or condensation excluding mist and haze" },
                         { name: "More than 4 hours flight time: 25 tons Forecasted OAT at destination less than 20°C" },
                         {
                             name: "Restrictions do not apply if:",
@@ -616,7 +701,7 @@ const mindMapData = {
                         { name: "Airworthiness Review Certificates (ARC), if applicable (Original)*" },
                         { name: "General Declaration (Original)" },
                         { name: "Other documents needed for the intended operation" },
-                        { name: "Note 1: For any missing document, advise NCC as soon as practicable. In case of loss or theft of the documents above, operation is permitted to continue to a destination where replacements documents can be provided" }
+                        { name: "Note 1: For any missing document, advise NCC as soon as practicable. In case of loss or theft of the documents above,\n operation is permitted to continue to a destination where replacements documents can be provided" }
                     ]
                 }
             ]
@@ -684,7 +769,7 @@ const mindMapData = {
                         { name: "Flight Directors: shall always be on unless unserviceable or off according to procedure" },
                         { name: "Autopilot: At or above 20,000 ft MSL shall always be engaged" },
                         { name: "Autothrust: Shall remain engaged" },
-                        { name: "FCU/ MCP and FMS / FMC: flight path monitored, mode changes announced and cross - checked, intervention to achieve desired flight path, in high workload times FMS modifications reduced to essential" }]
+                        { name: "FCU/ MCP and FMS / FMC: flight path monitored, mode changes announced and cross - checked,\n intervention to achieve desired flight path, in high workload times FMS modifications reduced to essential" }]
                 },
                 {
                     name: "Sterile flight deck(OMA 8.3.20.1.1)",
@@ -698,7 +783,210 @@ const mindMapData = {
                         { name: "Departure: start of take- off roll till landing gear retracts" },
                         { name: "Arrival: Extension of landing gear till vacating the runway" }]
                 },
-
+                {
+                    name: "Headsets/Boom Microphones (OMA 8.3.20.1.9)",
+                    children: [
+                        { name: "When receiving the ATC departure clearance via voice communication" },
+                        { name: "When on the ground with engines running" },
+                        { name: "When in-flight below transition altitude or 10,000 ft AAL, whichever is higher" },
+                        { name: "When operating more than one radio at the same time" },
+                        { name: "When only one pilot occupies an operating seat" },
+                        { name: "When one pilot conducts controlled rest on the flight deck" },
+                        { name: "Whenever deemed necessary by the Commander" }
+                    ]
+                },
+                {
+                    name: "Taxi (OMA 8.3.20.1.7)",
+                    children: [
+                        { name: "Surfaces not reported as slippery: 30 kt" },
+                        { name: "Slippery or contaminated surface: 10 kt" },
+                        { name: "Low Visibility Operations: 10 kt" }
+                    ]
+                },
+                {
+                    name: "Speed Limit (OMA 8.3.20.1.8)",
+                    children: [
+                        {
+                            name: "Above 5000 ft AAL:",
+                            children: [
+                                { name: "Departure or arrival procedure requires higher speed" },
+                                { name: "Speed restriction waived by ATC" }
+                            ]
+                        },
+                        { name: "below 10,000 ft AAL shall not exceed 250 kt or minimum clean speed, whichever is higher" }
+                    ]
+                },
+                {
+                    name: "Starting Engines (OMA 8.3.20.2.4): Shall be coordinated with responsible ground personnel \nexcept if performing 'engine start after push and hold' or 'Reduced Engine Taxi'"
+                },
+                {
+                    name: "Orbits/360º Turns (OMA 8.3.20.2.27)",
+                    children: [
+                        { name: "At or above 1,500 ft AAL or AGL, whichever is higher" },
+                        { name: " Autopilot engaged" },
+                        { name: "Compliance with the approach stabilisation criteria ensured" },
+                        { name: "Unless under positive radar control, orbits/360º turns are only permitted during daylight VMC" }
+                    ]
+                },
+                {
+                    name: "Malfunctions and Emergencies (OMA 8.3.20.3.3)",
+                    children: [
+                        { name: "The Commander should conduct the landing when in, or following,\n an abnormal/non normal situation where the aeroplanes performance is affected" },
+                        { name: "In-flight, crew members shall not enter an avionics compartment, except in an emergency" }
+                    ]
+                },
+                {
+                    name: "Non-Standard Engine Out Procedure (Turning)\n (OMA 8.3.20.3.6.2)",
+                    children: [
+                        { name: "At turning point, turn as required by the procedure with a bank angle of 15 degrees\n (or as required by the Non-Standard EOP)" },
+                        {
+                            name: "Initiate acceleration when:",
+                            children: [
+                                { name: "The aeroplane is established on the final heading, track, or course of the Non-Standard EOP and at or above the minimum acceleration height" },
+                                { name: "At or above the applicable MSA" },
+                                { name: "The aeroplane meets the specific requirements described in the applicable Non-Standard EOP" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Temporary Documentary Unit TDU ",
+            children: [
+                {
+                    name: "Descent Preparation",
+                    children: [
+                        { name: "Probability of FMC reset during the approach phase due to an incorrect or missing OAT value in a SEC F-PLN" },
+                        { name: "If SEC F-PLN no longer required: SEC 1(2)(3)...DELETE" },
+                        { name: "If SEC F-PLN required: SEC 1(2)(3)...Prepare, SEC 1(2)(3)...PERF/APPR/OAT Insert/Check accuracy" },
+                        { name: "To avoid FMS reset(s) during descent and approach, the flight crew should enter an OAT value in accordance with the expected temperature at the destination airport of the SEC F-PLN" }
+                    ]
+                },
+                {
+                    name: "BTV",
+                    children: [
+                        { name: "Following in-service BTV disconnection, the caution prohibits the use of BTV on some specific approaches." },
+                        { name: "The use of BTV is prohibited on the runways 13 R or 13 L associated with the approach VOR or GPS 13R or 13 L 'CANARSIE' at JFK airport if the last coded point of the approach is above 700ft RA" }
+                    ]
+                },
+                {
+                    name: "Runway Conditions",
+                    children: [
+                        { name: "Introduce a second takeoff performance computation with the lower depth of contaminant, when the reported depth of contaminant is between two values in the list of runway conditions" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Temporary Abnormal Behaviours TABS",
+            children: [
+                {
+                    name: "FMS Reset due to OFFSET that Ends in a F-PLN Discontinuity",
+                    children: [
+                        { name: "The insertion of an offset that ends in a F-PLN leg with a discontinuity can result in an erroneous computation of the FMS. \nThis may cause multiple consecutive FMS resets" },
+                        { name: "When the flight crew inserts an offset in a F-PLN that contains a discontinuity, \nthey should ensure that the offset ends before the leg that contains the discontinuity" }
+                    ]
+                },
+                {
+                    name: "Involuntary FCU Switch OFF",
+                    children: [
+                        { name: "Inadvertently switch off the FCU then immediately switch it back to ON, the FCU erroneously detects a power supply failure, \nand triggers AUTO FLT AFS CTL PNL FAULT ECAM" },
+                        { name: "It is recommended to wait for at least 3 s before switching FCU back to ON, as recommended for a system reset" },
+                        { name: "In case of AUTO FLT AFS CTL PNL FAULT ECAM alert is displayed, the MFD FCU BACKUP function should be used in flight by the crew to control autoflight functions" }
+                    ]
+                },
+                {
+                    name: "Loss of OFFSET Function",
+                    children: [
+                        { name: "When the flight crew manually cancels an offset, and the end of the offset return path coincides with a waypoint of the original flight path,\nthe Lateral Guidance function does not create a pseudo waypoint,\n then the offset function is lost and no longer available for the remainder of the flight." },
+                        { name: "Prevention: Before the flight crew manually cancels an offset, they should ensure that the offset return path does not coincide with an existing waypoint of the original flight path" },
+                        {
+                            name: "Recovery: Clear FMS PAGE NOT AVAIL",
+                            children: [
+                                { name: "Select another MFD page, and then come back to the FMS 1(2) page" },
+                                { name: "Set the FMS selector to BOTH ON 1(2) to recover the FMS 2(1), and then set it back to NORM" },
+                                { name: "Note: An FMS reset also restores the access to the FMS pages but does not enable the recovery of the OFFSET function" }
+                            ]
+                        },
+                        { name: "Recovery of Offset Function: flight crew should create a new flight plan, or swap the ACTIVE/F-PLN with a SEC/F-PLN\nThis action works only if the flight crew copied the secondary flight plan before the issue occurred" }
+                    ]
+                },
+                {
+                    name: "Spurious ABOVE MAX FL Indication for STEP ALTs",
+                    children: [
+                        { name: "The FMS uses the current aircraft GW, instead of the estimated weight at the planned waypoints for the step altitudes" },
+                        { name: "The flight crew can disregard the ABOVE MAX FL indication(s) and STEP ABOVE MAX FL message in the FMS F-PLN/VERT REV page, provided that they confirm the capability of the aircraft to climb to the affected step altitude(s) at the planned waypoint" }
+                    ]
+                },
+                {
+                    name: "Undue Display of Derated Climb Levels 04 and 05",
+                    children: [
+                        { name: "Effects: Erroneous FMS predictions (T/C, T/D), OPT FL not available\nNo transition to CRZ phase at T/C\nDuring climb, thrust guidance is MAX CLB and FMA displays THR CLB" },
+                        { name: "The flight crew must not use the derated climb level DERATE 04 or DERATE 05 in the THRUST list of the PERF/CLB panel" }
+                    ]
+                },
+                {
+                    name: "Spurious T.O SPEED TOO LOW CHECK TOW & T.O DATA Displayed on FMS\n Message Area or T.O SPEEDS TOO LOW ECAM Alert",
+                    children: [
+                        { name: "If the FMS detects an invalid ADIRS altitude/SAT parameter after entering the takeoff speeds in the T.O panel of the PERF page\nT.O SPEED TOO LOW CHECK TOW & T.O DATA may appear on the FMS message area\nECAM T.O SPEEDS TOO LOW may be triggered when the flight crew presses the T.O CONFIG pb of the ECP" },
+                        {
+                            name: "Operational Recommendations",
+                            children: [
+                                { name: "Recompute the takeoff performance data" },
+                                { name: "Crosscheck and insert the updated takeoff data results in the FMS" },
+                                { name: "If the takeoff data is unchanged from previous calculation, reinsert V1, VR, V2" },
+                                { name: "If the takeoff is performed with FLEX and message still persists, change the Takeoff Thrust in the FMS to TOGA and back to FLEX, then insert the flex temperature" },
+                                { name: "Perform OIS XCHECK WITH AVNCS if available or follow the (EK) UNAVAILABILITY OF X-CHECK WITH AVIONICS FUNCTION " },
+                                { name: "WARNING: DO NOT TAKE OFF IF ALERT STILL DISPLAYED" },
+                                { name: "AFTER THE FLIGHT: Any occurrence shall be reported via an ASR" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Loss of RMP Following VHF DATALINK PROVIDER Page Selection",
+                    children: [
+                        { name: "If the flight crew selects the VHF DATALINK PROVIDER page on the DATALINK ROUTER page of the RMP 1(2)(3), the associated RMP may be lost" },
+                        { name: "To recover the RMP 1(2)(3), the flight crew sets the BRT/OFF knob to OFF then BRT\nThe automatic mode of the VHF datalink is still available. However, the manual mode is lost" }
+                    ]
+                },
+                {
+                    name: "Erroneous Activation of the CABIN PRESSURE WARNING Lights without Real Residual Differential Pressure",
+                    children: [
+                        { name: "Sensors used to detect residual differential pressure for the CABIN PRESSURE WARNING lights have a defect and may temporarily send an erroneous message to the Doors and Slides Management System (DSMS)" },
+                        {
+                            name: "Operational Recommendations: ",
+                            children: [
+                                { name: "Before cabin(cargo) door opening, if the CABIN PRESSURE WARNING lights flash" },
+                                { name: "There is no CAB PRESS EXCESS RESIDUAL DIFF PRESS alert triggered" },
+                                { name: "On the CAB PRESS SD page:\nThe DELTA P indication is 0 PSI\nAll outflow valves are indicated fully open" },
+                                { name: "if the CABIN PRESSURE WARNING lights keep flashing after door opening, a technical logbook entry is necessary, as a DSMS failure may be the cause of the issue" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Discrepancy Between Barometric Value Selected on EFIS CP and Displayed on PFD",
+                    children: [
+                        { name: "there may be a discrepancy of 0.01 inHg between the value selected on the EFIS CPs and the values displayed on the PFDs" },
+                        { name: "No operational impact on altitude calculations" }
+                    ]
+                },
+                {
+                    name: "Communication Buttons Not Available on the Mailbox",
+                    children: [
+                        { name: "If the RECALL button is available: The flight crew clicks on the RECALL button, and then closes the recalled message" },
+                        { name: "If there is another message in the mailbox: The flight crew displays the other message using the Next/Previous Message Buttons" }
+                    ]
+                },
+                {
+                    name: "Weather Radar Performance Above 80 NM",
+                    children: [
+                        { name: "The flight crew should take into account all weather information displayed on the ND" },
+                        { name: "The flight crew should pay attention to the possibility of a late weather display" }
+                    ]
+                }
             ]
         }
     ]
@@ -738,8 +1026,8 @@ function initMindMap() {
 
     // Create tree layout
     tree = d3.tree()
-        .size([height - 200, width - 400])
-        .separation((a, b) => (a.parent === b.parent ? 1 : 1.2));
+        .size([height * 2.5, width - 400])
+        .separation((a, b) => (a.parent === b.parent ? 2 : 2.5));
 
     // Create hierarchy
     root = d3.hierarchy(mindMapData);
@@ -765,7 +1053,7 @@ function update(source) {
 
     // Normalize for fixed-depth
     nodes.forEach(d => {
-        d.y = d.depth * 450;  // Increased from 250 for more horizontal spacing
+        d.y = d.depth * 600;  // Increased horizontal spacing between depth levels
     });
 
     // ========== Nodes ==========
@@ -783,14 +1071,23 @@ function update(source) {
         .attr('r', 1e-6)
         .style('fill', d => d._children ? 'lightsteelblue' : '#fff');
 
-    // Add text
+    // Add text (supports \n via tspan elements)
     nodeEnter.append('text')
-        .attr('dy', '.35em')
         .attr('x', d => d.children || d._children ? -13 : 13)
         .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
-        .text(d => d.data.name)
         .style('fill-opacity', 1e-6)
-        .style('fill', '#f1f5f9');
+        .style('fill', '#f1f5f9')
+        .each(function (d) {
+            const lines = d.data.name.split('\n').map(l => l.trim()).filter(Boolean);
+            const lineHeight = 32;
+            const startDy = -((lines.length - 1) * lineHeight) / 2;
+            lines.forEach((line, i) => {
+                d3.select(this).append('tspan')
+                    .attr('x', d.children || d._children ? -13 : 13)
+                    .attr('dy', i === 0 ? `${startDy}px` : `${lineHeight}px`)
+                    .text(line);
+            });
+        });
 
     // Update existing nodes
     const nodeUpdate = nodeEnter.merge(node);
@@ -813,7 +1110,7 @@ function update(source) {
     nodeUpdate.select('text')
         .style('fill-opacity', 1)
         .style('font-weight', d => d.depth === 0 ? 700 : d.depth === 1 ? 600 : 500)
-        .style('font-size', d => d.depth === 0 ? '16px' : '14px');
+        .style('font-size', d => d.depth === 0 ? '30px' : '26px');
 
     // Remove exiting nodes
     const nodeExit = node.exit().transition()
