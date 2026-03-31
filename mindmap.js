@@ -1053,7 +1053,7 @@ function update(source) {
 
     // Normalize for fixed-depth
     nodes.forEach(d => {
-        d.y = d.depth * 600;  // Increased horizontal spacing between depth levels
+        d.y = d.depth * 1500;  // Increased horizontal spacing between depth levels
     });
 
     // ========== Nodes ==========
