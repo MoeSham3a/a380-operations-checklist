@@ -14,7 +14,7 @@ const mindMapData = {
                         {
                             name: "At Home actions",
                             children: [
-                                { name: "Read briefing package, Network Report,/FCI/FCN/ACI/SCB" },
+                                { name: "Read briefing package, Network Report, FCM/FCN/SCB" },
                                 { name: "Check Stand and runway in use" },
                             ]
                         },
@@ -132,7 +132,7 @@ const mindMapData = {
                             name: "Flight Crew Briefing Topics (OMA 8.1.13)",
                             children: [
                                 { name: "OFP,Weather, NOTAMS" },
-                                { name: "SCB, FCI, FCN, ACI, Network Report" },
+                                { name: "SCB, FCM, FCN, Network Report" },
                                 { name: "Documents, Rest Strategy" }
                             ]
                         },

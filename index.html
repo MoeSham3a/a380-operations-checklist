@@ -953,100 +953,107 @@
 
                 <div id="fdp-results-anchor-top">
                     <div class="calc-results" id="fdp-results-wrapper">
-                        <div class="result-item fdp-result-main" id="fdp-result-container" style="display:none; flex-direction: column; gap: 10px;">
+                        <div class="result-item fdp-result-main" id="fdp-result-container"
+                            style="display:none; flex-direction: column; gap: 10px;">
                             <div id="fdp-max-row" style="display: flex; justify-content: space-between; width: 100%;">
                                 <span class="result-label">Maximum FDP:</span>
                                 <span id="fdp-result" class="result-value fdp-highlight">--</span>
                             </div>
-                        <div id="fdp-end-row" style="display: flex; justify-content: space-between; width: 100%;">
-                            <span class="result-label">FDP End:</span>
-                            <span id="fdp-end-result" class="result-value fdp-highlight">--</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FDP Extension Info Section -->
-                <div class="calc-section-divider"></div>
-
-                <div class="calc-section-header" onclick="toggleFDPExtension()">
-                    <h3>⏰ FDP Extension</h3>
-                    <span id="fdp-ext-toggle-icon" class="toggle-icon">▶</span>
-                </div>
-
-                <div id="fdp-extension-section" class="fdp-ext-section" style="display:none;">
-                    <!-- In-Flight Relief Toggle -->
-                    <div class="discretion-toggle-container" style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                        <input type="checkbox" id="relief-toggle" onchange="toggleInFlightRelief()">
-                        <label for="relief-toggle" style="color: white; font-weight: bold; cursor: pointer;">In-Flight Relief</label>
-                    </div>
-
-                    <div id="relief-options-section" style="display:none; padding-left: 10px; border-left: 2px solid #4a5568; margin-bottom: 15px;">
-                        <!-- Rest Type Toggle -->
-                        <div class="calc-group">
-                            <label class="calc-label">Rest Type</label>
-                            <div class="fdp-toggle-group">
-                                <button type="button" id="rest-type-bunk" class="fdp-toggle-btn active"
-                                    onclick="setRestType('bunk')">🛏️ Bunk</button>
-                                <button type="button" id="rest-type-seat" class="fdp-toggle-btn"
-                                    onclick="setRestType('seat')">💺 Seat</button>
-                            </div>
-                        </div>
-
-                        <!-- Max FDP Display -->
-                        <div class="fdp-ext-info-box" id="fdp-relief-info-box">
-                            <div class="info-row">
-                                <span class="info-label">Max Permissible FDP:</span>
-                                <span id="fdp-ext-max-display" class="info-value-large">18h</span>
-                            </div>
-                            <div class="info-note" id="fdp-ext-note">
-                                Extension: 1/2 of total rest taken
+                            <div id="fdp-end-row" style="display: flex; justify-content: space-between; width: 100%;">
+                                <span class="result-label">FDP End:</span>
+                                <span id="fdp-end-result" class="result-value fdp-highlight">--</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Commander's Discretion -->
+                    <!-- FDP Extension Info Section -->
                     <div class="calc-section-divider"></div>
-                    
-                    <div class="discretion-toggle-container" style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                        <input type="checkbox" id="discretion-toggle" onchange="toggleCommandersDiscretion()">
-                        <label for="discretion-toggle" style="color: white; font-weight: bold; cursor: pointer;">Captain's Discretion</label>
+
+                    <div class="calc-section-header" onclick="toggleFDPExtension()">
+                        <h3>⏰ FDP Extension</h3>
+                        <span id="fdp-ext-toggle-icon" class="toggle-icon">▶</span>
                     </div>
 
-                    <div id="discretion-options-section" style="display:none; padding-left: 10px; border-left: 2px solid #4a5568;">
-                        <div class="calc-group">
-                            <label class="calc-label">Sector Type</label>
-                            <div class="fdp-toggle-group">
-                                <button type="button" id="discretion-sector-single" class="fdp-toggle-btn active"
-                                    onclick="setDiscretionSectorType('single')">Single Sector</button>
-                                <button type="button" id="discretion-sector-multi" class="fdp-toggle-btn"
-                                    onclick="setDiscretionSectorType('multi')">Multi-sector</button>
+                    <div id="fdp-extension-section" class="fdp-ext-section" style="display:none;">
+                        <!-- In-Flight Relief Toggle -->
+                        <div class="discretion-toggle-container"
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                            <input type="checkbox" id="relief-toggle" onchange="toggleInFlightRelief()">
+                            <label for="relief-toggle"
+                                style="color: white; font-weight: bold; cursor: pointer;">In-Flight Relief</label>
+                        </div>
+
+                        <div id="relief-options-section"
+                            style="display:none; padding-left: 10px; border-left: 2px solid #4a5568; margin-bottom: 15px;">
+                            <!-- Rest Type Toggle -->
+                            <div class="calc-group">
+                                <label class="calc-label">Rest Type</label>
+                                <div class="fdp-toggle-group">
+                                    <button type="button" id="rest-type-bunk" class="fdp-toggle-btn active"
+                                        onclick="setRestType('bunk')">🛏️ Bunk</button>
+                                    <button type="button" id="rest-type-seat" class="fdp-toggle-btn"
+                                        onclick="setRestType('seat')">💺 Seat</button>
+                                </div>
+                            </div>
+
+                            <!-- Max FDP Display -->
+                            <div class="fdp-ext-info-box" id="fdp-relief-info-box">
+                                <div class="info-row">
+                                    <span class="info-label">Max Permissible FDP:</span>
+                                    <span id="fdp-ext-max-display" class="info-value-large">18h</span>
+                                </div>
+                                <div class="info-note" id="fdp-ext-note">
+                                    Extension: 1/2 of total rest taken
+                                </div>
                             </div>
                         </div>
 
-                        <div class="calc-group" id="discretion-last-sector-group" style="display:none;">
-                            <label class="calc-label">Is this the last sector?</label>
-                            <div class="fdp-toggle-group">
-                                <button type="button" id="discretion-last-yes" class="fdp-toggle-btn active"
-                                    onclick="setDiscretionLastSector(true)">Yes</button>
-                                <button type="button" id="discretion-last-no" class="fdp-toggle-btn"
-                                    onclick="setDiscretionLastSector(false)">No</button>
+                        <!-- Commander's Discretion -->
+                        <div class="calc-section-divider"></div>
+
+                        <div class="discretion-toggle-container"
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                            <input type="checkbox" id="discretion-toggle" onchange="toggleCommandersDiscretion()">
+                            <label for="discretion-toggle"
+                                style="color: white; font-weight: bold; cursor: pointer;">Captain's Discretion</label>
+                        </div>
+
+                        <div id="discretion-options-section"
+                            style="display:none; padding-left: 10px; border-left: 2px solid #4a5568;">
+                            <div class="calc-group">
+                                <label class="calc-label">Sector Type</label>
+                                <div class="fdp-toggle-group">
+                                    <button type="button" id="discretion-sector-single" class="fdp-toggle-btn active"
+                                        onclick="setDiscretionSectorType('single')">Single Sector</button>
+                                    <button type="button" id="discretion-sector-multi" class="fdp-toggle-btn"
+                                        onclick="setDiscretionSectorType('multi')">Multi-sector</button>
+                                </div>
+                            </div>
+
+                            <div class="calc-group" id="discretion-last-sector-group" style="display:none;">
+                                <label class="calc-label">Is this the last sector?</label>
+                                <div class="fdp-toggle-group">
+                                    <button type="button" id="discretion-last-yes" class="fdp-toggle-btn active"
+                                        onclick="setDiscretionLastSector(true)">Yes</button>
+                                    <button type="button" id="discretion-last-no" class="fdp-toggle-btn"
+                                        onclick="setDiscretionLastSector(false)">No</button>
+                                </div>
+                            </div>
+
+                            <div class="info-note" id="discretion-max-note" style="margin-top: 5px;">
+                                Max allowed: 3h 0m
                             </div>
                         </div>
+                    </div>
 
-                        <div class="info-note" id="discretion-max-note" style="margin-top: 5px;">
-                            Max allowed: 3h 0m
-                        </div>
+                    <div id="fdp-results-anchor-bottom"></div>
+
+                    <div class="isa-info">
+                        <p class="isa-note">📋 Based on EK OMA Chapter 7<br>
+                            ⚠️ For reference only - always consult updated official FTL documentation</p>
                     </div>
                 </div>
-
-                <div id="fdp-results-anchor-bottom"></div>
-
-                <div class="isa-info">
-                    <p class="isa-note">📋 Based on EK OMA Chapter 7<br>
-                        ⚠️ For reference only - always consult updated official FTL documentation</p>
-                </div>
-            </div>
-            <!-- Missing closing tag for fdp-toolkit wrapper was added below -->
+                <!-- Missing closing tag for fdp-toolkit wrapper was added below -->
             </div>
 
             <!-- Split Rest Calculator -->
