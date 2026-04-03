@@ -22,7 +22,7 @@ const mindMapData = {
                             name: "Reporting Time",
                             children: [
                                 { name: "1:25 in Dubai (DXB) before STD\n (OMA 7.6.1)" },
-                                { name: "1 hour outstation before STD\n (OMA 7.6.1)" },
+                                { name: "01:05 hour outstation before STD\n (OMA 7.6.1)" },
                             ]
                         },
                     ]
@@ -112,7 +112,7 @@ const mindMapData = {
                         {
                             name: "Minimum Required Cabin Crew by Aircraft Type (OMA 4.3.1)",
                             children: [
-                                { name: "A380 (3 class): 18 (Note 2)" },
+                                { name: "A380 (3/4 class): 18 (Note 2)" },
                                 { name: "A380 (2 class): 19 (Note 3)" },
                                 { name: "B777-300ER: 10 CC" },
                                 { name: "B777-200LR: 8 CC" },
@@ -121,7 +121,7 @@ const mindMapData = {
                             ]
                         },
                         {
-                            name: "Operation with less than Minimum Cabin Crew Complement (OMA 4.3.2)",
+                            name: "Operation with less than Minimum Cabin Crew Complement (OMA 4.3.3)",
                             children: [
                                 { name: "The unattended cabin door shall be considered inoperative for the purpose of determining the maximum number of passengers" },
                                 { name: "Carriage of less than regulatory minimum crew shall be authorized by DSVP-FO or his designee" },
