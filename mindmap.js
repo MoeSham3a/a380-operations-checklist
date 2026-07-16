@@ -1246,6 +1246,130 @@ document.getElementById('collapse-all').addEventListener('click', () => {
     update(root);
 });
 
+// ===========================
+// Search
+// ===========================
+let searchMatches = [];
+let searchMatchIndex = -1;
+let searchDebounceTimer = null;
+
+// Walk the full hierarchy, including nodes currently folded away in _children
+function walkAll(node, callback) {
+    callback(node);
+    const kids = node.children || node._children;
+    if (kids) kids.forEach(child => walkAll(child, callback));
+}
+
+// Reveal a node by expanding all of its collapsed ancestors
+function expandAncestors(d) {
+    let p = d.parent;
+    while (p) {
+        if (p._children) {
+            p.children = p._children;
+            p._children = null;
+        }
+        p = p.parent;
+    }
+}
+
+function clearHighlights() {
+    g.selectAll('g.node').classed('search-match', false).classed('search-focused', false);
+}
+
+function updateSearchCount() {
+    const countEl = document.getElementById('search-count');
+    const hasQuery = document.getElementById('search-input').value.trim().length > 0;
+    if (!hasQuery) {
+        countEl.textContent = '';
+    } else if (searchMatches.length === 0) {
+        countEl.textContent = '0 / 0';
+    } else {
+        countEl.textContent = `${searchMatchIndex + 1} / ${searchMatches.length}`;
+    }
+}
+
+function focusMatch() {
+    g.selectAll('g.node').classed('search-focused', false);
+    if (searchMatchIndex < 0 || searchMatchIndex >= searchMatches.length) return;
+    const target = searchMatches[searchMatchIndex];
+    g.selectAll('g.node').filter(d => d === target).classed('search-focused', true);
+    centerNode(target);
+}
+
+function performSearch(query) {
+    const q = query.trim().toLowerCase();
+
+    if (!q) {
+        searchMatches = [];
+        searchMatchIndex = -1;
+        clearHighlights();
+        updateSearchCount();
+        return;
+    }
+
+    searchMatches = [];
+    walkAll(root, d => {
+        if (d.data.name.toLowerCase().includes(q)) {
+            searchMatches.push(d);
+        }
+    });
+
+    searchMatches.forEach(expandAncestors);
+    update(root);
+
+    clearHighlights();
+    g.selectAll('g.node').classed('search-match', d => searchMatches.includes(d));
+
+    searchMatchIndex = searchMatches.length > 0 ? 0 : -1;
+    focusMatch();
+    updateSearchCount();
+}
+
+function nextMatch() {
+    if (searchMatches.length === 0) return;
+    searchMatchIndex = (searchMatchIndex + 1) % searchMatches.length;
+    focusMatch();
+    updateSearchCount();
+}
+
+function prevMatch() {
+    if (searchMatches.length === 0) return;
+    searchMatchIndex = (searchMatchIndex - 1 + searchMatches.length) % searchMatches.length;
+    focusMatch();
+    updateSearchCount();
+}
+
+function clearSearch() {
+    document.getElementById('search-input').value = '';
+    searchMatches = [];
+    searchMatchIndex = -1;
+    clearHighlights();
+    updateSearchCount();
+}
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+    clearTimeout(searchDebounceTimer);
+    const value = e.target.value;
+    searchDebounceTimer = setTimeout(() => performSearch(value), 200);
+});
+
+document.getElementById('search-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (e.shiftKey) {
+            prevMatch();
+        } else {
+            nextMatch();
+        }
+    } else if (e.key === 'Escape') {
+        clearSearch();
+    }
+});
+
+document.getElementById('search-next').addEventListener('click', nextMatch);
+document.getElementById('search-prev').addEventListener('click', prevMatch);
+document.getElementById('search-clear').addEventListener('click', clearSearch);
+
 // Node ID counter
 let i = 0;
 

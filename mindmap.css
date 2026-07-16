@@ -173,6 +173,90 @@ body::before {
 }
 
 /* ===========================
+   Search Bar
+   =========================== */
+.search-bar {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.search-icon {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    width: 180px;
+}
+
+.search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.search-count {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    min-width: 3.5em;
+    text-align: center;
+}
+
+.search-nav-btn,
+.search-clear-btn {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary-light);
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-nav-btn:hover,
+.search-clear-btn:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: var(--color-primary);
+}
+
+.search-clear-btn {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        left: 10px;
+        right: 60px;
+        top: 90px;
+    }
+
+    .search-input {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* ===========================
    Mind Map Container
    =========================== */
 #mindmap-container {
@@ -272,6 +356,22 @@ body::before {
 
 .node.collapsed circle {
     fill-opacity: 0.7;
+}
+
+/* Search highlighting */
+.node.search-match circle {
+    stroke: var(--color-warning);
+    stroke-width: 4px;
+}
+
+.node.search-match text {
+    fill: var(--color-warning) !important;
+}
+
+.node.search-focused circle {
+    stroke: var(--color-danger);
+    stroke-width: 5px;
+    filter: drop-shadow(0 0 6px var(--color-danger));
 }
 
 /* ===========================
